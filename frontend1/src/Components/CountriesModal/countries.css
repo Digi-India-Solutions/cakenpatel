@@ -1,0 +1,76 @@
+/* Overlay */
+.country-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal */
+.country-modal {
+  background: #fff;
+  width: 320px;
+  border-radius: 14px;
+  padding: 20px;
+  animation: scaleIn 0.25s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.country-modal h3 {
+  font-size: 16px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+/* List */
+.country-modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.country-modal li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.country-modal li:hover {
+  background: #f4f2ff;
+}
+
+.country-modal .flag {
+  font-size: 18px;
+}
+
+.country-modal .name {
+  font-size: 14px;
+}
+
+/* Close Button */
+.close-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+}

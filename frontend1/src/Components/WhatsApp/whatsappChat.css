@@ -1,0 +1,104 @@
+/* FLOATING ICON */
+.wa-floating-icon {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 55px;
+  height: 51px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.wa-floating-icon i {
+  font-size: 56px;
+}
+
+/* CHAT BOX */
+.wa-chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 300px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* HEADER */
+.wa-header {
+  background: #25d366;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wa-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* BODY */
+.wa-body {
+  padding: 14px;
+}
+
+/* INPUT AREA */
+.wa-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wa-textarea {
+  flex: 1;
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+/* SEND BUTTON */
+.wa-send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #25d366;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-send-btn:hover {
+  background: #1ebc59;
+}

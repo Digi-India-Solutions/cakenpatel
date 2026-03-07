@@ -1,0 +1,143 @@
+.cake-banner-container {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+}
+
+/* Card */
+.cake-banner-card {
+  position: relative;
+  flex: 1;
+  height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+.cake-banner-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.cake-banner-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Overlay */
+.cake-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 32px;
+  /* background: linear-gradient(
+    to right,
+    rgba(255, 245, 235, 0.95),
+    rgba(255, 245, 235, 0.7),
+    rgba(255, 245, 235, 0.15)
+  ); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cake-overlay h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #df4444;
+  letter-spacing: 1px;
+}
+
+.cake-overlay h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #4a1d0b;
+  margin: 8px 0;
+  line-height: 1.2;
+}
+
+.cake-overlay p {
+  font-size: 14px;
+  color: #6b3a1f;
+  margin-bottom: 18px;
+}
+
+/* Button */
+.cake-btn {
+  width: fit-content;
+  padding: 10px 26px;
+  border-radius: 30px;
+  border: none;
+  background: #df4444;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cake-btn:hover {
+  background: #df4444;
+  transform: translateY(-2px);
+}
+
+/* =======================
+   TABLET (≤ 992px)
+======================= */
+@media (max-width: 992px) {
+  .cake-banner-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cake-banner-card {
+    height: 240px;
+  }
+
+  .cake-overlay {
+    padding: 26px;
+  }
+
+  .cake-overlay h2 {
+    font-size: 22px;
+  }
+}
+
+/* =======================
+   MOBILE (≤ 576px)
+======================= */
+@media (max-width: 576px) {
+  .cake-banner-container {
+    padding: 12px;
+  }
+
+  .cake-banner-card {
+    height: 200px;
+    border-radius: 14px;
+  }
+
+  .cake-overlay {
+    padding: 18px;
+    background: linear-gradient(to bottom,
+        rgba(255, 245, 235, 0.95),
+        rgba(255, 245, 235, 0.8),
+        rgba(255, 245, 235, 0.4));
+  }
+
+  .cake-overlay h4 {
+    font-size: 12px;
+  }
+
+  .cake-overlay h2 {
+    font-size: 18px;
+  }
+
+  .cake-overlay p {
+    font-size: 12px;
+  }
+
+  .cake-btn {
+    padding: 8px 20px;
+    font-size: 12px;
+  }
+}

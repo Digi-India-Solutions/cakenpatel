@@ -1,0 +1,146 @@
+
+/* TOP CATEGORY */
+.topCategorySection {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 30px 15px;
+  overflow-x: auto;
+}
+
+.topCategoryCard {
+  min-width: 130px;
+  text-align: center;
+}
+
+.topCategoryCard img {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.topCategoryCard p {
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* BANNER SLIDER */
+/* .cakeBannerSlider {
+  padding: 20px;
+}
+
+.bannerBox {
+  background: #f3f1ef;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bannerText h1 {
+  font-size: 48px;
+  color: #0b3c49;
+}
+
+.bannerText p {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.bannerBox img {
+  max-width: 420px;
+}
+ */
+
+
+
+
+
+
+
+
+/* Banner slider wrapper */
+.cakeBannerSlider {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Banner container */
+.bannerBox {
+  width: 100%;
+}
+
+/* Banner image full width */
+.bannerBox img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Optional: fixed height banner */
+@media (max-width: 768px) {
+ 
+
+
+
+
+
+.topCategorySection {
+  padding:10px 10px;
+}
+
+.topCategoryCard img{
+    width: 100px !important;
+    height: 90px !important;
+ }
+
+ .bannerBox {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bannerBox img {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+
+
+
+
+
+
+/* PRODUCT GRID */
+.productCard {
+  text-decoration: none;
+  color: #000;
+}
+
+.productCard img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.productInfo {
+  padding-top: 8px;
+}
+
+.productInfo p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.productInfo h6 {
+  font-weight: 600;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+ 
+}
+

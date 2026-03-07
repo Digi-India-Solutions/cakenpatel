@@ -1,0 +1,132 @@
+/* Main Container */
+.location-wrapper {
+  width: 420px;
+    background:  #df4444;
+  padding: 20px;
+  color:white;
+  border-radius: 14px;
+  font-family: "Segoe UI", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+}
+
+/* Header */
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.use-location {
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.use-location:hover {
+  text-decoration: underline;
+}
+
+/* Blue Note Box */
+.note-box {
+  background: #6e4444;
+  color: #ffffff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+/* Search Input */
+.search-box {
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #cfd8dc;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+  background: #ffffff;
+}
+
+.search-box input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Suggestion Dropdown */
+.suggestion-box {
+  background: #ffffff;
+  border-radius: 12px;
+  margin-top: 10px;
+  border: 1px solid #dce3ea;
+  overflow: hidden;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+.suggestion-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.suggestion-box::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 6px;
+}
+
+/* Each Suggestion Item */
+.suggestion-item {
+  padding: 14px 16px;
+  border-bottom: 1px solid #edf2f7;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: #f7f9fb;
+}
+
+/* Title (Main Text) */
+.title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #e4efff;
+}
+
+/* Subtitle (Secondary Text) */
+.subtitle {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+/* Bottom Saved Address Section */
+.saved-address {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
+  cursor: pointer;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  transition: 0.2s;
+}
+
+.saved-address:hover {
+  color: #007bff;
+}

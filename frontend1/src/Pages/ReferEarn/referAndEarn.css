@@ -1,0 +1,133 @@
+.refer-page {
+  padding: 60px 0;
+  background: #fff7f2;
+}
+
+/* HEADER */
+.refer-header h2 {
+  font-weight: 700;
+  color: #c0392b;
+}
+
+.refer-header p {
+  color: #555;
+  margin-top: 8px;
+}
+
+/* MAIN CARD */
+.refer-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.refer-img {
+  max-height: 300px;
+  display: block;
+  margin: auto;
+}
+
+/* STEPS */
+.refer-steps {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.refer-steps li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.refer-steps li span {
+  background: #c0392b;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+/* REFERRAL BOX */
+.referral-box {
+  margin-top: 20px;
+}
+
+.referral-box p {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.code-box {
+  display: flex;
+  align-items: center;
+  background: #fbeee6;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.code-box span {
+  flex: 1;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #c0392b;
+}
+
+.code-box button {
+  border: none;
+  background: #c0392b;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* SHARE BUTTONS */
+.share-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* TERMS */
+.refer-terms {
+  margin-top: 40px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.refer-terms h6 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.refer-terms ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.refer-terms li {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .refer-card {
+    padding: 20px;
+  }
+
+  .share-buttons {
+    flex-direction: column;
+  }
+}

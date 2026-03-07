@@ -1,0 +1,292 @@
+/* ================= GLOBAL ================= */
+body {
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= LOGO ================= */
+.logoImg {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+
+/* ================= TOP BAR ================= */
+.top-bar {
+  background: #111;
+  color: #ccc;
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.top-links span {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+/* ================= HEADER ================= */
+.main-header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.search-box input {
+  width: 320px;
+  padding: 10px 14px;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+}
+
+.header-right span {
+  margin-left: 15px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.idSec{
+  display: flex;
+  align-items: center;
+}
+/* ================= PAGE ================= */
+.order-container {
+  background: #d7cccc;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* ================= COMMON CARD ================= */
+.card-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+.center {
+  text-align: center;
+}
+
+.status-badge {
+  background: #e6f7e6;
+  color: #2e7d32;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* ================= ROUTE ================= */
+.route {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.dots {
+  color: #aaa;
+}
+
+/* ================= PROGRESS ================= */
+.progress {
+  height: 6px;
+  background: #eee;
+}
+
+.progress-bar {
+  width: 65%;
+  background: linear-gradient(to right, #ff9800, #ff5722);
+}
+
+/* ================= TIMELINE ================= */
+.timeline {
+  border-left: 2px solid #eee;
+  padding-left: 15px;
+  margin-bottom: 18px;
+}
+
+.timeline.active {
+  border-color: #ff5722;
+}
+
+.timeline .date {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ================= SHIPMENT ================= */
+.ship-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.ship-row span,
+.ship-row b {
+  font-size: 14px;
+}
+
+/* ================= ITEMS ================= */
+.item-card {
+  display: flex;
+  gap: 15px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item-img {
+  width: 70px;
+  height: 70px;
+  background: #f1f1f1;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.productImg {
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+}
+
+.price {
+  color: #ff5722;
+  font-weight: 600;
+}
+
+/* ================= SUMMARY ================= */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  flex-wrap: wrap;
+}
+
+.payment-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.title{
+  font-size: 11px;
+}
+
+/* =================================================
+   RESPONSIVE BREAKPOINTS
+================================================= */
+
+/* ---------- TABLET (≤ 991px) ---------- */
+@media (max-width: 991px) {
+  .search-box input {
+    width: 100%;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-right {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .order-container {
+    padding: 15px;
+  }
+}
+
+/* ---------- SMALL TABLET / LARGE MOBILE (≤ 768px) ---------- */
+@media (max-width: 768px) {
+  .logoImg {
+    height: 65px;
+    width: 65px;
+  }
+
+  .route {
+    justify-content: center;
+  }
+
+  .ship-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+/* ---------- MOBILE (≤ 576px) ---------- */
+@media (max-width: 576px) {
+  .logoImg {
+    height: 55px;
+    width: 55px;
+  }
+
+  .header-right span {
+    font-size: 13px;
+    margin-left: 8px;
+  }
+
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .productImg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .order-container {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .card-box {
+    padding: 16px;
+    
+  }
+
+  .orderBox{
+    width: max-content;
+  }
+      .summary-box {
+        margin-top: 5px;
+    }
+
+    .shopping-bag-wrapper {
+    padding: 20px 40px;
+    }
+}
+
