@@ -14,35 +14,19 @@ import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-// ========================================================
-// PERFORMANCE FIX: GLOBAL CACHE
-// Prevents re-fetching the product list every time the 
-// component mounts when navigating between pages.
-// ========================================================
-let cachedBestSellingProducts = null;
-
 const BestSellingProduct = () => {
   // ✅ Wishlist state
   const user = sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState([]);
-  
-  // Use cached data immediately if we have it
-  const [products, setProducts] = useState(cachedBestSellingProducts || []);
+  const [products, setProducts] = useState([]);
 
   const fetchBestSellingProducts = async () => {
-    // PERFORMANCE FIX: If data is already cached, do not ping the server!
-    if (cachedBestSellingProducts) return;
-
     try {
       const response = await axios.get(
         "https://api.cakenpetals.com/api/get-best-selling-products"
       );
-      
-      const fetchedProducts = response?.data?.data || [];
-      cachedBestSellingProducts = fetchedProducts; // Save to global cache
-      setProducts(fetchedProducts);
-      
+      setProducts(response?.data?.data || []);
     } catch (error) {
       console.error("Error fetching featured products:", error);
     }

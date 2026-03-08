@@ -5,10 +5,10 @@ import "./productDetails.css";
 import AllProducts from "../../Components/AllProducts/AllProducts";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Pic1 from "../../images/pic/redVelvet.jpg"
+import Pic1 from "../../images/pic/redVelvet.jpg";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import RecommendedPopup from "../../Components/RecommendedPopup/RecommendedPopup";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaStar, FaRegStar } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import { TbMapPinCode } from "react-icons/tb";
 import LocationOption from "../../Components/LocationOption/LocationOption";
@@ -44,6 +44,76 @@ const ProductDetails = () => {
   const updateServiceStatus = (status) => {
     setIsServiceAvailable(status);
     console.log("Service status updated:", status);
+  };
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  
+  // Review Form State
+  const [reviewForm, setReviewForm] = useState({
+    rating: 5,
+    name: "", // Will auto-fill if user is logged in
+    reviewText: "",
+    photoUrl: ""
+  });
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!data._id) return;
+      try {
+        // TODO: Replace with your actual backend endpoint
+        // const res = await axios.get(`https://api.cakenpetals.com/api/reviews/${data._id}`);
+        
+        // Mock Data for UI presentation
+        const mockReviews = [
+          { _id: "1", name: "Priya Sharma", rating: 5, reviewText: "Absolutely delicious! The cake was fresh and delivered on time.", photoUrl: "https://i.pravatar.cc/150?img=1", date: "2026-03-01" },
+          { _id: "2", name: "Rahul Verma", rating: 4, reviewText: "Great packaging and taste. Will order again.", photoUrl: "", date: "2026-02-28" }
+        ];
+        setReviews(mockReviews);
+        setTotalReviews(mockReviews.length);
+        
+        // Calculate average rating
+        const avg = mockReviews.reduce((acc, curr) => acc + curr.rating, 0) / mockReviews.length;
+        setAverageRating(avg.toFixed(1));
+
+      } catch (err) {
+        console.error("Failed to fetch reviews", err);
+      }
+    };
+    fetchReviews();
+  }, [data._id]);
+
+  // 2. Auto-fill name if logged in when opening modal
+  const handleOpenReviewModal = () => {
+    if (user) {
+      // Assuming you store the user's name in sessionStorage upon login
+      const userName = sessionStorage.getItem("userName") || "Logged In User";
+      setReviewForm(prev => ({ ...prev, name: userName }));
+    }
+    setIsReviewModalOpen(true);
+  };
+
+  // 3. Submit Review
+  const submitReview = async (e) => {
+    e.preventDefault();
+    try {
+      const payload = {
+        productId: data._id,
+        userId: user || null, // null if guest
+        ...reviewForm
+      };
+
+      // TODO: Replace with your actual POST endpoint
+      // await axios.post(`https://api.cakenpetals.com/api/reviews/add`, payload);
+      
+      Swal.fire({ icon: "success", title: "Review Submitted", text: "Thank you for your feedback!" });
+      setIsReviewModalOpen(false);
+      setReviewForm({ rating: 5, name: "", reviewText: "", photoUrl: "" });
+      
+      // Ideally, re-fetch reviews here to show the new one.
+    } catch (err) {
+      Swal.fire({ icon: "error", title: "Error", text: "Could not submit review." });
+    }
   };
 
   useEffect(() => {
@@ -977,6 +1047,69 @@ const ProductDetails = () => {
                       </div>
                     )}
                   </div>
+                  <div className="reviews-section mt-5 pt-4" style={{ borderTop: "1px solid #eee" }}>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <div>
+                        <h4 style={{ fontSize: "18px", fontWeight: "700", color: "#222", margin: 0 }}>Customer Reviews</h4>
+                        {totalReviews > 0 ? (
+                          <div className="d-flex align-items-center gap-2 mt-1">
+                            <span style={{ backgroundColor: "#388e3c", color: "#fff", padding: "2px 6px", borderRadius: "4px", fontSize: "12px", fontWeight: "bold" }}>
+                              ★ {averageRating}
+                            </span>
+                            <span style={{ fontSize: "13px", color: "#666" }}>Based on {totalReviews} reviews</span>
+                          </div>
+                        ) : (
+                          <span style={{ fontSize: "13px", color: "#666" }}>No reviews yet. Be the first!</span>
+                        )}
+                      </div>
+                      
+                      <button 
+                        onClick={handleOpenReviewModal}
+                        style={{ backgroundColor: "#fff", border: "1px solid #2e6a7c", color: "#2e6a7c", padding: "8px 16px", borderRadius: "6px", fontSize: "13px", fontWeight: "600", transition: "0.3s" }}
+                      >
+                        Write a Review
+                      </button>
+                    </div>
+
+                    {/* REVIEWS LIST */}
+                    <div className="reviews-list">
+                      {reviews.map((review) => (
+                        <div key={review._id} className="review-card mb-3 p-3" style={{ backgroundColor: "#fcfcfc", borderRadius: "10px", border: "1px solid #f0f0f0" }}>
+                          <div className="d-flex align-items-center gap-3 mb-2">
+                            {/* User Avatar */}
+                            <div style={{ width: "40px", height: "40px", borderRadius: "50%", backgroundColor: "#eee", overflow: "hidden" }}>
+                              {review.photoUrl ? (
+                                <img src={review.photoUrl} alt={review.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                              ) : (
+                                <div className="d-flex align-items-center justify-content-center h-100 fw-bold text-secondary">
+                                  {review.name.charAt(0)}
+                                </div>
+                              )}
+                            </div>
+                            
+                            <div>
+                              <h6 style={{ margin: 0, fontSize: "14px", fontWeight: "600" }}>{review.name}</h6>
+                              
+                              {/* Render Stars */}
+                              <div style={{ color: "#ffb400", fontSize: "12px", marginTop: "2px" }}>
+                                {[...Array(5)].map((star, i) => {
+                                  const ratingValue = i + 1;
+                                  return ratingValue <= review.rating ? <FaStar key={i} /> : <FaRegStar key={i} />;
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <p style={{ fontSize: "13px", color: "#444", margin: 0, lineHeight: "1.5" }}>
+                            {review.reviewText}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* END REVIEWS SECTION */}
+
+                  
 
                   <RecommendedPopup
                     productId={data._id}

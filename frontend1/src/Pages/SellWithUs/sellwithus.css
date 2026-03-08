@@ -1,0 +1,74 @@
+.sell-page-wrapper {
+  font-family: inherit;
+}
+
+/* Form Styles */
+.sell-form-island {
+  border-top: 5px solid #2e6a7c;
+}
+
+.custom-input {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: #fcfcfc;
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+  border-color: #2e6a7c;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(46, 106, 124, 0.1);
+  outline: none;
+}
+
+.sell-submit-btn {
+  background-color: #2e6a7c;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.sell-submit-btn:hover {
+  background-color: #1e4a58;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 106, 124, 0.3);
+}
+
+/* Benefit Cards */
+.benefit-card {
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  border-color: #e8f4f8;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
+}
+
+/* FAQ Styles */
+.faq-item {
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.faq-item:hover {
+  border-color: #2e6a7c;
+}
+
+.faq-answer {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

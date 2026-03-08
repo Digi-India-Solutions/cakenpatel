@@ -38,9 +38,43 @@ import CancellationRefund from "./Pages/FooterPages/CancellationRefund";
 import EggLess from "./Components/EggLess/EggLess";
 import WhatsAppChat from "./Components/WhatsApp/WhatsApp";
 
-
+// ✅ NEW IMPORT FOR REUSABLE ENQUIRY COMPONENT
+import EnquiryPage from "./Pages/EnquiryPage/EnquiryPage";
+import SellWithUs from "./Pages/SellWithUs/SellWithUs";
 
 const App = () => {
+
+  // =======================================================
+  // PLACEHOLDER IMAGE ARRAYS FOR THE 4 PAGES
+  // You can replace these URLs with actual paths to your local 
+  // images (e.g., import pic1 from '../../images/pic1.jpg') later
+  // =======================================================
+  const weddingImages = [
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80",
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&q=80",
+    "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=80",
+    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80",
+  ];
+
+  const corporateImages = [
+    "https://images.unsplash.com/photo-1513885045260-6b3086b24c17?w=600&q=80",
+    "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&q=80",
+    "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80",
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
+  ];
+
+  const makeupImages = [
+    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&q=80",
+    "https://images.unsplash.com/photo-1512496015851-a1dc8a47cd43?w=600&q=80",
+    "https://images.unsplash.com/photo-1596462502278-27bf85033e5a?w=600&q=80",
+  ];
+
+  const schoolImages = [
+    "https://images.unsplash.com/photo-1523580494112-071d4581a59c?w=600&q=80",
+    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80",
+    "https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&q=80",
+  ];
+
   return (
     <>
       <BrowserRouter future={{
@@ -74,6 +108,50 @@ const App = () => {
           <Route path="/faq" element={<QA />} />
           <Route path="/refer" element={<ReferAndEarn />} />
           <Route path="/wishlist" element={<Wishlist />} />
+
+          {/* ========================================= */}
+          {/* NEW REUSABLE ENQUIRY ROUTES */}
+          {/* ========================================= */}
+          
+          <Route path="/wedding-decor" element={
+            <EnquiryPage 
+              title="Wedding Decor Enquiry" 
+              subtitle="Transform your special day into a magical experience with our premium wedding decor services." 
+              images={weddingImages} 
+              enquiryType="wedding" 
+            />
+          } />
+
+          <Route path="/corporate-gifts" element={
+            <EnquiryPage 
+              title="Corporate Gifting Solutions" 
+              subtitle="Build lasting relationships with your clients and employees through our curated premium gift hampers." 
+              images={corporateImages} 
+              enquiryType="corporate" 
+            />
+          } />
+
+          <Route path="/for-makeup-artists" element={
+            <EnquiryPage 
+              title="Partner with Us - Makeup Artists" 
+              subtitle="Exclusive floral and hamper packages tailored specifically for bridal and professional makeup artists." 
+              images={makeupImages} 
+              enquiryType="makeup_artist" 
+            />
+          } />
+
+          <Route path="/for-schools-colleges" element={
+            <EnquiryPage 
+              title="School & College Events" 
+              subtitle="Bulk orders, farewell gifts, and event decor specifically priced for educational institutions." 
+              images={schoolImages} 
+              enquiryType="education" 
+            />
+          } />
+
+          {/* This route will need its own distinct page built later */}
+          <Route path="/sell-with-us" element={<SellWithUs />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>
