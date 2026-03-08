@@ -1,0 +1,624 @@
+/* =========================================
+   ROOT SECTION
+========================================= */
+
+.cake-pro-section {
+  position: relative;
+  width: 100%;
+  background: #faf6ef;
+}
+
+/* =========================================
+   STICKY WRAPPER
+========================================= */
+
+.cake-pro-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.cake-pro-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.cake-pro-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* =========================================
+   LEFT IMAGE
+========================================= */
+
+.cake-pro-left {
+  flex: 0 0 45%;
+  display: flex;
+  justify-content: center;
+}
+
+.cake-pro-image {
+  width: 100%;
+  max-width: 420px;
+  object-fit: contain;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* =========================================
+   RIGHT ORBIT
+========================================= */
+
+.cake-pro-right {
+  flex: 0 0 55%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cake-orbit-wrapper {
+  position: relative;
+  width: 100%;
+  height: 550px;
+}
+
+/* =========================================
+   ORBIT CARD
+========================================= */
+
+.cake-pro-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 230px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 16px;
+  cursor: pointer;
+  opacity: 0.45;
+  transform: scale(0.9);
+  transition: all 0.35s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  z-index: 1;
+}
+
+.cake-pro-card.active {
+  opacity: 1;
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(107,63,43,0.2);
+}
+
+/* =========================================
+   ORBIT IMAGE
+========================================= */
+
+.cake-pro-card img {
+  width: 75px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px dashed #c7b7a3;
+  transition: border 0.3s ease;
+}
+
+.cake-pro-card.active img {
+  border-color: #6b3f2b;
+  border-width: 3px;
+}
+
+/* =========================================
+   ORBIT TEXT
+========================================= */
+
+.cake-pro-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.cake-pro-card.active h4 {
+  color: #6b3f2b;
+}
+
+.cake-pro-card p {
+  font-size: 12px;
+  color: #777;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* =========================================
+   ORBIT POSITIONS (YOUR ORIGINAL)
+========================================= */
+
+.cake-orbit-pos-0 { 
+  top: -3%; 
+  left: -15%; 
+}
+
+.cake-orbit-pos-1 { 
+  top: 18%; 
+  right: 55%; 
+}
+
+.cake-orbit-pos-2 { 
+  top: 39%; 
+  right: 35%; 
+}
+
+.cake-orbit-pos-3 { 
+  top: 62%; 
+  left: 11%; 
+}
+
+.cake-orbit-pos-4 { 
+  top: 86%; 
+  left: -15%; 
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 992px) {
+  .cake-pro-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .cake-pro-section{
+    display: none;
+  }
+  .cake-pro-left,
+  .cake-pro-right {
+    flex: none;
+    width: 100%;
+  }
+
+  .cake-orbit-wrapper {
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cake-pro-sticky {
+    position: relative;
+    height: auto;
+    padding: 80px 0;
+  }
+
+  .cake-orbit-wrapper {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cake-pro-card {
+    position: relative;
+    width: 100%;
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  .cake-pro-card.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .cake-orbit-pos-0,
+  .cake-orbit-pos-1,
+  .cake-orbit-pos-2,
+  .cake-orbit-pos-3,
+  .cake-orbit-pos-4 {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cake-pro-container {
+    padding: 0 15px;
+  }
+
+  .cake-pro-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cake-pro-card img {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+
+
+
+/* 
+.cake-scroll-section {
+  position: relative;
+  width: 100%;
+  background: #faf6ef;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.cake-scroll-pin {
+  opacity: 1 !important;
+}
+
+
+
+.cake-scroll-pin {
+  height: 100vh;
+  width: 100vw;
+  background: #faf6ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 101;
+  will-change: transform, opacity;
+}
+
+
+.cake-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 100%;
+}
+
+
+.cake-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+
+.cake-left {
+  flex: 0 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 40px;
+}
+
+.cake-main-image-container {
+  max-width: 420px;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cake-main-img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+
+.cake-right {
+  flex: 0 0 55%;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.cake-orbit-wrapper {
+  position: relative;
+  width: 100%;
+  height: 550px;
+}
+
+
+.cake-orbit-unit {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 230px;
+  height: 110px;
+  border-radius: 15%;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.45;
+  transform: scale(0.9);
+  padding: 15px;
+  z-index: 1;
+}
+
+.cake-orbit-unit:hover {
+  opacity: 0.7;
+}
+
+
+.cake-orbit-unit.cake-active {
+  opacity: 1;
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 10px 30px rgba(107, 63, 43, 0.15);
+}
+
+
+.cake-orbit-img-box {
+  flex-shrink: 0;
+}
+
+.cake-orbit-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px dashed #c7b7a3;
+  transition: all 0.3s ease;
+}
+
+.cake-orbit-unit.cake-active .cake-orbit-img {
+  border-color: #6b3f2b;
+  border-width: 3px;
+}
+
+
+.cake-orbit-content {
+  flex: 1;
+}
+
+.cake-orbit-heading {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.cake-orbit-unit.cake-active .cake-orbit-heading {
+  color: #6b3f2b;
+}
+
+.cake-orbit-desc {
+  font-size: 12px;
+  color: #777;
+  max-width: 220px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+
+.cake-orbit-pos-0 { 
+  top: -3%; 
+  left: -15%; 
+}
+
+.cake-orbit-pos-1 { 
+  top: 18%; 
+  right: 55%; 
+}
+
+.cake-orbit-pos-2 { 
+  top: 39%; 
+  right: 35%; 
+}
+
+.cake-orbit-pos-3 { 
+  top: 62%; 
+  left: 11%; 
+}
+
+.cake-orbit-pos-4 { 
+  top: 86%; 
+  left: -15%; 
+}
+
+@media (min-width: 1400px) {
+  .cake-container {
+    max-width: 1320px;
+  }
+}
+
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .cake-container {
+    max-width: 1140px;
+  }
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .cake-container {
+    max-width: 960px;
+    padding: 0 30px;
+  }
+  
+  .cake-left {
+    flex: 0 0 50%;
+    padding-right: 30px;
+  }
+  
+  .cake-right {
+    flex: 0 0 50%;
+    padding-left: 30px;
+  }
+  
+  .cake-main-image-container {
+    max-width: 380px;
+    height: 380px;
+  }
+  
+  .cake-orbit-wrapper {
+    height: 500px;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .cake-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .cake-left,
+  .cake-right {
+    flex: none;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .cake-main-image-container {
+    max-width: 340px;
+    height: 340px;
+    margin: 0 auto;
+  }
+  
+  .cake-orbit-wrapper {
+    height: 450px;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  
+
+  .cake-orbit-pos-0 { top: 0%; left: 5%; }
+  .cake-orbit-pos-1 { top: 20%; right: 10%; }
+  .cake-orbit-pos-2 { top: 45%; left: 50%; transform: translateX(-50%); }
+  .cake-orbit-pos-3 { top: 70%; left: 10%; }
+  .cake-orbit-pos-4 { top: 90%; right: 10%; }
+}
+
+
+@media (max-width: 767px) {
+  .cake-scroll-section {
+    height: auto !important;
+  }
+  
+  .cake-scroll-pin {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 0;
+  }
+  
+  .cake-container {
+    padding: 0 20px;
+  }
+  
+  .cake-content {
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .cake-left {
+    order: 2;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .cake-right {
+    order: 1;
+    width: 100%;
+    padding: 0;
+    height: auto;
+  }
+  
+  .cake-main-image-container {
+    max-width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+  
+  .cake-orbit-wrapper {
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  
+  .cake-orbit-unit {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100%;
+    opacity: 0.6;
+    transform: scale(0.95);
+    margin: 0 auto;
+  }
+  
+  .cake-orbit-unit.cake-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+
+  .cake-orbit-pos-0,
+  .cake-orbit-pos-1,
+  .cake-orbit-pos-2,
+  .cake-orbit-pos-3,
+  .cake-orbit-pos-4 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .cake-container {
+    padding: 0 15px;
+  }
+  
+  .cake-orbit-unit {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    height: auto;
+    padding: 20px;
+  }
+  
+  .cake-orbit-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .cake-orbit-heading {
+    font-size: 13px;
+  }
+  
+  .cake-orbit-desc {
+    font-size: 11px;
+  }
+} */

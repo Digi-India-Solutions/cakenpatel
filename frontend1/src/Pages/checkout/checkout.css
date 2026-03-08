@@ -1,0 +1,402 @@
+/* ================= GLOBAL ================= */
+* {
+  box-sizing: border-box;
+}
+
+/* ================= LOGIN DETAILS (TOP) ================= */
+.login-box {
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+.login-box small {
+  color: #777;
+  font-size: 12px;
+}
+
+.login-box p {
+  font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ================= MAIN WRAPPER ================= */
+.checkout-wrapper {
+  padding: 5px 0 60px;
+}
+
+/* ================= LEFT STEPS ================= */
+.steps-box {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 20px;
+}
+
+.step {
+  padding: 14px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.3;
+  background: #f7f7f7;
+}
+
+.step.active {
+  background: #eef6ff;
+  border-left: 4px solid #1e88e5;
+  color: #000;
+}
+
+.step span {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* ================= RIGHT CARD ================= */
+.checkout-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.checkout-card h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.checkout-card h4 span {
+  font-weight: 700;
+}
+
+.checkout-card p {
+  font-size: 13px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+/* ================= FORM ================= */
+.form-control {
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #dbe2ea;
+  font-size: 14px;
+}
+
+.form-control::placeholder {
+  font-size: 13px;
+  color: #9aa4b2;
+}
+
+.form-control:focus {
+  border-color: #1e88e5;
+  box-shadow: none;
+}
+
+/* ================= ADDRESS TYPE ================= */
+.address-type {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.type-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.type-btn.active {
+  background: #1e88e5;
+  color: #ffffff;
+  border-color: #1e88e5;
+}
+
+/* ================= SUMMARY ================= */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.summary-row.total {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ================= BUTTON ================= */
+.continue-btn {
+  width: 100%;
+  height: 52px;
+  background: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.continue-btn:hover {
+  background: #1565c0;
+}
+
+.checkout-wrapper {
+  display: flex;
+  gap: 30px;
+  /* margin-top: 20px; */
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE */
+.checkout-left {
+  height: fit-content !important;
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.item-name {
+  font-weight: 600;
+  margin: 0;
+}
+
+.item-qty {
+  font-size: 14px;
+  color: gray;
+}
+
+/* RIGHT SIDE */
+.checkout-right {
+  width: 350px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.grand-total {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Coupon */
+.coupon-box {
+  display: flex;
+  margin: 15px 0;
+}
+
+.coupon-box input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+}
+
+.coupon-box button {
+  padding: 8px 12px;
+  border: none;
+  background: #0d5c63;
+  color: white;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}
+
+/* Special Note */
+.special-note {
+  width: 100%;
+  padding: 10px;
+  height: 80px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  resize: none;
+}
+
+/* Payment Button */
+.payment-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0d5c63;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.payment-btn:hover {
+  background: #084c50;
+}
+
+
+/* ===================================================
+   RESPONSIVE BREAKPOINTS
+=================================================== */
+
+/* ---------- LARGE SCREENS (1200px+) ---------- */
+@media (min-width: 1200px) {
+  .checkout-card {
+    padding: 36px;
+  }
+}
+
+/* ---------- TABLETS (991px and below) ---------- */
+@media (max-width: 991px) {
+  .steps-box {
+    position: relative;
+    top: unset;
+    margin-bottom: 20px;
+  }
+
+  .checkout-wrapper {
+    padding: 20px 0 40px;
+  }
+
+  .checkout-card {
+    padding: 24px;
+  }
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+/* ---------- SMALL TABLETS / LARGE PHONES ---------- */
+@media (max-width: 768px) {
+  .product-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .checkout-order-name {
+    font-size: 14px !important;
+  }
+
+  .login-box {
+    padding: 16px;
+  }
+
+  .checkout-order-sum {
+    font-size: 14px;
+  }
+
+  .checkout-card h4 {
+    font-size: 16px;
+  }
+
+  .checkout-card p {
+    font-size: 12px;
+  }
+
+  .form-control {
+    height: 46px;
+  }
+}
+
+/* ---------- MOBILE (576px and below) ---------- */
+@media (max-width: 576px) {
+  .checkout-wrapper {
+    padding: 15px 0 30px;
+  }
+
+  .login-box .row>div {
+    margin-bottom: 10px;
+  }
+
+  .steps-box {
+    padding: 14px;
+  }
+
+  .step {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  .checkout-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .continue-btn {
+    height: 48px;
+    font-size: 14px;
+  }
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ff9472);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn i {
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #ff4b5c, #ff7a59);
+}
+
+
+.note-btn {
+  border: 1px solid #0f3d4c;
+  background: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.note-btn.active {
+  background: #0f3d4c;
+  color: white;
+}

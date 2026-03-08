@@ -1,0 +1,110 @@
+
+/* TOP CATEGORY */
+.SubSubCategorySection {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 30px 15px;
+  overflow-x: auto;
+}
+
+.SubSubCategoryCard {
+  min-width: 130px;
+  text-align: center;
+}
+
+.SubSubCategoryCard img {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.SubSubCategoryCard p {
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+
+/* Banner slider wrapper */
+.SubSubCategorySlider {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Banner container */
+.SubSubCatBannerBox {
+  width: 100%;
+}
+
+/* Banner image full width */
+.SubSubCatBannerBox img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Optional: fixed height banner */
+@media (min-width: 768px) {
+
+.SubSubCatBannerBox img{
+  height: fit-content;
+}
+  
+.SubSubCategorySection {
+    padding: 0px 15px !important;
+   
+}
+
+  .SubSubCatBannerBox {
+    flex-direction: column;
+    text-align: center;
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* PRODUCT GRID */
+.productCard {
+  text-decoration: none;
+  color: #000;
+}
+
+.productCard img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.productInfo {
+  padding-top: 8px;
+}
+
+.productInfo p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.productInfo h6 {
+  font-weight: 600;
+}
+
+
+
