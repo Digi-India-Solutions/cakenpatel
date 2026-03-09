@@ -83,14 +83,14 @@ const createProduct = async (req, res) => {
         productName,
         productDescription,
         productDetails,
-        ActiveonHome: ActiveonHome === 0 ? false : true,
-        ActiveonFlavours: ActiveonFlavours === 0 ? false : true,
-        FeaturedProducts: FeaturedProducts === 0 ? false : true,
-        deliveryTo60Min: deliveryTo60Min === 0 ? false : true,
-        ActiveonDeliveryDate: ActiveonDeliveryDate === 0 ? false : true,
-        NameOnCake: NameOnCake === 0 ? false : true,
-        eggless: eggless === 0 ? false : true,
-        BestSellingProduct: BestSellingProduct === 0 ? false : true,
+        ActiveonHome,
+        ActiveonFlavours,
+        FeaturedProducts,
+        deliveryTo60Min,
+        ActiveonDeliveryDate,
+        NameOnCake,
+        eggless,
+        BestSellingProduct,
         recommendedProductId: parseRecommendedProductId,
         Variant: parsedVariant.map(variant => ({
             ...variant,
@@ -137,9 +137,9 @@ const getFeaturedProducts = async (req, res) => {
     try {
         const products = await Product.find({ FeaturedProducts: 1 })
             .sort({ createdAt: -1 })
-            .populate('categoryName')
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('categoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             // .populate({
             //     path: 'Variant.weight',
@@ -160,9 +160,9 @@ const getBestSellingProducts = async (req, res) => {
     try {
         const products = await Product.find({ BestSellingProduct: 1 })
             .sort({ createdAt: -1 })
-            .populate('categoryName')
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('categoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             // .populate({
             //     path: 'Variant.weight',

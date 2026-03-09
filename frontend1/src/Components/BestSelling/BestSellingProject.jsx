@@ -38,7 +38,7 @@ const BestSellingProduct = () => {
       const response = await axios.get(
         "https://api.cakenpetals.com/api/get-best-selling-products"
       );
-      
+      console.log("SSSS==>" , response)
       const fetchedProducts = response?.data?.data || [];
       cachedBestSellingProducts = fetchedProducts; // Save to global cache
       setProducts(fetchedProducts);
