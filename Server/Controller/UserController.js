@@ -5,6 +5,59 @@ const User = require('../Model/SignupModel');
 const transporter = require("../Utils/Mailsender");
 
 
+// ── Constants ─────────────────────────────────────────────────────────────────
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ADMIN_ROLES = ["Admin", "SuperAdmin"];
+
+const COOKIE_NAME = "token";
+
+const getCookieOptions = () => ({
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+/**
+ * Strip sensitive fields — NEVER send password, raw token, or internal fields to client.
+ */
+const sanitizeUser = (user) => ({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    walletBalance: user.walletBalance || 0,
+    permissions: user.permissions || {},
+    profileImage: user.profileImage || "",
+    isActive: user.isActive,
+    createdAt: user.createdAt,
+});
+
+const buildTokenPayload = (user) => ({
+    userId: user._id,
+    role: user.role,
+    name: user.name,
+    email: user.email,
+    walletBalance: user.walletBalance || 0,
+    permissions: user.permissions || {},
+    profileImage: user.profileImage || "",
+    isActive: user.isActive,
+    createdAt: user.createdAt,
+});
+
+/** Set JWT as a secure httpOnly cookie */
+const setAuthCookie = (res, token) => {
+    console.log('tokenstokens=>', COOKIE_NAME, token, getCookieOptions());
+    res.cookie(COOKIE_NAME, token, getCookieOptions());
+};
+
+/** Clear the auth cookie — options must EXACTLY match setAuthCookie */
+const clearAuthCookie = (res) => {
+    res.clearCookie(COOKIE_NAME, getCookieOptions());
+};
+
 const generateReferralCode = (name) => {
     const random = Math.floor(1000 + Math.random() * 9000);
     return name.slice(0, 4).toUpperCase() + random;
@@ -202,6 +255,7 @@ const login = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ success: false, message: "Invalid username or password." });
         }
+
         const key = user.role === "Admin" ? process.env.JWT_SALT_KEY_ADMIN : process.env.JWT_SALT_KEY_BUYER;
 
         const token = jwt.sign({
@@ -211,11 +265,13 @@ const login = async (req, res) => {
             profilePic: user?.profilePic, cart: user?.cart,
         }, key, { expiresIn: '15d' });
 
-        res.status(200).json({
-            success: true,
-            data: user,
-            token
-        });
+        console.log('email=>', email, 'password=>', password, 'user=>', user, 'token=>', token);
+
+        // const tokens = await user.generateJwtToken();
+        // console.log('tokenstokens=>', tokens);
+        // setAuthCookie(res, tokens);
+
+        res.status(200).json({ success: true, data: user, token });
     } catch (error) {
         res.status(500).json({ success: false, message: "Internal Server Error." });
     }
@@ -315,16 +371,93 @@ const forgetPassword3 = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal Server Error." });
     }
 };
+const adminLogin = async (req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email: email.toLowerCase().trim() });
+
+        if (!user) {
+            return res.status(401).json({ success: false, message: "Invalid email or password" });
+        }
+
+        if (!ADMIN_ROLES.includes(user.role)) {
+            return res.status(403).json({ success: false, message: "Admin access only" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: "Invalid email or password" });
+        }
+
+        const token = jwt.sign(
+            buildTokenPayload(user),
+            process.env.JWT_SALT_KEY_ADMIN,
+            { expiresIn: "7d" }
+        );
+
+        setAuthCookie(res, token);
+
+        return res.status(200).json({
+            success: true,
+            message: "Admin login successful",
+            data: sanitizeUser(user),
+            token,
+            user
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+
+
+const adminLogout = (_req, res) => {
+    try {
+        clearAuthCookie(res);
+        return res.status(200).json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        console.error("adminLogout error:", error);
+        return res.status(500).json({ success: false, message: "Server error while logging out" });
+    }
+};
+
+
+const getVerifyAdmin = async (req, res) => {
+    try {
+        // req.user is set and validated by verifyAdmin middleware
+        // Optionally fetch fresh data from DB instead of relying on token payload:
+        // const user = await User.findById(req.user.userId).select("-password");
+        return res.status(200).json({
+            success: true,
+            message: "Admin authenticated",
+            data: { user: req.user },
+            token: req.token
+        });
+    } catch (error) {
+        console.error("getVerifyAdmin error:", error);
+        return res.status(500).json({ success: false, message: "Server error while verifying admin" });
+    }
+};
 
 module.exports = {
     createRecord,
     getSingleRecord,
     login,
+    adminLogin,
+    adminLogout,
     forgetPassword1,
     forgetPassword2,
     forgetPassword3,
     getRecord,
     getAdminUser,
     DeleteRecord,
-    updateRolesByAdmin
+    updateRolesByAdmin,
+    getVerifyAdmin
 };

@@ -82,11 +82,41 @@ import AddAdmin from '../../Pages/AdminPermission/AddAdmin'
 import AllPerantProduct from '../../Pages/ParancProduct/AllParancProduct'
 import AddPerantProduct from '../../Pages/ParancProduct/AddParancProduct'
 import EditPerantProduct from '../../Pages/ParancProduct/EditParancProduct'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { toast } from "react-toastify";
 
 const Home = () => {
 
-  const login = sessionStorage.getItem("login")
+  // const login = sessionStorage.getItem("login")
+  const [login, setLogins] = useState(false);
 
+  const verifyAdmin = async () => {
+    try {
+      const response = await axios.get("https://api.cakenpetals.com/api/admin/verify-admin", { withCredentials: true });
+      console.log("response==>", response?.data?.token)
+      if (response.status === 200) {
+        setLogins(true);
+        sessionStorage.setItem("login", true);
+        sessionStorage.setItem("Admintoken", response?.data?.token);
+        sessionStorage.setItem("AdminData", JSON.stringify(response?.data?.data?.user));
+      }
+    } catch (error) {
+      if (error?.response?.status === 401 || error?.response?.status === 403) {
+        setLogins(false);
+      } else {
+        setLogins(false);
+        console.log("error", error);
+        toast.error(error?.response?.data?.message || "Login failed");
+      }
+    }
+  };
+
+  useEffect(() => {
+    verifyAdmin();
+  }, []);
+
+  // console.log("login===>", login)
   return (
     <>
 

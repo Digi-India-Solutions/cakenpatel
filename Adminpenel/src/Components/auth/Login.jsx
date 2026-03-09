@@ -13,18 +13,18 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/user/login",
+        "https://api.cakenpetals.com/api/admin/login",
         {
           email: email,
           password: password,
-        }
+        }, { withCredentials: true }
       );
-      console.log("SSSXXXXXXSSSS==>", response)
+      console.log("SSSXXXXXXSSSS==>", response.data)
       if (response.status === 200) {
-        if (response?.data?.data?.role === "Admin" || response?.data?.data?.role === "SuperAdmin") {
+        if (response?.data?.user?.role === "Admin" || response?.data?.user?.role === "SuperAdmin") {
           sessionStorage.setItem("login", true);
           sessionStorage.setItem("Admintoken", response.data.token);
-          sessionStorage.setItem("AdminData", JSON.stringify(response?.data?.data));
+          sessionStorage.setItem("AdminData", JSON.stringify(response?.data?.user));
 
           toast.success("Login Successful!");
           setTimeout(() => {
@@ -47,8 +47,6 @@ const Login = () => {
     //   window.location.href = '/dashboard';
     // }
   };
-
-
 
   return (
     <>

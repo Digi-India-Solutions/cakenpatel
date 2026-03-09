@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect } from 'react';
 
 
+
 const Header = () => {
   const location = useLocation();
   const [sidetoggle, setSideToggle] = useState(false)
@@ -13,15 +14,17 @@ const Header = () => {
   const [AdminData, setAdminData] = useState({});
 
   const AdminDatas = JSON.parse(sessionStorage.getItem("AdminData"))
+
   const isActive = (path) => location.pathname === path;
 
-  console.log("AdminDataAdminData=>", AdminData.role)
+  console.log("AdminDataAdminData=>", AdminDatas)
 
   const handletoggleBtn = () => {
     setSideToggle(!sidetoggle)
   }
 
   const handleLogout = () => {
+    const res = axios.post('https://api.cakenpetals.com/api/admin/logout', {}, { withCredentials: true });
     sessionStorage.removeItem('login'); // Remove login status
     window.location.href = '/login' // Redirect to login page
   };
@@ -52,9 +55,10 @@ const Header = () => {
       console.log(e);
     }
   }
+
   const fetchAdminUser = async () => {
     try {
-      const res = await axios.get(`https://api.cakenpetals.com/api/user/${AdminDatas?._id}`);
+      const res = await axios.get(`https://api.cakenpetals.com/api/user/${AdminDatas?._id || AdminDatas?.userId}`);
       console.log(".data.data==>", res);
       setAdminData(res.data.data);
       sessionStorage.setItem("AdminData", JSON.stringify(res.data.data));
@@ -62,6 +66,7 @@ const Header = () => {
       console.log(e);
     }
   }
+
   useEffect(() => {
     fetchAdminUser()
     fetchOrderStatus();
@@ -100,7 +105,7 @@ const Header = () => {
               </span>
             </div>
 
-            <a href="https://www.cakecrazzy.com" target="_blank">
+            <a href="https://cakenpetals.com/" target="_blank">
               <i class="fa-solid fa-globe"></i>
               Go To Website
             </a>
@@ -147,6 +152,7 @@ const Header = () => {
       </header>
     </>
   )
+
 }
 
 export default Header
