@@ -1,4 +1,5 @@
 const handleMulterError = (err, _req, res, next) => {
+    console.error("Multer error:", err, _req, res, next);
     if (err?.code === "LIMIT_FILE_SIZE") {
         return res.status(413).json({ success: false, message: "Image too large. Max size is 5 MB." });
     }

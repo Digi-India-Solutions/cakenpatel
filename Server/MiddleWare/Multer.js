@@ -66,93 +66,99 @@
 
 
 
-
 const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
 
 // ── Config ─────────────────────────────────────────────────────────────────────
-const UPLOAD_DIR = './Public';
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+const UPLOAD_DIR = './Public'; // absolute — safe on all OS
+const MAX_FILE_SIZE = 5 * 1024 * 1024;                     // 5 MB per file
 const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-const WEBP_QUALITY = 85; // 0-100  (85 = great balance of quality vs file size)
+const WEBP_QUALITY = 85;
 
-// Ensure upload directory exists once at startup
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
-
 const sanitizeBasename = (originalname) => {
     const ext = path.extname(originalname);
     return path
         .basename(originalname, ext)
-        .replace(/\s+/g, "-")            // spaces → hyphens
-        .replace(/[^a-zA-Z0-9\-_]/g, ""); // strip special characters
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9\-_]/g, "");
 };
 
-// ── Step 1: Multer — store upload temporarily in memory ───────────────────────
-// memoryStorage lets Sharp process the buffer before writing to disk.
-const storage = multer.memoryStorage();
+const generateFilename = (originalname) => {
+    const basename = sanitizeBasename(originalname);
+    const random = Math.random().toString(36).slice(2, 8); // e.g. "k3x9mz"
+    return `${Date.now()}-${random}-${basename}.webp`;
+};
 
+// ── File type filter ───────────────────────────────────────────────────────────
 const fileFilter = (_req, file, cb) => {
     if (ALLOWED_TYPES.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(
-            new Error(`Invalid file type "${file.mimetype}". Only JPEG, PNG, and WebP are allowed.`),
-            false
-        );
+        cb(new Error(`Invalid file type "${file.mimetype}". Only JPEG, PNG, and WebP are allowed.`), false);
     }
 };
 
+// ── Multer instance (memory storage) ──────────────────────────────────────────
 const _multer = multer({
-    storage,
+    storage: multer.memoryStorage(),
     limits: { fileSize: MAX_FILE_SIZE },
     fileFilter,
 });
 
-// ── Step 2: Sharp middleware — convert buffer → WebP → save to disk ───────────
+// ── Convert ONE file buffer → WebP → save to disk ─────────────────────────────
+const convertToWebP = async (file) => {
+    const filename = generateFilename(file.originalname);
+    const fullPath = path.join(UPLOAD_DIR, filename);
 
-const webpConverter = (fieldName) => [
-    _multer.single(fieldName),
+    await sharp(file.buffer)
+        .webp({ quality: WEBP_QUALITY })
+        .toFile(fullPath);
 
-    async (req, res, next) => {
-        if (!req.file) return next(); // field is optional — skip if absent
+    // Overwrite multer fields so controllers work exactly as with diskStorage
+    file.filename = filename;
+    file.path = fullPath;           // absolute path (for deleteFile helper)
+    file.relativePath = `Public/${filename}`; // URL-safe, for DB storage
+    file.mimetype = "image/webp";
+    delete file.buffer;                     // free memory after conversion
+};
 
-        try {
-            const basename = sanitizeBasename(req.file.originalname);
-            const filename = `${Date.now()}-${basename}.webp`;
-            const fullPath = path.join(UPLOAD_DIR, filename);
-
-            // Convert to WebP and write to disk
-            await sharp(req.file.buffer)
-                .webp({ quality: WEBP_QUALITY })
-                .toFile(fullPath);
-
-            // Populate req.file so controllers work exactly as before
-            req.file.filename = filename;
-            req.file.path = fullPath;                        // absolute path
-            req.file.relativePath = path.join("Public", filename);  // for storing in DB
-            req.file.mimetype = "image/webp";
-
-            next();
-        } catch (err) {
-            console.error("WebP conversion error:", err.message);
-            return res.status(500).json({
-                success: false,
-                message: "Image processing failed. Please try again.",
-            });
+// ── WebP conversion middleware (handles single / array / fields) ───────────────
+const webpMiddleware = async (req, res, next) => {
+    try {
+        // upload.single() → req.file (object)
+        if (req.file) {
+            await convertToWebP(req.file);
         }
-    },
-];
+
+        // upload.array() → req.files (flat Array)
+        if (Array.isArray(req.files) && req.files.length > 0) {
+            await Promise.all(req.files.map(convertToWebP));
+        }
+
+        // upload.fields() → req.files (Object: { fieldName: [file, ...] })
+        if (req.files && !Array.isArray(req.files)) {
+            const all = Object.values(req.files).flat();
+            if (all.length > 0) await Promise.all(all.map(convertToWebP));
+        }
+
+        next();
+    } catch (err) {
+        console.error("WebP conversion error:", err.message);
+        return res.status(500).json({ success: false, message: "Image processing failed. Please try again." });
+    }
+};
 
 // ── Export ─────────────────────────────────────────────────────────────────────
 
 const upload = {
-    single: (fieldName) => webpConverter(fieldName),
-    fields: (fieldsArr) => webpConverter(_multer.fields(fieldsArr)),
-    array: (fieldName, maxCount) => webpConverter(_multer.array(fieldName, maxCount)),
+    single: (fieldName) => [_multer.single(fieldName), webpMiddleware],
+    array: (fieldName, maxCount) => [_multer.array(fieldName, maxCount), webpMiddleware],
+    fields: (fieldsArr) => [_multer.fields(fieldsArr), webpMiddleware],
 };
 
 module.exports = upload;

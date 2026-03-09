@@ -35,24 +35,24 @@ const VariantSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-    categoryName: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Main-Category",
-        // required:true
-        default: null
-    },
-    subcategoryName: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Subcategory",
-        // required: true
-        default: null
-    },
-    secondsubcategoryName: {
-        type: mongoose.Schema.ObjectId,
-        ref: "SecondSubcategory",
-        // required: true
-        default: null
-    },
+    // categoryName: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Main-Category",
+    //     // required:true
+    //     default: null
+    // },
+    // subcategoryName: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Subcategory",
+    //     // required: true
+    //     default: null
+    // },
+    // secondsubcategoryName: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "SecondSubcategory",
+    //     // required: true
+    //     default: null
+    // },
     parentProductId: {
         type: mongoose.Schema.ObjectId,
         ref: "ParentProduct",

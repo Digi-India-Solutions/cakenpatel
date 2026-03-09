@@ -274,6 +274,10 @@ const AddProduct = () => {
     // Append variants
     form.append("Variant", JSON.stringify(formData.Variant));
 
+    // if (formData.productImage[0]) {
+    //   form.append("productImage", formData.productImage[0])
+    // }
+
     // Append new images
     for (let i = 0; i < formData.productImage.length; i++) {
       form.append("productImage", formData.productImage[i]);

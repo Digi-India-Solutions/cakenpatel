@@ -18,10 +18,10 @@ const deleteImageFile = (relativeFilePath) => {
 
 
 const createProduct = async (req, res) => {
-    const { categoryName, subcategoryName, secondsubcategoryName, parentProductId,ActiveonDeliveryDate, productName, productDescription, productDetails, Variant,
+    const { categoryName, subcategoryName, secondsubcategoryName, parentProductId, ActiveonDeliveryDate, productName, productDescription, productDetails, Variant,
         ActiveonHome, FeaturedProducts, ActiveonFlavours, NameOnCake, BestSellingProduct, deliveryTo60Min, eggless, recommendedProductId } = req.body;
     const errorMessage = [];
-
+    console.log('req.body==>', req.body)
     // Validation for required fields
     // if (!categoryName) errorMessage.push("Category Name is required");
     // if (!subcategoryName) errorMessage.push("Subcategory Name is required");
@@ -83,19 +83,19 @@ const createProduct = async (req, res) => {
         productName,
         productDescription,
         productDetails,
-        ActiveonHome,
-        ActiveonFlavours,
-        FeaturedProducts,
-        deliveryTo60Min,
-        ActiveonDeliveryDate,
-        NameOnCake,
-        eggless,
-        BestSellingProduct,
+        ActiveonHome: ActiveonHome === 0 ? false : true,
+        ActiveonFlavours: ActiveonFlavours === 0 ? false : true,
+        FeaturedProducts: FeaturedProducts === 0 ? false : true,
+        deliveryTo60Min: deliveryTo60Min === 0 ? false : true,
+        ActiveonDeliveryDate: ActiveonDeliveryDate === 0 ? false : true,
+        NameOnCake: NameOnCake === 0 ? false : true,
+        eggless: eggless === 0 ? false : true,
+        BestSellingProduct: BestSellingProduct === 0 ? false : true,
         recommendedProductId: parseRecommendedProductId,
         Variant: parsedVariant.map(variant => ({
             ...variant,
             // weight: variant.weight ? new mongoose.Types.ObjectId(variant.weight) : null,  // Handle empty weight
-            flover: variant.flover ? new mongoose.Types.ObjectId(variant.flover) : null   // Handle empty flover
+            // flover: variant.flover ? new mongoose.Types.ObjectId(variant.flover) : null   // Handle empty flover
         })),
         productImage: req.files.map(file => file.path), // Save paths to the uploaded images
     };
@@ -155,6 +155,7 @@ const getFeaturedProducts = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
 const getBestSellingProducts = async (req, res) => {
     try {
         const products = await Product.find({ BestSellingProduct: 1 })
@@ -182,9 +183,9 @@ const getBestSellingProducts = async (req, res) => {
 const getProducts = async (req, res) => {
     try {
         const products = await Product.find().sort({ createdAt: -1 })
-            .populate('categoryName')
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('categoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             .populate('parentProductId')
             // .populate({
@@ -196,13 +197,12 @@ const getProducts = async (req, res) => {
                 model: 'Flover',
             });
 
-        console.log("ParentProductParentProduct=>>", products[0])
+        // console.log("ParentProductParentProduct=>>", products[0])
         res.status(200).json({ data: products });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
-
 
 // Get Single Product
 const getProduct = async (req, res) => {
@@ -210,9 +210,9 @@ const getProduct = async (req, res) => {
     try {
         const product = await Product.findById(id)
             .sort({ createdAt: -1 })
-            .populate('categoryName')
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('categoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             .populate('parentProductId')
             // .populate('Variant.weight')
@@ -227,15 +227,15 @@ const getProduct = async (req, res) => {
     }
 };
 
-
 // Get Single Product
 const getProductByname = async (req, res) => {
     const { name } = req.params;
     try {
-        const product = await Product.findOne({ productName: name }).populate('categoryName')
+        const product = await Product.findOne({ productName: name })
+        // .populate('categoryName')
             .sort({ createdAt: -1 })
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             // .populate('Variant.weight')
             .populate('Variant.flover');
@@ -248,16 +248,15 @@ const getProductByname = async (req, res) => {
     }
 };
 
-
 // Get Products By Subcategory Name
 const getProductsBySubcategory = async (req, res) => {
     const { subcategoryName } = req.params;  // Expecting a single subcategory name
     try {
         const products = await Product.find()
             .sort({ createdAt: -1 })
-            .populate('categoryName')
-            .populate('subcategoryName')
-            .populate('secondsubcategoryName')
+            // .populate('categoryName')
+            // .populate('subcategoryName')
+            // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
 
         const filterProductData = products.filter((x) => x.subcategoryName.subcategoryName === subcategoryName)
@@ -281,7 +280,11 @@ const getProductsBySubcategoryId = async (req, res) => {
                 { subcategoryName: id },       // subcategory
                 { secondsubcategoryName: id }, // second subcategory
             ]
-        }).sort({ createdAt: -1 }).populate("categoryName").populate("subcategoryName").populate("secondsubcategoryName").populate("recommendedProductId");
+        }).sort({ createdAt: -1 })
+        // .populate("categoryName")
+        // .populate("subcategoryName")
+        // .populate("secondsubcategoryName")
+        .populate("recommendedProductId");
 
 
         res.status(200).json({ data: products });
@@ -291,7 +294,6 @@ const getProductsBySubcategoryId = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
 
 const updateProduct = async (req, res) => {
     const { id } = req.params;
@@ -368,8 +370,6 @@ const updateProduct = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 };
-
-
 
 // Delete Product
 const deleteProduct = async (req, res) => {
