@@ -15,20 +15,30 @@ import LocationPopup from "../LocationPopup/LocationPopup";
 /* ASSETS */
 import Banner from "../../images/pic/topBanner1.png";
 import logo from "../../images/pic/logo2.png";
+
+// ========================================================
+// PERFORMANCE FIX: GLOBAL CACHE
+// These variables sit outside the component so they don't get 
+// destroyed when the user navigates to a new page. This stops 
+// the continuous background API fetching.
+// ========================================================
+let cachedMegaCategories = null;
+let cachedAllProducts = null;
+let cachedCountries = null;
+
 const Header = () => {
   const navigate = useNavigate();
   const loginvalue = sessionStorage.getItem("login");
   const userData = JSON.parse(sessionStorage.getItem("userData"));
-  const cart = JSON.parse(sessionStorage.getItem("cart")) || []
+  const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
   const menuRef = useRef(null);
 
-
   /* CATEGORY DATA (FROM API) */
-  const [megaCategories, setMegaCategories] = useState([]);
+  const [megaCategories, setMegaCategories] = useState(cachedMegaCategories || []);
 
   /* LOCATION */
   const [showLocationModal, setShowLocationModal] = useState(false);
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState(cachedCountries || []);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const [productSuggestions, setProductSuggestions] = useState([]);
@@ -44,67 +54,55 @@ const Header = () => {
   /* SEARCH */
   const [searchQuery, setSearchQuery] = useState("");
   const [openIndex, setOpenIndex] = useState(null);
-  const [allProducts, setAllProducts] = useState([]);
-
+  const [allProducts, setAllProducts] = useState(cachedAllProducts || []);
 
   const toggleDropdown = (key) => {
     setOpenIndex(openIndex === key ? null : key);
   };
 
-
   /* REFS */
   const mobileMenuRef = useRef(null);
 
-
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(e.target)
-      ) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setOpenIndex(null);
       }
     };
-
     document.addEventListener("mousedown", handleOutsideClick);
-
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
-
+  // 1. CACHED CATEGORY FETCH
   useEffect(() => {
     const fetchCategories = async () => {
+      // If we already fetched this, don't ping the server again!
+      if (cachedMegaCategories) return; 
+
       try {
         const res = await axios.get(
           `https://api.cakenpetals.com/api/get-category-with-subcategory`
         );
 
-        console.log(res.data.data)
         if (res.data?.data) {
-
           const formattedData = res.data.data.map((cat) => ({
             _id: cat._id,
             name: cat.mainCategoryName.charAt(0).toUpperCase() + cat.mainCategoryName.slice(1),
             subcategories: (cat?.subcategories || []).map((sub) => ({
               _id: sub?._id,
               name: sub?.subcategoryName?.charAt(0)?.toUpperCase() + sub?.subcategoryName?.slice(1),
-              children: (sub.secondSubcategories || []).map(
-                (child) => ({
-                  name: child?.secondsubcategoryName?.charAt(0).toUpperCase() + child?.secondsubcategoryName?.slice(1),
-                  id: child._id,
-                })
-              )
-            }))
+              children: (sub.secondSubcategories || []).map((child) => ({
+                name: child?.secondsubcategoryName?.charAt(0).toUpperCase() + child?.secondsubcategoryName?.slice(1),
+                id: child._id,
+              })),
+            })),
           }));
 
+          cachedMegaCategories = formattedData; // Save to global cache
           setMegaCategories(formattedData);
-
-
-          // setMegaCategories(formattedData);
         }
-
       } catch (error) {
         console.error("Category fetch error:", error);
       }
@@ -113,44 +111,16 @@ const Header = () => {
     fetchCategories();
   }, []);
 
-
-  // useEffect(() => {
-  //   if (!searchQuery.trim()) {
-  //     setProductSuggestions([]);
-  //     return;
-  //   }
-
-  //   const delayDebounce = setTimeout(async () => {
-  //     try {
-  //       setLoadingSuggestions(true);
-
-  //       const res = await axios.get(
-  //         // `htthttp://localhost:7000om/api/search-products?query=${searchQuery}`
-  //         http://localhost:7000als.com/api/get-best-selling-products?query=${searchQuery}`
-
-
-  //       );
-
-  //       setProductSuggestions(res.data?.data || []);
-  //     } catch (err) {
-  //       console.error("Search error:", err);
-  //     } finally {
-  //       setLoadingSuggestions(false);
-  //     }
-  //   }, 400); // 400ms debounce
-
-  //   return () => clearTimeout(delayDebounce);
-
-  // }, [searchQuery]
-
+  // 2. CACHED ALL PRODUCTS FETCH (Massive Performance Saver)
   useEffect(() => {
     const fetchAllProducts = async () => {
+      // If we already downloaded all products, don't do it again!
+      if (cachedAllProducts) return;
+
       try {
-        const res = await axios.get(
-          "https://api.cakenpetals.com/api/all-product"
-        );
-        console.log("SSSSDD=>", res)
-        setAllProducts(res.data?.data || []);
+        const res = await axios.get("https://api.cakenpetals.com/api/all-product");
+        cachedAllProducts = res.data?.data || []; // Save to global cache
+        setAllProducts(cachedAllProducts);
       } catch (err) {
         console.error("All products fetch error:", err);
       }
@@ -159,8 +129,7 @@ const Header = () => {
     fetchAllProducts();
   }, []);
 
-
-
+  // 3. SEARCH FILTER LOGIC
   useEffect(() => {
     if (!searchQuery.trim()) {
       setProductSuggestions([]);
@@ -170,18 +139,9 @@ const Header = () => {
     const lowerQuery = searchQuery.toLowerCase();
 
     const filtered = allProducts.filter((product) => {
-      const nameMatch =
-        product.productName?.toLowerCase().includes(lowerQuery);
-
-      const categoryMatch =
-        product.categoryName?.mainCategoryName
-          ?.toLowerCase()
-          .includes(lowerQuery);
-
-      const subcategoryMatch =
-        product.subcategoryName?.subcategoryName
-          ?.toLowerCase()
-          .includes(lowerQuery);
+      const nameMatch = product.productName?.toLowerCase().includes(lowerQuery);
+      const categoryMatch = product.categoryName?.mainCategoryName?.toLowerCase().includes(lowerQuery);
+      const subcategoryMatch = product.subcategoryName?.subcategoryName?.toLowerCase().includes(lowerQuery);
 
       return nameMatch || categoryMatch || subcategoryMatch;
     });
@@ -189,9 +149,16 @@ const Header = () => {
     setProductSuggestions(filtered.slice(0, 6));
   }, [searchQuery, allProducts]);
 
-
+  // 4. CACHED COUNTRIES FETCH
   useEffect(() => {
     const fetchCountries = async () => {
+      if (cachedCountries) {
+        // If cached, just set the default selected country
+        const india = cachedCountries.find((c) => c.code === "IN");
+        if (india) setSelectedCountry(india);
+        return;
+      }
+
       try {
         const res = await axios.get(
           "https://restcountries.com/v3.1/all?fields=name,flags,cca2"
@@ -203,6 +170,7 @@ const Header = () => {
           code: item.cca2,
         }));
 
+        cachedCountries = formatted; // Save to global cache
         setCountries(formatted);
 
         const india = formatted.find((c) => c.code === "IN");
@@ -215,13 +183,9 @@ const Header = () => {
     fetchCountries();
   }, []);
 
-
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(e.target)
-      ) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
         setMobileNavOpen(false);
         setMobileCategoryOpen(null);
       }
@@ -235,7 +199,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [mobileNavOpen]);
-
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -257,7 +220,6 @@ const Header = () => {
     setMobileCategoryOpen(null);
   };
 
-  console.log("megaCategories==>", megaCategories, cart?.length)
   return (
     <>
       {/* ================= TOP PROMO BANNER ================= */}
@@ -291,7 +253,6 @@ const Header = () => {
                   className="delivery-box"
                   onClick={() => setShowLocationModal(true)}
                 >
-
                   {selectedCountry && (
                     <img
                       src={selectedCountry?.flag}
@@ -308,6 +269,7 @@ const Header = () => {
                   <IoIosArrowDown />
                 </div>
               </div>
+
               {/* ================= SEARCH ================= */}
               <form className="search-container" onSubmit={handleSearchSubmit}>
                 <div className="search-wrapper position-relative">
@@ -331,7 +293,6 @@ const Header = () => {
                     }}
                   >
                     {searchQuery ? (
-                      // <IoClose className="iconFont text-dark" />
                       ""
                     ) : (
                       <IoSearch className="iconFont text-dark" style={{ fontSize: "20px" }} />
@@ -341,7 +302,6 @@ const Header = () => {
                   {/* 🔥 Product Suggestion Dropdown */}
                   {searchQuery && (
                     <div className="search-suggestions">
-
                       {loadingSuggestions && (
                         <div className="suggestion-item">Searching...</div>
                       )}
@@ -362,25 +322,19 @@ const Header = () => {
                           }}
                         >
                           <img
-                            // <http://localhost:7000       
                             src={`https://api.cakenpetals.com/${product?.productImage?.[0]?.replace(/\\/g, "/")}`}
                             alt={product?.productName}
                             className="suggestion-image"
                           />
-
                           <div className="suggestion-name">
                             {product.productName}
                           </div>
                         </div>
                       ))}
-
                     </div>
                   )}
-
-
                 </div>
               </form>
-
 
               {/* ================= RIGHT ICONS ================= */}
               <div className="top-icons">
@@ -391,9 +345,7 @@ const Header = () => {
 
                 <Link to="/cart" className="icon-box position-relative">
                   <IoMdCart className="iconFont" />
-
                   <span className="navPageText">Cart</span>
-
                   {cart?.length > 0 && (
                     <span className="cart-count-badge">
                       {cart.length}
@@ -412,7 +364,8 @@ const Header = () => {
                     <span className="navPageText">Login</span>
                   </Link>
                 )}
-                {/* MENU DROPDOWN */}
+
+                {/* ================= MENU DROPDOWN ================= */}
                 <div
                   className="hdr-menu-trigger"
                   ref={menuRef}
@@ -422,24 +375,52 @@ const Header = () => {
                   <span className="navPageText">Menu</span>
 
                   {openIndex === "menu" && (
-                    <div className="hdr-menu-dropdown">
-
+                    <div className="hdr-menu-dropdown" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+                      
+                      {/* NEW MENU ITEMS LISTED HERE */}
+                      <Link to="/wedding-decor" className="hdr-menu-link">
+                        Wedding Decor enquiry
+                      </Link>
+                      
+                      <Link to="/corporate-gifts" className="hdr-menu-link">
+                        Corporate gifts
+                      </Link>
+                      
                       <Link to="/wishlist" className="hdr-menu-link">
-                        My Favourites
+                        My favourites
                       </Link>
 
-                      {loginvalue && <Link to="/refer" className="hdr-menu-link">
-                        Refer and Earn <span className="hdr-badge-new">New</span>
-                      </Link>}
-                      {loginvalue && <Link to="/" className="hdr-menu-link">
-                        wallet Balance :-  <span className="hdr-badge-new">RS. {userData?.walletBalance}</span>
-                      </Link>}
+                      {/* Keeping Conditional Logic for Logged-In Users */}
+                      {loginvalue && (
+                        <Link to="/refer" className="hdr-menu-link">
+                          Refer and Earn <span className="hdr-badge-new">New</span>
+                        </Link>
+                      )}
+                      
+                      {loginvalue && (
+                        <Link to="/" className="hdr-menu-link">
+                          Wallet Balance :-  <span className="hdr-badge-new">RS. {userData?.walletBalance}</span>
+                        </Link>
+                      )}
+
+                      <Link to="/for-makeup-artists" className="hdr-menu-link">
+                        For Make Up Artists
+                      </Link>
+
+                      <Link to="/for-schools-colleges" className="hdr-menu-link">
+                        For School, Colleges
+                      </Link>
+
                       <Link to="/faq" className="hdr-menu-link">
-                        FAQ
+                        FAQs
                       </Link>
 
                       <Link to="/about-us" className="hdr-menu-link">
                         About Us
+                      </Link>
+
+                      <Link to="/sell-with-us" className="hdr-menu-link">
+                        Sell With Us
                       </Link>
 
                       <Link to="/contact-us" className="hdr-menu-link">
@@ -458,9 +439,7 @@ const Header = () => {
                     </div>
                   )}
                 </div>
-
               </div>
-
 
             </div>
           </div>
@@ -495,7 +474,6 @@ const Header = () => {
           <div className="mobile-menu-wrapper d-lg-none" ref={mobileMenuRef}>
             {megaCategories?.map((cat, index) => (
               <div key={cat?._id || index} className="mobile-cat">
-
                 <div
                   className="mobile-cat-title"
                   onClick={() => handleMobileCategoryToggle(index)}
@@ -509,7 +487,6 @@ const Header = () => {
                 {mobileCategoryOpen === index && (
                   <div className="mobile-subcats">
                     {cat?.subcategories?.map((sub, i) => (
-
                       <details key={sub?._id || i} className="mobile-nested-accordion">
                         <summary className="mobile-subcat-summary">
                           <strong>{sub?.name}</strong>
@@ -533,7 +510,6 @@ const Header = () => {
                           ))}
                         </div>
                       </details>
-
                     ))}
                   </div>
                 )}
@@ -592,14 +568,11 @@ const Header = () => {
                           ))}
                         </div>
                       ))}
-
                     </div>
                   </div>
                 )}
-
               </li>
             ))}
-
           </ul>
         </div>
       </nav>

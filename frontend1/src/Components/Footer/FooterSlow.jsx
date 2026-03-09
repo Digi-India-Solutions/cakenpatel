@@ -10,25 +10,13 @@ import facebook from "../../images/facebook_logo.svg"
 import linkedin from "../../images/linkdin_logo.svg"
 import xtwiter from "../../images/twitter-x.svg"
 
-// ========================================================
-// PERFORMANCE FIX: GLOBAL CACHE
-// Prevents the footer from re-downloading categories from
-// the server every time a user navigates to a new page.
-// ========================================================
-let cachedFooterCategories = null;
-
 const Footer = () => {
   const navigate = useNavigate();
-  
-  // Use cached data immediately if we have it
-  const [categories, setCategories] = useState(cachedFooterCategories || []);
+  const [categories, setCategories] = useState([]);
   const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
-      // PERFORMANCE FIX: If data is already cached, do not ping the server!
-      if (cachedFooterCategories) return;
-
       try {
         const res = await axios.get(
           `https://api.cakenpetals.com/api/get-category-with-subcategory`
@@ -38,7 +26,6 @@ const Footer = () => {
           res.data.message ===
           "Categories with subcategories retrieved successfully"
         ) {
-          cachedFooterCategories = res.data.data; // Save to global cache
           setCategories(res.data.data);
         }
       } catch (error) {
@@ -122,7 +109,7 @@ const Footer = () => {
               {categories.map((cat) =>
                 cat.subcategories.map((sub, index) => (
                   <li key={index}>
-                    
+                   
                     <div onClick={() => {
                       navigate(`/product-related/${sub.subcategoryName.replace(/\s+/g, "-")}`,
                         { state: { id: sub?._id, status: 'category' } });
@@ -208,10 +195,13 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="container d-flex justify-content-between align-items-center flex-wrap">
 
+
+
           {/* <p className="mb-0">
             © 2024 Cake Bakery. All rights reserved.
           </p> */}
           
+
           {/* <div className="payment-icons">
             <FaCcAmazonPay className="fs-3 " />
           </div> */}

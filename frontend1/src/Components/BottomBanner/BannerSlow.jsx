@@ -4,23 +4,11 @@ import banner from "../../images/pic/Banner11.jpg"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-// ========================================================
-// PERFORMANCE FIX: GLOBAL CACHE
-// Prevents re-fetching the promo banner data every time 
-// the component mounts when navigating between pages.
-// ========================================================
-let cachedCakeBanner = null;
-
 export default function Banner() {
-  // Use cached data immediately if we have it
-  const [data, setData] = useState(cachedCakeBanner || []);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
-
   // ✅ API call
   const fetchBannerData = async () => {
-    // PERFORMANCE FIX: If data is already cached, do not ping the server!
-    if (cachedCakeBanner) return;
-
     try {
       // const res = await axios.get("https://api.cakenpetals.com/api/promo-banner/get-promo-banner");
       const res = await axios.get("https://api.cakenpetals.com/api/cake-banner/get-cake-banner"
@@ -28,13 +16,10 @@ export default function Banner() {
       console.log("SSSSS::=>", res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner4'))
       // console.log("SSSSS::=>XXXXXX", res?.data?.data)
       if (res.status === 200) {
-        
-        // Filter the data just like you were doing before
-        const filteredData = res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner4') ||
-                             res?.data?.data?.filter((item) => item?.isActive === 'true');
-
-        cachedCakeBanner = filteredData; // Save to global cache
-        setData(filteredData);
+        setData(
+          res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner4') ||
+          res?.data?.data?.filter((item) => item?.isActive === 'true')
+        );
       }
     } catch (error) {
       console.error("Error fetching banner data:", error);

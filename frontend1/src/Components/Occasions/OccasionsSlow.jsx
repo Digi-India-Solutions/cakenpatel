@@ -7,23 +7,11 @@ import pic4 from "../../images/pic/wed.jpg"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-// ========================================================
-// PERFORMANCE FIX: GLOBAL CACHE
-// Prevents re-fetching the occasions banner data every time 
-// the component mounts when navigating between pages.
-// ========================================================
-let cachedOccasionBanners = null;
-
 export default function Occasions() {
-  // Use cached data immediately if we have it
-  const [data, setData] = useState(cachedOccasionBanners || []);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
-
   // ✅ API call
   const fetchBannerData = async () => {
-    // PERFORMANCE FIX: If data is already cached, do not ping the server!
-    if (cachedOccasionBanners) return;
-
     try {
       // const res = await axios.get("https://api.cakenpetals.com/api/promo-banner/get-promo-banner");
       const res = await axios.get("https://api.cakenpetals.com/api/cake-banner/get-cake-banner"
@@ -31,13 +19,10 @@ export default function Occasions() {
       console.log("SSSSS::=>", res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner3'))
       // console.log("SSSSS::=>XXXXXX", res?.data?.data)
       if (res.status === 200) {
-        
-        // Filter the data exactly as you were doing before
-        const filteredData = res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner3') ||
-                             res?.data?.data?.filter((item) => item?.isActive === 'true');
-
-        cachedOccasionBanners = filteredData; // Save to global cache
-        setData(filteredData);
+        setData(
+          res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner3') ||
+          res?.data?.data?.filter((item) => item?.isActive === 'true')
+        );
       }
     } catch (error) {
       console.error("Error fetching banner data:", error);
@@ -54,7 +39,6 @@ export default function Occasions() {
   //   { id: 3, img: pic3, title: "Anniversary" },
   //   { id: 4, img: pic4, title: "wedding" },
   // ]
-  
   return (
     <>
       <div className='OccasionsMainSec'>
