@@ -1392,7 +1392,7 @@ const ProductDetails = () => {
     const fetchCountdown = async () => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/countdown/get-countdown-by-category/${data?.subcategoryName?._id}`
+          `https://api.cakenpetals.com/api/countdown/get-countdown-by-category/${data?.parentProductId}`
         );
         console.log("SSSXXXX:=>", res)
         setCountDown(res?.data?.data);
@@ -1401,10 +1401,10 @@ const ProductDetails = () => {
       }
     };
 
-    if (data?.subcategoryName?._id) {
+    if (data?.parentProductId) {
       fetchCountdown();
     }
-  }, [data?.subcategoryName?._id])
+  }, [data?.parentProductId])
 
   const handleWeightSelection = (weight) => {
     setActiveWeight(weight);
@@ -1430,7 +1430,7 @@ const ProductDetails = () => {
         productId: data?._id,
         name: data.productName,
         weight: activeWeight,
-        categoryId: data?.categoryName?._id,
+        categoryId: data?.parentProductId,
         price: price,
         massage: massage,
         quantity: quantity, // Uses the state quantity
@@ -1489,7 +1489,7 @@ const ProductDetails = () => {
     const newItem = {
       productId: data._id,
       name: data.productName,
-      categoryId: data?.categoryName?._id,
+      categoryId: data?.parentProductId,
       weight: activeWeight,
       price: price,
       massage: massage,
@@ -1692,7 +1692,7 @@ const ProductDetails = () => {
       const newItem = {
         productId: data._id,
         name: data.productName,
-        categoryId: data?.categoryName?._id,
+        categoryId: data?.parentProductId,
         weight: activeWeight,
         price: price,
         massage: massage,
@@ -1806,10 +1806,9 @@ const ProductDetails = () => {
       };
 
       const res = await axios.post(`https://api.cakenpetals.com/api/product-preview/create-product-preview`, payload);
-      console.log("ADMIN==>", res)
-      if (res.data.data.success) {
-        Swal.fire({ icon: "success", title: "Review Submitted", text: "Thank you for your feedback!" });
+      if (res.data.success === true) {
         setIsReviewModalOpen(false);
+        Swal.fire({ icon: "success", title: "Review Submitted", text: "Thank you for your feedback!" });
         setReviewForm({ rating: 5, name: "", reviewText: "", photoUrl: "" });
       }
 
@@ -1824,6 +1823,8 @@ const ProductDetails = () => {
       fetchReview();
     }
   }, [data?._id]);
+
+  console.log("ADMIN==>DD", data)
 
   return (
     <>
@@ -2221,20 +2222,20 @@ const ProductDetails = () => {
                 {/* STICKY ACTION BUTTONS */}
                 <div className="sticky-buttons mt-4">
                   {/* Delivery Hint */}
-                  <div className="delivery d-flex align-items-center gap-1 mb-2">
+                  {/* <div className="delivery d-flex align-items-center gap-1 mb-2">
                     <span style={{ fontSize: "13px", color: "#444" }}>
                       <i className="bi bi-truck me-1"></i> Want today? <strong style={{ color: "#007185", cursor: "pointer", fontWeight: "600" }}>Call Us Now</strong>
                     </span>
-                  </div>
+                  </div> */}
 
                   {!orderActive && (
                     <div className="order-close" style={{ background: "#fff3f3", color: "#d32f2f", padding: "10px 15px", borderRadius: "8px", fontSize: "14px", marginBottom: "15px", fontWeight: 500 }}>
                       ⚠️ Ordering is temporarily unavailable. Please try again later.
                     </div>
                   )}
-                  {orderActive && data?.categoryName?._id && (
+                  {orderActive && data?.parentProductId && (
                     <div className="order-close mb-3">
-                      <CountdownTimer categoryId={data?.categoryName?._id} />
+                      <CountdownTimer categoryId={data?.parentProductId} />
                     </div>
                   )}
 

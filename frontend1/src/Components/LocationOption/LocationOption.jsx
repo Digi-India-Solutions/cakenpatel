@@ -98,7 +98,7 @@ const LocationOption = ({ onServiceChange }) => {
     }
 
     const isAvailable = availableService.some((item) => {
-      if (!(item.deleveryStatus && item.isActive)) return false;
+      if (!item?.deleveryStatus) return false;
 
       const pin = item.pinCode?.toString().toLowerCase() || "";
       const area = item.area?.toLowerCase() || "";
@@ -108,7 +108,7 @@ const LocationOption = ({ onServiceChange }) => {
     });
 
     const isAvailable30min = availableService.some((item) => {
-      if (!(item.deleveryTime && item.isActive)) return false;
+      if (!item.deleveryTime) return false;
 
       const pin = item.pinCode?.toString().toLowerCase() || "";
       const area = item.area?.toLowerCase() || "";
@@ -216,6 +216,7 @@ const LocationOption = ({ onServiceChange }) => {
       // alert(`Location saved: ${input}`); // Replace with actual save logic
     }
   };
+
   /* ================= LOADING ================= */
 
   if (loading) {

@@ -446,7 +446,7 @@ const Wishlist = () => {
   const [carts, setCarts] = useState(
     JSON.parse(sessionStorage.getItem("cart")) || []
   );
-
+  const [massege, setMassegae] = useState(true);
   const user = sessionStorage.getItem("userId");
   const navigate = useNavigate();
 
@@ -524,7 +524,12 @@ const Wishlist = () => {
       showConfirmButton: false,
     });
   };
-
+  const existCart = (product) => {
+    const existingIndex = carts.findIndex(
+      (item) => item.productId === product._id
+    )
+    return existingIndex
+  }
   return (
     <div className="wishlist-wrapper container py-5">
       <h3 className="wishlist-title">My Wishlist</h3>
@@ -585,7 +590,8 @@ const Wishlist = () => {
                   className="add-btn"
                   onClick={() => addToCart(product)}
                 >
-                  ADD TO CART
+                  {/* ADD TO CART */}
+                  {existCart(product) ? "Add to Cart" : "Update Cart Quantity"}
                 </button>
               </div>
             </div>

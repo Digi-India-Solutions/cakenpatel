@@ -33,7 +33,8 @@ const AddCountdown = () => {
     const fetchSubcategories = async () => {
       try {
         const res = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          // "https://api.cakenpetals.com/api/get-main-category"
+            "https://api.cakenpetals.com/api/parent-product/get-parent-product"
         );
 
         setSubcategories(res?.data?.data || []);
@@ -110,7 +111,7 @@ const AddCountdown = () => {
   /* ================= UI ================= */
   const categoryLists = subcategories.map((sub) => ({
     value: sub._id,
-    label: `${sub?.mainCategoryName}`,
+    label: `${sub?.parentProductName}`,
   }));
 
 

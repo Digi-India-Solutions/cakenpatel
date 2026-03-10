@@ -45,7 +45,7 @@ const AllCountdown = () => {
             }
             setIsLoading(false);
         } catch (error) {
-             setIsLoading(false);
+            setIsLoading(false);
             toast.error("Failed to load countdown");
             console.error(error);
         } finally {
@@ -180,7 +180,7 @@ const AllCountdown = () => {
                                     <th>{index + 1}</th>
 
                                     {/* <td>{item?.title || "-"}</td> */}
-                                    <td>{item?.categoryId?.mainCategoryName || "-"}</td>
+                                    <td>{item?.categoryId?.parentProductName || "-"}</td>
                                     <td>{formatTime(item?.startTime)}</td>
                                     <td>{formatTime(item?.endTime)}</td>
 
