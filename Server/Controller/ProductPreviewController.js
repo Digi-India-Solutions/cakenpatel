@@ -38,10 +38,33 @@ exports.createProductPreview = async (req, res) => {
 
 exports.getAllProductPreview = async (req, res) => {
     try {
-        const previews = await ProductPreview.find().populate("userId", "name email").populate("productId");
-        res.status(200).json({ success: true, data: previews });
+        // Parse pagination params — defaults: page 1, limit 10
+        const page = Math.max(1, parseInt(req.query.page) || 1);
+        const limit = Math.max(1, parseInt(req.query.limit) || 10);
+        const skip = (page - 1) * limit;
+
+        const [previews, total] = await Promise.all([
+            ProductPreview.find()
+                .populate("userId", "name email")
+                .populate("productId")
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+            ProductPreview.countDocuments(),
+        ]);
+
+        return res.status(200).json({
+            success: true,
+            data: previews,
+            pagination: {
+                total, page, limit,
+                totalPages: Math.ceil(total / limit),
+                hasNextPage: page < Math.ceil(total / limit),
+                hasPrevPage: page > 1,
+            },
+        });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -65,10 +88,30 @@ exports.getSingleProductPreview = async (req, res) => {
 // GET PREVIEW BY PRODUCT ID
 exports.getPreviewByProductId = async (req, res) => {
     try {
-        const previews = await ProductPreview.find({ productId: req.params.productId, isActive: true }).populate("userId", "name");
-        res.status(200).json({ success: true, data: previews });
+        const reviews = await ProductPreview.find({
+            productId: req.params.productId,
+            isActive: true,
+        }).populate("userId", "name").sort({ createdAt: -1 });
+
+        // ✅ Calculate average rating
+        const totalReviews = reviews.length;
+        const averageRating =
+            totalReviews > 0
+                ? parseFloat(
+                    (reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / totalReviews).toFixed(1)
+                )
+                : 0;
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                reviews,        // ✅ frontend: reviewRes.data.data.reviews
+                totalReviews,   // ✅ frontend: reviewRes.data.data.totalReviews
+                averageRating,  // ✅ frontend: reviewRes.data.data.averageRating
+            },
+        });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -97,7 +140,6 @@ exports.updateProductPreview = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-
 
 
 // DELETE PREVIEW

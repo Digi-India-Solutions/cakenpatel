@@ -141,6 +141,7 @@ const Header = () => {
             {hasAccess("countdown") && <li><Link to="/all-countdown" className={isActive('/all-countdown') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> Manage Count Down</Link></li>}
             {hasAccess("adminUser") && <li><Link to="/all-admin" className={isActive('/all-admin') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Admin Permission</Link></li>}
             {hasAccess("subscribeEmail") && <li><Link to="/all-subscribeEmail" className={isActive('/all-subscribeEmail') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Subscribe Email</Link></li>}
+            {hasAccess("allProductReviews") && <li><Link to="/all-product-reviews" className={isActive('/all-product-reviews') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> Product Reviews</Link></li>}
 
             <div className="logout" onClick={handleLogout}>
               Log Out <i className="fa-solid fa-right-from-bracket mb-4"></i>

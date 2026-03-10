@@ -125,8 +125,8 @@ const Header = () => {
   //       setLoadingSuggestions(true);
 
   //       const res = await axios.get(
-  //         // `htthttp://localhost:7000om/api/search-products?query=${searchQuery}`
-  //         http://localhost:7000als.com/api/get-best-selling-products?query=${searchQuery}`
+  //         // `htthttps://api.cakenpetals.comom/api/search-products?query=${searchQuery}`
+  //         https://api.cakenpetals.comals.com/api/get-best-selling-products?query=${searchQuery}`
 
 
   //       );
@@ -362,7 +362,7 @@ const Header = () => {
                           }}
                         >
                           <img
-                            // <http://localhost:7000       
+                            // <https://api.cakenpetals.com       
                             src={`https://api.cakenpetals.com/${product?.productImage?.[0]?.replace(/\\/g, "/")}`}
                             alt={product?.productName}
                             className="suggestion-image"

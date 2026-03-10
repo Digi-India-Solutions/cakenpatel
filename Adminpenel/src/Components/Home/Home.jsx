@@ -85,6 +85,7 @@ import EditPerantProduct from '../../Pages/ParancProduct/EditParancProduct'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toast } from "react-toastify";
+import AllProductReviews from '../../Pages/ProductReviews/AllProductReviews'
 
 const Home = () => {
 
@@ -274,6 +275,8 @@ const Home = () => {
                 <Route path={'/add-admin'} element={<AddAdmin />} />
 
                 <Route path={'/all-subscribeEmail'} element={<AllSubscribeEmail />} />
+
+                <Route path={'/all-product-reviews'} element={<AllProductReviews />} />
               </Routes>
             </div>
           </>
