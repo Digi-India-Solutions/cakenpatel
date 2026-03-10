@@ -19,16 +19,16 @@ let cachedAllProducts = null;
 const AllProducts = ({ status = '', relatedProducts = '' }) => {
   const navigate = useNavigate();
   const user = sessionStorage.getItem("userId");
-  
+
   // Use cached data immediately if we have it
   const [categoryData, setCategoryData] = useState(
     cachedMainCategories ? (status === 'Home' ? cachedMainCategories.filter(item => item?.ActiveonHome === true) : cachedMainCategories) : []
   );
-  
+
   const [productData, setProductData] = useState(
     cachedAllProducts ? (status === 'Home' ? cachedAllProducts.filter(item => item?.ActiveonHome === true) : cachedAllProducts) : []
   );
-  
+
   const [currentPage, setCurrentPage] = useState({});
   const [wishlist, setWishlist] = useState([]); // ✅ fixed initial state
   const productsPerPage = 20;
@@ -81,7 +81,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
           grouped[cid].push(p);
         });
         console.log("grouped==>", res.data.data)
-        
+
         cachedAllProducts = res.data.data; // Save to global cache
         setProductData(status === 'Home' ? res.data.data.filter((item) => item?.ActiveonHome === true) : res.data.data || grouped);
       }
@@ -160,7 +160,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
     e.stopPropagation(); // Prevents the card click event
     navigate(`/product-details/${productName?.replace(/\s+/g, "-")}`);
   };
-  
+
   const count = productData?.length;
   const getSlidesToShow = (desired) => Math.min(desired, count);
 
@@ -300,9 +300,9 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
                       <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
                         ⊡ EGGLESS
                       </span>
-                      <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
+                      {product.deliveryTo60Min && <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
                         ⚡ 30 Min Delivery
-                      </span>
+                      </span>}
                     </div>
 
                     {/* Title (Clamped to 2 lines to keep grid neat) */}

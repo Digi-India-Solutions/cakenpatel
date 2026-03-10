@@ -19,7 +19,7 @@ const FeaturedProducts = () => {
   const navigate = useNavigate();
   const user = sessionStorage.getItem("userId");
   const [wishlist, setWishlist] = useState([]);
-  
+
   // Use cached data immediately if we have it
   const [products, setProducts] = useState(cachedFeaturedProducts || []);
 
@@ -90,7 +90,7 @@ const FeaturedProducts = () => {
         "https://api.cakenpetals.com/api/get-featuredProducts"
       );
       const fetchedProducts = response?.data?.data || [];
-      
+
       cachedFeaturedProducts = fetchedProducts; // Save to global cache
       setProducts(fetchedProducts);
     } catch (error) {
@@ -169,7 +169,7 @@ const FeaturedProducts = () => {
                   <span
                     className="wishlist d-flex align-items-center justify-content-center"
                     onClick={(e) => {
-                      e.stopPropagation(); 
+                      e.stopPropagation();
                       toggleWishlist(item._id);
                     }}
                     style={{
@@ -224,9 +224,9 @@ const FeaturedProducts = () => {
                         ⊡ EGGLESS
                       </span>
                     )}
-                    <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
+                    {item.deliveryTo60Min && <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
                       ⚡ 30 Min Delivery
-                    </span>
+                    </span>}
                   </div>
 
                   {/* Title (Clamped to 2 lines to keep grid perfectly neat) */}

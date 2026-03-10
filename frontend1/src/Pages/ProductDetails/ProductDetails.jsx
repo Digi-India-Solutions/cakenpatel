@@ -1326,7 +1326,7 @@ const ProductDetails = () => {
         `https://api.cakenpetals.com/api/get-product-by-name/${name?.replace(/-/g, " ").replace(/\s+/g, " ").trim()}`
       );
       const productData = res.data.data;
-      console.log(productData.Variant)
+      // console.log(productData.Variant)
 
       setData(productData);
 
