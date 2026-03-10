@@ -102,7 +102,7 @@ const AddCakeBanner = () => {
       fd.append("titel", formData.titel);
 
       await axios.post(
-        "http://localhost:7000/api/cake-banner/upload-cake-banner",
+        "https://api.cakenpetals.com/api/cake-banner/upload-cake-banner",
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -121,13 +121,13 @@ const AddCakeBanner = () => {
     const fetchSubSubcategories = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:7000/api/second-sub-category/get-second-sub-category"
+          "https://api.cakenpetals.com/api/second-sub-category/get-second-sub-category"
         );
         const categoryResponse = await axios.get(
-          "http://localhost:7000/api/get-main-category"
+          "https://api.cakenpetals.com/api/get-main-category"
         );
         const subcategoryResponse = await axios.get(
-          "http://localhost:7000/api/get-subcategory"
+          "https://api.cakenpetals.com/api/get-subcategory"
         );
         setSecondSubcategories(res.data?.data || []);
         setCategories(categoryResponse.data.data);
@@ -145,7 +145,7 @@ const AddCakeBanner = () => {
     const fetchSecondSubcategories = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:7000/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
+          `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
         );
         setSecondSubcategories(response?.data?.data);
       } catch (error) {

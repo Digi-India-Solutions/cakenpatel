@@ -23,7 +23,7 @@ const AddProductTag = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:7000/api/all-product"
+          "https://api.cakenpetals.com/api/all-product"
         );
         setProducts(response.data.data || []); // Assuming the products are in `data.data`
       } catch (error) {
@@ -140,7 +140,7 @@ const AddProductTag = () => {
 
       // Send request to backend
       const response = await axios.post(
-        "http://localhost:7000/api/create-producttag",
+        "https://api.cakenpetals.com/api/create-producttag",
         data
       );
       toast.success(response.data.message);

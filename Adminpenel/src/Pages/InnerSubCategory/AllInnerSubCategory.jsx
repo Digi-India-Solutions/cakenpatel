@@ -14,7 +14,7 @@ const AllInnerSubCategory = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "http://localhost:7000/api/get-inner-subcategory"
+          "https://api.cakenpetals.com/api/get-inner-subcategory"
         );
         setIsLoading(false);
         setInnerSubcategories(response.data.data);
@@ -44,7 +44,7 @@ const AllInnerSubCategory = () => {
 
       if (result.isConfirmed) {
         await axios.delete(
-          `http://localhost:7000/api/delete-inner-subcategory/${id}`
+          `https://api.cakenpetals.com/api/delete-inner-subcategory/${id}`
         );
         setInnerSubcategories(
           innerSubcategories.filter((subcategory) => subcategory._id !== id)
@@ -98,7 +98,7 @@ const AllInnerSubCategory = () => {
                 <td>{subcategory.innerSubcategoryName}</td>
                 <td>
                   <img
-                    src={`http://localhost:7000/${subcategory.Image}`}
+                    src={`https://api.cakenpetals.com/${subcategory.Image}`}
                     alt={subcategory.innerSubcategoryName}
                     style={{ width: "50px", height: "50px" }}
                   />

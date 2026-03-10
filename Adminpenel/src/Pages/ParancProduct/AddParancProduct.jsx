@@ -32,7 +32,7 @@ const AddParentProduct = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/parent-product/create-parent-product",
+        "https://api.cakenpetals.com/api/parent-product/create-parent-product",
         formData,
         {
           headers: {

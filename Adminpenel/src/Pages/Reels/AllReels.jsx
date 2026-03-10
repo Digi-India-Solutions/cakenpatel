@@ -38,7 +38,7 @@ const AllReels = () => {
       try {
         setIsLoading(true);
         const res = await axios.get(
-          "http://localhost:7000/api/reel/get-reels"
+          "https://api.cakenpetals.com/api/reel/get-reels"
         );
         setIsLoading(false);
         setReels(res.data?.data || []);
@@ -70,7 +70,7 @@ const AllReels = () => {
 
     try {
       await axios.delete(
-        `http://localhost:7000/api/reel/delete-reel/${id}`
+        `https://api.cakenpetals.com/api/reel/delete-reel/${id}`
       );
 
       setReels((prev) => prev.filter((item) => item._id !== id));
@@ -126,7 +126,7 @@ const AllReels = () => {
                   {/* VIDEO PREVIEW */}
                   <td>
                     <video
-                      src={`http://localhost:7000/${item?.video}`}
+                      src={`https://api.cakenpetals.com/${item?.video}`}
                       width="60"
                       height="80"
                       muted

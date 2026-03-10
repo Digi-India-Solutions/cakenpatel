@@ -20,7 +20,7 @@
 //     const fetchBannerData = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://localhost:7000/api/get-single-banner/${id}`
+//           `https://api.cakenpetals.com/api/get-single-banner/${id}`
 //         );
 //         const banner = response.data.data;
 //         console.log("banner==>banner==>banner==>", banner);
@@ -34,7 +34,7 @@
 //           subcategoryName: banner?.subcategoryName || "",
 //           secondsubcategoryName: banner?.secondsubcategoryName || "",
 //         });
-//         setPreviewImage(`http://localhost:7000/${banner.bannerImage}`);
+//         setPreviewImage(`https://api.cakenpetals.com/${banner.bannerImage}`);
 //       } catch (error) {
 //         console.error("Failed to fetch banner data:", error);
 //         toast.error("Failed to load banner data");
@@ -94,7 +94,7 @@
 //     try {
 //       setBtnLoading(true);
 //       const response = await axios.put(
-//         `http://localhost:7000/api/update-banner/${id}`,
+//         `https://api.cakenpetals.com/api/update-banner/${id}`,
 //         submitData,
 //         {
 //           headers: {
@@ -118,13 +118,13 @@
 //     const fetchSubSubcategories = async () => {
 //       try {
 //         const res = await axios.get(
-//           "http://localhost:7000/api/second-sub-category/get-second-sub-category"
+//           "https://api.cakenpetals.com/api/second-sub-category/get-second-sub-category"
 //         );
 //         const categoryResponse = await axios.get(
-//           "http://localhost:7000/api/get-main-category"
+//           "https://api.cakenpetals.com/api/get-main-category"
 //         );
 //         const subcategoryResponse = await axios.get(
-//           "http://localhost:7000/api/get-subcategory"
+//           "https://api.cakenpetals.com/api/get-subcategory"
 //         );
 //         setSecondSubcategories(res.data?.data || []);
 //         setCategories(categoryResponse.data.data);
@@ -142,7 +142,7 @@
 //     const fetchSecondSubcategories = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://localhost:7000/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
+//           `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
 //         );
 //         setSecondSubcategories(response?.data?.data);
 //       } catch (error) {
@@ -349,8 +349,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 
-// const BASE_URL = 'http://localhost:7000';
-const BASE_URL = "http://localhost:7000";
+// const BASE_URL = 'https://api.cakenpetals.com';
+const BASE_URL = "https://api.cakenpetals.com";
 
 const BANNER_TYPE_HINTS = {
   Desktop: "(1270 x 342) PX",

@@ -38,7 +38,7 @@ const AllRecommendedCategory = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        "http://localhost:7000/api/recommended-category/get-recommended-category"
+        "https://api.cakenpetals.com/api/recommended-category/get-recommended-category"
       );
       setLoading(false);
       setCategories(res.data?.data || []);
@@ -61,7 +61,7 @@ const AllRecommendedCategory = () => {
     if (!confirm.isConfirmed) return;
 
     await axios.delete(
-      `http://localhost:7000/api/recommended-category/delete-recommended-category/${id}`
+      `https://api.cakenpetals.com/api/recommended-category/delete-recommended-category/${id}`
     );
 
     setCategories((prev) => prev.filter((c) => c._id !== id));
@@ -101,7 +101,7 @@ const AllRecommendedCategory = () => {
                   <td>{i + 1}</td>
                   <td>
                     <img
-                      src={`http://localhost:7000/${item.image}`}
+                      src={`https://api.cakenpetals.com/${item.image}`}
                       width="50"
                       alt=""
                     />

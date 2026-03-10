@@ -31,8 +31,8 @@ const EditCakeBanner = () => {
     const fetchMasterData = async () => {
       try {
         const [catRes, subRes] = await Promise.all([
-          axios.get("http://localhost:7000/api/get-main-category"),
-          axios.get("http://localhost:7000/api/get-subcategory"),
+          axios.get("https://api.cakenpetals.com/api/get-main-category"),
+          axios.get("https://api.cakenpetals.com/api/get-subcategory"),
         ]);
         setCategories(catRes.data?.data || []);
         setSubcategories(subRes.data?.data || []);
@@ -51,7 +51,7 @@ const EditCakeBanner = () => {
     const fetchBanner = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:7000/api/cake-banner/get-single-cake-banner/${id}`
+          `https://api.cakenpetals.com/api/cake-banner/get-single-cake-banner/${id}`
         );
         const banner = res.data?.data;
 
@@ -65,7 +65,7 @@ const EditCakeBanner = () => {
           bannerStatus: banner?.bannerStatus || false,
         });
 
-        setPreview(`http://localhost:7000/${banner?.cakeBanner}`);
+        setPreview(`https://api.cakenpetals.com/${banner?.cakeBanner}`);
 
         // ✅ Pre-filter subcategories for saved categoryName
         if (banner?.categoryName) {
@@ -78,7 +78,7 @@ const EditCakeBanner = () => {
         // ✅ Pre-load second subcategories for saved subcategoryName
         if (banner?.subcategoryName) {
           const secRes = await axios.get(
-            `http://localhost:7000/api/second-sub-category/get-second-subcategory-by-subcategory/${banner.subcategoryName}`
+            `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${banner.subcategoryName}`
           );
           setSecondSubcategories(secRes?.data?.data || []);
         }
@@ -121,7 +121,7 @@ const EditCakeBanner = () => {
 
     try {
       const res = await axios.get(
-        `http://localhost:7000/api/second-sub-category/get-second-subcategory-by-subcategory/${subId}`
+        `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${subId}`
       );
       setSecondSubcategories(res?.data?.data || []);
     } catch (err) {
@@ -170,7 +170,7 @@ const EditCakeBanner = () => {
       if (formData.image) fd.append("cakeBanner", formData.image);
 
       await axios.put(
-        `http://localhost:7000/api/cake-banner/update-cake-banner/${id}`,
+        `https://api.cakenpetals.com/api/cake-banner/update-cake-banner/${id}`,
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

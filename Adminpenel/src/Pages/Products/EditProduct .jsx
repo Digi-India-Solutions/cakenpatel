@@ -89,19 +89,19 @@ const EditProduct = () => {
             try {
                 // Fetch dynamic data
                 // const categoryResponse = await axios.get(
-                //     "http://localhost:7000/api/get-main-category"
+                //     "https://api.cakenpetals.com/api/get-main-category"
                 // );
                 // const subcategoryResponse = await axios.get(
-                //     "http://localhost:7000/api/get-subcategory"
+                //     "https://api.cakenpetals.com/api/get-subcategory"
                 // );
                 const weightResponse = await axios.get(
-                    "http://localhost:7000/api/get-size"
+                    "https://api.cakenpetals.com/api/get-size"
                 );
                 const RecommendedProductResponse = await axios.get(
-                    "http://localhost:7000/api/recommended-product/all-product"
+                    "https://api.cakenpetals.com/api/recommended-product/all-product"
                 );
                 const response = await axios.get(
-                    "http://localhost:7000/api/parent-product/get-parent-product"
+                    "https://api.cakenpetals.com/api/parent-product/get-parent-product"
                 );
                 // setCategories(categoryResponse.data.data);
                 // setSubcategories(subcategoryResponse.data.data);
@@ -110,7 +110,7 @@ const EditProduct = () => {
                 setParentProduct(response.data.data)
                 // Fetch product details
                 const productResponse = await axios.get(
-                    `http://localhost:7000/api/get-single-product/${id}`
+                    `https://api.cakenpetals.com/api/get-single-product/${id}`
                 );
                 const productData = productResponse.data.data;
                 console.log("XXXXX::=>SSS==>", productData);
@@ -285,7 +285,7 @@ const EditProduct = () => {
         }
 
         try {
-            await axios.put(`http://localhost:7000/api/update-product/${id}`, form, {
+            await axios.put(`https://api.cakenpetals.com/api/update-product/${id}`, form, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -304,7 +304,7 @@ const EditProduct = () => {
     //     const fetchSecondSubcategories = async () => {
     //         try {
     //             const response = await axios.get(
-    //                 `http://localhost:7000/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
+    //                 `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${formData.subcategoryName}`
     //             );
     //             setSecondSubcategories(response?.data?.data);
     //         } catch (error) {

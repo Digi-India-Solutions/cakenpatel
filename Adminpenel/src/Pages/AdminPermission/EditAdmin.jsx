@@ -29,7 +29,7 @@ const EditAdmin = () => {
     const fetchAdmin = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:7000/api/user/${id}`
+          `https://api.cakenpetals.com/api/user/${id}`
         );
 
         const data = res?.data?.data;
@@ -77,7 +77,7 @@ const EditAdmin = () => {
       }
 
       const res = await axios.put(
-        `http://localhost:7000/api/user/update-admin/${id}`,
+        `https://api.cakenpetals.com/api/user/update-admin/${id}`,
         body
       );
 

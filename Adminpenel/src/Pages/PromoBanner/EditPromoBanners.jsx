@@ -25,7 +25,7 @@ const EditPromoBanners = () => {
     const fetchBanner = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:7000/api/promo-banner/get-single-promo-banner/${id}`
+          `https://api.cakenpetals.com/api/promo-banner/get-single-promo-banner/${id}`
         );
 
         const banner = res.data.data;
@@ -40,7 +40,7 @@ const EditPromoBanners = () => {
         });
 
         setPreview(
-          `http://localhost:7000/${banner.image}`
+          `https://api.cakenpetals.com/${banner.image}`
         );
       } catch (err) {
         toast.error("Failed to load promo banner");
@@ -82,7 +82,7 @@ const EditPromoBanners = () => {
       }
 
       await axios.put(
-        `http://localhost:7000/api/promo-banner/update-promo-banner/${id}`,
+        `https://api.cakenpetals.com/api/promo-banner/update-promo-banner/${id}`,
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

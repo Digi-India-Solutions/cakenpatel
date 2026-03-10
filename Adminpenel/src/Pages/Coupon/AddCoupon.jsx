@@ -47,7 +47,7 @@ const AddCoupon = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:7000/api/coupon/create-coupon", body);
+            const response = await axios.post("https://api.cakenpetals.com/api/coupon/create-coupon", body);
             console.log(response);
             if (response.status === 201) {
                 toast.success(response?.data?.message || "Coupon created successfully");

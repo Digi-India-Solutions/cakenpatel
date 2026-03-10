@@ -23,7 +23,7 @@ const EditParentProduct = () => {
         setIsFetching(true);
 
         const response = await axios.get(
-          `http://localhost:7000/api/parent-product/get-single-parent-product/${id}`
+          `https://api.cakenpetals.com/api/parent-product/get-single-parent-product/${id}`
         );
 
         const data = response?.data?.data;
@@ -67,7 +67,7 @@ const EditParentProduct = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:7000/api/parent-product/update-parent-product/${id}`,
+        `https://api.cakenpetals.com/api/parent-product/update-parent-product/${id}`,
         {
           parentProductName: formData.parentProductName,
           ActiveonHome: formData.activeOnHome,

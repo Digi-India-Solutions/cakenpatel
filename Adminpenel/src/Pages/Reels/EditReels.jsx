@@ -42,7 +42,7 @@ const EditReels = () => {
     const fetchReel = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:7000/api/reel/get-single-reel/${id}`
+          `https://api.cakenpetals.com/api/reel/get-single-reel/${id}`
         );
 
         const data = res.data?.data;
@@ -72,7 +72,7 @@ const EditReels = () => {
     const fetchAllProduct = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:7000/api/all-product"
+          "https://api.cakenpetals.com/api/all-product"
         );
         setProductList(res.data?.data || []);
       } catch (error) {
@@ -155,7 +155,7 @@ const EditReels = () => {
         fd.append("productImage", formData.productImage);
 
       const res = await axios.put(
-        `http://localhost:7000/api/reel/update-reel/${id}`,
+        `https://api.cakenpetals.com/api/reel/update-reel/${id}`,
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

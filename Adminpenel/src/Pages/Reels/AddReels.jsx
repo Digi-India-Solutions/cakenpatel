@@ -110,7 +110,7 @@ const AddReels = () => {
       fd.append("activeOnHome", formData.activeOnHome);
 
       const res = await axios.post(
-        "http://localhost:7000/api/reel/create-reel",
+        "https://api.cakenpetals.com/api/reel/create-reel",
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -143,7 +143,7 @@ const AddReels = () => {
     const fetchAllProduct = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:7000/api/all-product"
+          "https://api.cakenpetals.com/api/all-product"
         );
         setProductList(res.data?.data || []);
       } catch (error) {
