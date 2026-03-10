@@ -16,9 +16,11 @@ const ProductPreviewSchema = new mongoose.Schema(
             type: [String],
             default: null
         },
+        
         massege: {
             type: String
         },
+
         rating: {
             type: Number,
             default: 0,

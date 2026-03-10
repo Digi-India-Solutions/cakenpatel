@@ -30,8 +30,9 @@ const bannerSchema = new mongoose.Schema({
     },
 
     bannerStatus: {
-        type: String,
-        default: "False"
+        // type: String,
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

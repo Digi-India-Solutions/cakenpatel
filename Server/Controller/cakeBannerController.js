@@ -71,6 +71,7 @@ const updateBanner = async (req, res) => {
     try {
         const { id } = req.params;
         const { bannerKey, bannerStatus, secondsubcategoryName, categoryName, subcategoryName, titel } = req.body;
+        console.log("update-banner==>", req.body);
         const banner = await Banner.findById(id);
         if (!banner) return res.status(404).json({ success: false, message: "Banner not found" });
 
@@ -87,7 +88,7 @@ const updateBanner = async (req, res) => {
         banner.titel = titel || banner.titel;
         banner.bannerKey = bannerKey || banner.bannerKey;
         // banner.bannerType = bannerType || banner.bannerType;
-        banner.bannerStatus = bannerStatus || banner.bannerStatus;
+        banner.bannerStatus = bannerStatus || banner?.bannerStatus;
 
         await banner.save();
         res.status(200).json({ success: true, data: banner });

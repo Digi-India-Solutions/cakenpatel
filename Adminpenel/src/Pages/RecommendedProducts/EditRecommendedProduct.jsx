@@ -171,7 +171,7 @@ const EditProduct = () => {
                         <input type="file" className="form-control" id="productImage" name="productImage" multiple onChange={handleFileChange} />
                     </div>
 
-                    <div className="col-md-3">
+                    {/* <div className="col-md-3">
                         <label className="form-label">Active on Home</label>
                         <input
                             type="checkbox"
@@ -185,7 +185,7 @@ const EditProduct = () => {
                                 })
                             }
                         />
-                    </div>
+                    </div> */}
                     <div className="col-md-12 text-center">
                         <button type="submit" className="btn btn-success" disabled={isLoading}>
                             {isLoading ? 'Adding...' : 'Update Product'}

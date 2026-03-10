@@ -16,7 +16,7 @@ const AllPinCode = () => {
     const [file, setFile] = useState(null);
     const [excelLoading, setExcelLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10);
+    const [itemsPerPage] = useState(50);
     const [totalPages, setTotalPages] = useState(1);
     const AdminData = JSON.parse(sessionStorage.getItem("AdminData"))
 

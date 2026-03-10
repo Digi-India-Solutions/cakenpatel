@@ -11,7 +11,7 @@ const RecommendedCategorySchema = new mongoose.Schema({
     },
     ActiveonHome: {
         type: Boolean,
-        default: false
+        default: true
     },
 
 }, { timestamps: true })

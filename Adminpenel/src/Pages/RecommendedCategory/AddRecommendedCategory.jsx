@@ -34,8 +34,7 @@ const AddSubSubCategory = () => {
     e.preventDefault();
 
     if (
-      !formData.name ||
-      !formData.image
+      !formData.name || !formData.image
     ) {
       toast.error("All fields are required");
       return;
@@ -110,7 +109,7 @@ const AddSubSubCategory = () => {
           </div>
 
           {/* ACTIVE */}
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <label className="form-label">Display on Homepage</label>
             <div className="form-check">
               <input
@@ -124,7 +123,7 @@ const AddSubSubCategory = () => {
                 Active on Homepage
               </label>
             </div>
-          </div>
+          </div> */}
 
 
 

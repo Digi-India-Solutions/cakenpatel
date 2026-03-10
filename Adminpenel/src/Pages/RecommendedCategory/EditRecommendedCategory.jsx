@@ -82,10 +82,10 @@ const EditRecommendedCategory = () => {
           {preview && <img src={preview} width="80" className="mt-2" />}
         </div>
 
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <input type="checkbox" name="ActiveonHome" checked={formData.ActiveonHome} onChange={handleChange} />
           Active on Home
-        </div>
+        </div> */}
 
         <div className="col-12 text-center">
           <button className="btn btn-dark">Update</button>

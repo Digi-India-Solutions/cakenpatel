@@ -317,22 +317,22 @@ const EditCakeBanner = () => {
           </div>
 
           {/* BANNER STATUS */}
-          <div className="col-md-4 d-flex align-items-center gap-2 mt-2">
+          {/* <div className="col-md-4 d-flex align-items-center gap-2 mt-2">
             <label className="form-label mb-0">Active Status</label>
             <div className="form-check form-switch ms-2">
               <input
                 className="form-check-input"
                 type="checkbox"
-                checked={formData.bannerStatus}
+                checked={formData?.bannerStatus}
                 onChange={(e) =>
                   setFormData((prev) => ({ ...prev, bannerStatus: e.target.checked }))
                 }
               />
               <label className="form-check-label">
-                {formData.bannerStatus ? "Active" : "Inactive"}
+                {formData?.bannerStatus ? "Active" : "Inactive"}
               </label>
             </div>
-          </div>
+          </div> */}
 
           {/* PREVIEW */}
           {preview && (

@@ -6,7 +6,7 @@ const RecommendedProduct = require("../Model/RecommendedProductModel");
 exports.createRecommendedCategory = async (req, res) => {
   try {
     const { name, ActiveonHome } = req.body;
-
+console.log("ActiveonHome", req.body)
     if (!name || !req.file) {
       return res.status(400).json({ success: false, message: "Name & image required" });
     }

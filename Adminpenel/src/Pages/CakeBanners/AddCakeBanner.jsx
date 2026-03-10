@@ -42,12 +42,7 @@ const AddCakeBanner = () => {
   const [secondSubcategories, setSecondSubcategories] = useState([]);
   const [filteredSubcategories, setFilteredSubcategories] = useState([]);
 
-  const [formData, setFormData] = useState({
-    bannerKey: "",
-    secondsubcategoryName: "",
-    image: null,
-    bannerStatus: false,
-  });
+  const [formData, setFormData] = useState({ bannerKey: "", secondsubcategoryName: "", image: null, bannerStatus: false, });
 
   /* ================= HANDLE CHANGE ================= */
   const handleChange = (e) => {

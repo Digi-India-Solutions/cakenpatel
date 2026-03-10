@@ -232,7 +232,7 @@ const getProductByname = async (req, res) => {
     const { name } = req.params;
     try {
         const product = await Product.findOne({ productName: name })
-        // .populate('categoryName')
+            // .populate('categoryName')
             .sort({ createdAt: -1 })
             // .populate('subcategoryName')
             // .populate('secondsubcategoryName')
@@ -281,10 +281,10 @@ const getProductsBySubcategoryId = async (req, res) => {
                 { secondsubcategoryName: id }, // second subcategory
             ]
         }).sort({ createdAt: -1 })
-        // .populate("categoryName")
-        // .populate("subcategoryName")
-        // .populate("secondsubcategoryName")
-        .populate("recommendedProductId");
+            // .populate("categoryName")
+            // .populate("subcategoryName")
+            // .populate("secondsubcategoryName")
+            .populate("recommendedProductId");
 
 
         res.status(200).json({ data: products });
