@@ -77,7 +77,7 @@ const updateBanner = async (req, res) => {
             banner.bannerImage = req.file.path;
         }
         console.log("update-banner==>", req.body);
-        
+
         // Update banner details
         banner.bannerName = bannerName || banner.bannerName;
         banner.bannerType = bannerType || banner.bannerType;
@@ -117,6 +117,7 @@ const bannerStatusBanner = async (req, res) => {
         const { bannerStatus } = req.body;
         const banner = await Banner.findById(id);
         if (!banner) return res.status(404).json({ success: false, message: "Banner not found" });
+
         banner.bannerStatus = bannerStatus ? 'True' : 'False';
         await banner.save();
         res.status(200).json({ success: true, data: banner });

@@ -61,7 +61,7 @@ const AllSBanner = () => {
       AdminData?.permissions?.[module]?.write === true
     );
   };
-  
+
   const hasAccessDelete = (module) => {
     return (
       AdminData?.role === "Admin" ||
@@ -76,7 +76,7 @@ const AllSBanner = () => {
     );
   };
 
-  const handleStatus = async (id) => {
+  const handleStatus = async (id, status) => {
     try {
       const result = await Swal.fire({
         title: "Are you sure?",
@@ -87,9 +87,8 @@ const AllSBanner = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, change it!",
       });
-
       if (result.isConfirmed) {
-        await axios.put(`https://api.cakenpetals.com/api/banner/status-banner/${id}`, { bannerStatus: !banners?.find((banner) => banner?._id === id)?.status });
+        await axios.put(`https://api.cakenpetals.com/api/banner/status-banner/${id}`, { bannerStatus: status });
         fetchBanners();
         toast.success("Status changed successfully");
       }
@@ -159,9 +158,8 @@ const AllSBanner = () => {
                   <td>
                     <input
                       type="checkbox"
-                      readOnly
-                      onChange={(e) => handleStatus(banner._id, e.target.value)}
-                      checked={banner?.bannerStatus === "True"}
+                      checked={banner?.bannerStatus === 'True' ? true : false}
+                      onChange={(e) => handleStatus(banner?._id, e.target.checked)}
                     />{" "}
                     {banner?.bannerStatus}
                   </td>

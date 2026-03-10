@@ -216,7 +216,7 @@ const getProduct = async (req, res) => {
             .populate('recommendedProductId')
             .populate('parentProductId')
             // .populate('Variant.weight')
-            .populate('Variant.flover');
+            // .populate('Variant.flover');
 
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
@@ -238,7 +238,7 @@ const getProductByname = async (req, res) => {
             // .populate('secondsubcategoryName')
             .populate('recommendedProductId')
             // .populate('Variant.weight')
-            .populate('Variant.flover');
+            // .populate('Variant.flover');
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
