@@ -1323,7 +1323,7 @@ const ProductDetails = () => {
   const getApiData = async () => {
     try {
       const res = await axios.get(
-        `https://api.cakenpetals.com/api/get-product-by-name/${name?.replace(/-/g, " ")}`
+        `https://api.cakenpetals.com/api/get-product-by-name/${name?.replace(/-/g, " ").replace(/\s+/g, " ").trim()}`
       );
       const productData = res.data.data;
       console.log(productData.Variant)
