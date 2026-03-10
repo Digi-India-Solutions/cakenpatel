@@ -26,7 +26,7 @@ const AddRefrenceCompany = () => {
     try {
       // Send POST request to create reference company
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-ref-company",
+        "http://localhost:7000/api/create-ref-company",
         formData
       );
       toast.success(response.data.message);

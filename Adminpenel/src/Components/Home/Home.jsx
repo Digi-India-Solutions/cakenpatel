@@ -94,7 +94,7 @@ const Home = () => {
 
   const verifyAdmin = async () => {
     try {
-      const response = await axios.get("https://api.cakenpetals.com/api/admin/verify-admin", { withCredentials: true });
+      const response = await axios.get("http://localhost:7000/api/admin/verify-admin", { withCredentials: true });
       console.log("response==>", response?.data?.token)
       if (response.status === 200) {
         setLogins(true);

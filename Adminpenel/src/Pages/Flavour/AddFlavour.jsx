@@ -34,7 +34,7 @@ const AddFlover = () => {
     try {
       // Send a POST request to add the flover
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-flover",
+        "http://localhost:7000/api/create-flover",
         formData
       ); // Adjust the URL as needed
       toast.success(response.data.message);

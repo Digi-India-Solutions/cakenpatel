@@ -36,7 +36,7 @@ const AllProduct = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "https://api.cakenpetals.com/api/all-product"
+        "http://localhost:7000/api/all-product"
       );
       setIsLoading(false);
       console.log("XXXXXXXXXXXXXXXX==>", response.data.data);
@@ -70,7 +70,7 @@ const AllProduct = () => {
     if (confirm.isConfirmed) {
       try {
         await axios.delete(
-          `https://api.cakenpetals.com/api/delete-product/${productId}`
+          `http://localhost:7000/api/delete-product/${productId}`
         );
         setProducts(products.filter((product) => product._id !== productId));
         toast.success("Product deleted successfully!");
@@ -84,7 +84,7 @@ const AllProduct = () => {
 
   const handleCheckboxChange = async (type, e, productId) => {
     try {
-      const response = await axios.post(`https://api.cakenpetals.com/api/change-status`, {
+      const response = await axios.post(`http://localhost:7000/api/change-status`, {
         isActive: e,
         type,
         productId: productId
@@ -170,7 +170,7 @@ const AllProduct = () => {
                   {/* <td>{product.secondsubcategoryName?.secondsubcategoryName || "N/A"}</td> */}
                   <td>
                     {product?.productImage?.map((image, imgIndex) => (
-                      <img key={imgIndex} src={`https://api.cakenpetals.com/${image}`} alt="Product" style={{ width: "50px", marginRight: "5px" }} />
+                      <img key={imgIndex} src={`http://localhost:7000/${image}`} alt="Product" style={{ width: "50px", marginRight: "5px" }} />
                     ))}
                   </td>
                   <td>{product.productName}</td>

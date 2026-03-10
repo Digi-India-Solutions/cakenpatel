@@ -12,7 +12,7 @@ const AllSubscribe = () => {
     const fetchUsers = async () => {
         try {
             const response = await axios.get(
-                "https://api.cakenpetals.com/api/subscribe-email/get-subscribe"
+                "http://localhost:7000/api/subscribe-email/get-subscribe"
             );
 
             if (response?.data?.success) {
@@ -42,7 +42,7 @@ const AllSubscribe = () => {
 
         try {
             const response = await axios.delete(
-                `https://api.cakenpetals.com/api/subscribe-email/delete-subscribe/${id}`
+                `http://localhost:7000/api/subscribe-email/delete-subscribe/${id}`
             );
 
             if (response?.data?.success) {

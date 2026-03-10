@@ -11,7 +11,7 @@ const AllProductTag = () => {
     const fetchProductTags = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-producttag"
+          "http://localhost:7000/api/get-producttag"
         ); // Replace with your actual API endpoint
         setProductTags(response.data.data);
         //console.log(response);
@@ -36,7 +36,7 @@ const AllProductTag = () => {
       if (result.isConfirmed) {
         try {
           await axios.delete(
-            `https://api.cakenpetals.com/api/delete-producttag/${id}`
+            `http://localhost:7000/api/delete-producttag/${id}`
           ); // Replace with your actual API endpoint
 
           // Remove the deleted tag from the state
@@ -92,7 +92,7 @@ const AllProductTag = () => {
                   <td>{tag.sortDescription}</td>
                   <td>
                     <img
-                      src={`https://api.cakenpetals.com/${tag.image}`}
+                      src={`http://localhost:7000/${tag.image}`}
                       alt={tag.tagHeading}
                       style={{ width: "100px", height: "auto" }}
                     />
@@ -108,7 +108,7 @@ const AllProductTag = () => {
                         <strong>Min:</strong> {range.priceMinimum}{" "}
                         <strong>Max:</strong> {range.priceMaximum}{" "}
                         <img
-                          src={`https://api.cakenpetals.com/${range.priceRangeImage}`}
+                          src={`http://localhost:7000/${range.priceRangeImage}`}
                           alt={`Price Range ${index}`}
                           style={{ width: "50px", height: "auto" }}
                         />

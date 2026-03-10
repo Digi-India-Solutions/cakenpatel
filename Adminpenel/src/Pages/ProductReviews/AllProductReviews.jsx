@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const BASE_URL = "https://api.cakenpetals.com";
+const BASE_URL = "http://localhost:7000";
 
 const AllProductReviews = () => {
     // ── State ──────────────────────────────────────────────────────────────────

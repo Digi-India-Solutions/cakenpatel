@@ -36,7 +36,7 @@ const AllCoupon = () => {
         const fetchCoupons = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get('https://api.cakenpetals.com/api/coupon/get-all-coupons');
+                const response = await axios.get('http://localhost:7000/api/coupon/get-all-coupons');
                 console.log("SSSSSS::=>", response)
 
                 if (response.status === 200) {
@@ -68,7 +68,7 @@ const AllCoupon = () => {
 
         if (confirmDelete.isConfirmed) {
             try {
-                const response = await axios.get(`https://api.cakenpetals.com/api/coupon/delete-coupon/${id}`);
+                const response = await axios.get(`http://localhost:7000/api/coupon/delete-coupon/${id}`);
                 if (response.status === 200) {
                     setCoupons(coupons?.filter(coupon => coupon?._id !== id));
                     Swal.fire('Deleted!', 'Your coupon has been deleted.', 'success');
@@ -85,7 +85,7 @@ const AllCoupon = () => {
         const updatedStatus = e.target.checked;
 
         try {
-            const response = await axios.post(`https://api.cakenpetals.com/api/coupon/change-status`, {
+            const response = await axios.post(`http://localhost:7000/api/coupon/change-status`, {
                 isActive: updatedStatus,
                 couponId: couponId
             });

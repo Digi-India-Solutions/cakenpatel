@@ -65,7 +65,7 @@ const AddPinCode = () => {
 
         try {
             const res = await axios.post(
-                "https://api.cakenpetals.com/api/pincode/create-pincode",
+                "http://localhost:7000/api/pincode/create-pincode",
                 {
                     ...formData,
                     area: formData.area.trim(),

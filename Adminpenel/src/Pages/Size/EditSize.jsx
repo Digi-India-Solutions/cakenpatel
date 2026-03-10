@@ -17,7 +17,7 @@ const EditSize = () => {
     const fetchSize = async () => {
       try {
         const response = await axios.get(
-          `https://api.cakenpetals.com/api/get-single-size/${id}`
+          `http://localhost:7000/api/get-single-size/${id}`
         ); // Adjust the endpoint for sizes
         // Convert sizeStatus to boolean for easier handling
         setSizeData({
@@ -56,7 +56,7 @@ const EditSize = () => {
 
     try {
       const response = await axios.put(
-        `https://api.cakenpetals.com/api/update-size/${id}`,
+        `http://localhost:7000/api/update-size/${id}`,
         updatedData
       ); // Adjust the update endpoint
       toast.success(response.data.message); // Show success message

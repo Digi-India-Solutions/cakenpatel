@@ -36,7 +36,7 @@ const AllSubCategory = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-subcategory"
+          "http://localhost:7000/api/get-subcategory"
         );
         setIsLoading(false);
         setSubcategories(response.data.data); // assuming the data is in response.data.data
@@ -66,7 +66,7 @@ const AllSubCategory = () => {
     if (confirmDelete.isConfirmed) {
       try {
         await axios.delete(
-          `https://api.cakenpetals.com/api/delete-subcategory/${id}`
+          `http://localhost:7000/api/delete-subcategory/${id}`
         );
         setSubcategories(
           subcategories.filter((subcategory) => subcategory._id !== id)
@@ -119,8 +119,8 @@ const AllSubCategory = () => {
               subcategories.map((subcategory, index) => (
                 <tr key={subcategory._id}>
                   <th scope="row">{index + 1}</th>
-                  {/* <th><img src={`https://api.cakenpetals.com/${subcategory?.image}`} alt={subcategory?.subcategoryName} /></th> */}
-                  {/* <th><img src={`https://api.cakenpetals.com/${subcategory?.banner}`} alt={subcategory.subcategoryName} /></th> */}
+                  {/* <th><img src={`http://localhost:7000/${subcategory?.image}`} alt={subcategory?.subcategoryName} /></th> */}
+                  {/* <th><img src={`http://localhost:7000/${subcategory?.banner}`} alt={subcategory.subcategoryName} /></th> */}
                   <td>{subcategory?.categoryName?.mainCategoryName}</td>
                   <td>{subcategory.subcategoryName}</td>
                   {hasAccessEdit('category') && <td>

@@ -122,10 +122,10 @@ const getProductsActiveonHome = async (req, res) => {
             //     path: 'Variant.weight',
             //     model: 'Size',
             // })
-            .populate({
-                path: 'Variant.flover',
-                model: 'Flover',
-            });
+            // .populate({
+            //     path: 'Variant.flover',
+            //     model: 'Flover',
+            // });
 
         res.status(200).json({ data: products });
     } catch (err) {
@@ -145,10 +145,10 @@ const getFeaturedProducts = async (req, res) => {
             //     path: 'Variant.weight',
             //     model: 'Size',
             // })
-            .populate({
-                path: 'Variant.flover',
-                model: 'Flover',
-            });
+            // .populate({
+            //     path: 'Variant.flover',
+            //     model: 'Flover',
+            // });
 
         res.status(200).json({ data: products });
     } catch (err) {
@@ -168,10 +168,10 @@ const getBestSellingProducts = async (req, res) => {
             //     path: 'Variant.weight',
             //     model: 'Size',
             // })
-            .populate({
-                path: 'Variant.flover',
-                model: 'Flover',
-            });
+            // .populate({
+            //     path: 'Variant.flover',
+            //     model: 'Flover',
+            // });
 
         res.status(200).json({ data: products });
     } catch (err) {
@@ -192,10 +192,10 @@ const getProducts = async (req, res) => {
             //     path: 'Variant.weight',
             //     model: 'Size',
             // })
-            .populate({
-                path: 'Variant.flover',
-                model: 'Flover',
-            });
+            // .populate({
+            //     path: 'Variant.flover',
+            //     model: 'Flover',
+            // });
 
         // console.log("ParentProductParentProduct=>>", products[0])
         res.status(200).json({ data: products });

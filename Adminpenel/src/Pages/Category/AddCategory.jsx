@@ -23,7 +23,7 @@ const AddCategory = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-main-category",
+        "http://localhost:7000/api/create-main-category",
         formData,
         {
           headers: {

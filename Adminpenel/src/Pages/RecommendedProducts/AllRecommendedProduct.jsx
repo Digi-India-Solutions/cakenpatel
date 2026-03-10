@@ -16,7 +16,7 @@ const AllRecommendedProduct = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/recommended-product/all-product"
+          "http://localhost:7000/api/recommended-product/all-product"
         );
         //console.log(response);
         setIsLoading(false);
@@ -47,7 +47,7 @@ const AllRecommendedProduct = () => {
     if (confirm.isConfirmed) {
       try {
         await axios.delete(
-          `https://api.cakenpetals.com/api/recommended-product/delete-product/${productId}`
+          `http://localhost:7000/api/recommended-product/delete-product/${productId}`
         );
         setProducts(products.filter((product) => product._id !== productId));
         toast.success("Product deleted successfully!");
@@ -124,7 +124,7 @@ const AllRecommendedProduct = () => {
                     {product.productImage.map((image, imgIndex) => (
                       <img
                         key={imgIndex}
-                        src={`https://api.cakenpetals.com/${image}`}
+                        src={`http://localhost:7000/${image}`}
                         alt="Product"
                         style={{ width: "50px", marginRight: "5px" }}
                       />

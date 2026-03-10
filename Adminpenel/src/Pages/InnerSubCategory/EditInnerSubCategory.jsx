@@ -24,7 +24,7 @@ const EditInnerSubCategory = () => {
     const fetchMainCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          "http://localhost:7000/api/get-main-category"
         );
         setMainCategories(response.data.data);
       } catch (error) {
@@ -37,7 +37,7 @@ const EditInnerSubCategory = () => {
     const fetchSubCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-subcategory"
+          "http://localhost:7000/api/get-subcategory"
         );
         setSubCategories(response.data.data);
       } catch (error) {
@@ -50,7 +50,7 @@ const EditInnerSubCategory = () => {
     const fetchInnerSubCategoryDetails = async () => {
       try {
         const response = await axios.get(
-          `https://api.cakenpetals.com/api/single-inner-subcategory/${id}`
+          `http://localhost:7000/api/single-inner-subcategory/${id}`
         );
         const data = response.data.data;
         setFormData({
@@ -115,7 +115,7 @@ const EditInnerSubCategory = () => {
 
     try {
       const response = await axios.put(
-        `https://api.cakenpetals.com/api/update-inner-subcategory/${id}`,
+        `http://localhost:7000/api/update-inner-subcategory/${id}`,
         data,
         {
           headers: {

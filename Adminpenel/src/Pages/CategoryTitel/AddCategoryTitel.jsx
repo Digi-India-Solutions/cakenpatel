@@ -20,7 +20,7 @@ const AddCategoryTitel = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          "http://localhost:7000/api/get-main-category"
         );
         if (response.data && response.data.data) {
           setCategoriesList(response.data.data); // Set fetched categories
@@ -84,7 +84,7 @@ const AddCategoryTitel = () => {
 
     try {
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-main-category",
+        "http://localhost:7000/api/create-main-category",
         uploadData,
         {
           headers: {

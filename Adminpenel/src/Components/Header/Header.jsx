@@ -24,7 +24,7 @@ const Header = () => {
   }
 
   const handleLogout = () => {
-    const res = axios.post('https://api.cakenpetals.com/api/admin/logout', {}, { withCredentials: true });
+    const res = axios.post('http://localhost:7000/api/admin/logout', {}, { withCredentials: true });
     sessionStorage.removeItem('login'); // Remove login status
     window.location.href = '/login' // Redirect to login page
   };
@@ -32,7 +32,7 @@ const Header = () => {
   const handleToggleOrders = async () => {
     setOrderActive((prev) => !prev);
     try {
-      const res = await axios.post(`https://api.cakenpetals.com/api/active-order/upload-active-order`, { isActive: !orderActive });
+      const res = await axios.post(`http://localhost:7000/api/active-order/upload-active-order`, { isActive: !orderActive });
     } catch (e) {
       console.log(e);
     }
@@ -49,7 +49,7 @@ const Header = () => {
 
   const fetchOrderStatus = async () => {
     try {
-      const res = await axios.get(`https://api.cakenpetals.com/api/active-order/get-active-order`);
+      const res = await axios.get(`http://localhost:7000/api/active-order/get-active-order`);
       setOrderActive(res.data.data.isActive || false);
     } catch (e) {
       console.log(e);
@@ -58,7 +58,7 @@ const Header = () => {
 
   const fetchAdminUser = async () => {
     try {
-      const res = await axios.get(`https://api.cakenpetals.com/api/user/${AdminDatas?._id || AdminDatas?.userId}`);
+      const res = await axios.get(`http://localhost:7000/api/user/${AdminDatas?._id || AdminDatas?.userId}`);
       console.log(".data.data==>", res);
       setAdminData(res.data.data);
       sessionStorage.setItem("AdminData", JSON.stringify(res.data.data));

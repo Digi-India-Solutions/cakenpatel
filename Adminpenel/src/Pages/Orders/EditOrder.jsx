@@ -43,7 +43,7 @@
 //   // Fetch API data
 //   const getApiData = async () => {
 //     try {
-//       const res = await axios.get(`https://api.cakenpetals.com/api/checkout/${id}`);
+//       const res = await axios.get(`http://localhost:7000/api/checkout/${id}`);
 //       setOrderData(res.data);
 //       setOrderStatus(res.data.orderStatus);
 //       setPaymentStatus(res.data.paymentStatus);
@@ -67,7 +67,7 @@
 //         orderStatusMassage
 //       };
 //       const res = await axios.put(
-//         `https://api.cakenpetals.com/api/checkout/${id}`,
+//         `http://localhost:7000/api/checkout/${id}`,
 //         updatedData
 //       );
 //       toast.success("Order updated successfully!");
@@ -362,7 +362,7 @@
 //                       </p>
 //                       <p className="mb-0">Message: {item?.massage}</p>
 //                       <img
-//                         src={`https://api.cakenpetals.com/${item.image}`}
+//                         src={`http://localhost:7000/${item.image}`}
 //                         alt={item.name}
 //                         style={{
 //                           width: "100px",
@@ -625,7 +625,7 @@ const EditOrder = () => {
   const getApiData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`https://api.cakenpetals.com/api/checkout/${id}`);
+      const res = await axios.get(`http://localhost:7000/api/checkout/${id}`);
       setOrderData(res.data);
       setOrderStatus(res.data.orderStatus);
       setPaymentStatus(res.data.paymentStatus);
@@ -653,7 +653,7 @@ const EditOrder = () => {
       };
       console.log("SSSSSDDD==>", orderData, updatedData);
       const res = await axios.put(
-        `https://api.cakenpetals.com/api/checkout/${id}`,
+        `http://localhost:7000/api/checkout/${id}`,
         updatedData
       );
       toast.success("Order updated successfully!");
@@ -902,7 +902,7 @@ const EditOrder = () => {
                     <div key={index} className="mb-4 pb-3 border-bottom">
                       <div className="d-flex gap-3">
                         <img
-                          src={`https://api.cakenpetals.com/${item.image}`}
+                          src={`http://localhost:7000/${item.image}`}
                           alt={item.name}
                           style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }}
                         />

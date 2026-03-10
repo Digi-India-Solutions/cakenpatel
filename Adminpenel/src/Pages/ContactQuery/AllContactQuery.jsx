@@ -31,7 +31,7 @@ const AllContactQuery = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://api.cakenpetals.com/api/contacts"
+        "http://localhost:7000/api/contacts"
       );
 
       if (response?.data?.success) {
@@ -62,7 +62,7 @@ const AllContactQuery = () => {
 
     try {
       const response = await axios.delete(
-        `https://api.cakenpetals.com/api/contact/${id}`
+        `http://localhost:7000/api/contact/${id}`
       );
 
       if (response?.data?.success) {

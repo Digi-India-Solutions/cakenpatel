@@ -63,7 +63,7 @@ const AddPromoBanners = () => {
       fd.append("isActive", formData.isActive);
 
       await axios.post(
-        "https://api.cakenpetals.com/api/promo-banner/upload-promo-banner",
+        "http://localhost:7000/api/promo-banner/upload-promo-banner",
         fd,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

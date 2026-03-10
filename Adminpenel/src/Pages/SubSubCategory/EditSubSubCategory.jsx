@@ -34,7 +34,7 @@ const EditSubSubCategory = () => {
     const fetchProductList = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/all-product"
+          "http://localhost:7000/api/all-product"
         );
         //console.log(response);
         setProductList(response.data.data || []);
@@ -52,7 +52,7 @@ const EditSubSubCategory = () => {
     const fetchMainCategories = async () => {
       try {
         const res = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          "http://localhost:7000/api/get-main-category"
         );
         setMainCategories(res.data?.data || []);
       } catch {
@@ -66,7 +66,7 @@ const EditSubSubCategory = () => {
     const fetchSecondSubcategory = async () => {
       try {
         // alert("XXXXXXXX:=>")
-        const res = await axios.get(`https://api.cakenpetals.com/api/second-sub-category/get-single-second-sub-category/${id}`);
+        const res = await axios.get(`http://localhost:7000/api/second-sub-category/get-single-second-sub-category/${id}`);
 
         console.log("XXXXXX:=>XXXXXX:=>", res.data.data)
         const data = res.data.data;
@@ -96,7 +96,7 @@ const EditSubSubCategory = () => {
     const fetchSubCategories = async () => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/get-subcategory-by-maincategory/${formData.mainCategoryId}`
+          `http://localhost:7000/api/get-subcategory-by-maincategory/${formData.mainCategoryId}`
         );
         setSubCategories(res.data?.data || []);
       } catch {
@@ -150,7 +150,7 @@ const EditSubSubCategory = () => {
       }
 
       const res = await axios.put(
-        `https://api.cakenpetals.com/api/second-sub-category/update-second-sub-category/${id}`,
+        `http://localhost:7000/api/second-sub-category/update-second-sub-category/${id}`,
         fd,
         {
           headers: { "Content-Type": "multipart/form-data" },

@@ -21,7 +21,7 @@ const AddInnerSubCategory = () => {
     const fetchMainCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          "http://localhost:7000/api/get-main-category"
         );
         setMainCategories(response.data.data);
       } catch (error) {
@@ -36,7 +36,7 @@ const AddInnerSubCategory = () => {
     const fetchSubCategories = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-subcategory"
+          "http://localhost:7000/api/get-subcategory"
         );
         setSubCategories(response.data.data);
       } catch (error) {
@@ -94,7 +94,7 @@ const AddInnerSubCategory = () => {
 
     try {
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-inner-subcategory",
+        "http://localhost:7000/api/create-inner-subcategory",
         data,
         {
           headers: {

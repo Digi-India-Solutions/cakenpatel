@@ -34,7 +34,7 @@ const AddSize = () => {
     try {
       // Send a POST request to add the size
       const response = await axios.post(
-        "https://api.cakenpetals.com/api/create-size",
+        "http://localhost:7000/api/create-size",
         formData
       ); // Adjust the URL as needed
       toast.success(response.data.message);

@@ -11,11 +11,11 @@ const VariantSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    flover: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Flover",
-        default: null
-    },
+    // flover: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Flover",
+    //     default: null
+    // },
     price: {
         type: Number,
         required: true

@@ -39,7 +39,7 @@ const AllSubSubCategory = () => {
       try {
         setIsLoading(true);
         const res = await axios.get(
-          "https://api.cakenpetals.com/api/second-sub-category/get-second-sub-category"
+          "http://localhost:7000/api/second-sub-category/get-second-sub-category"
         );
         setIsLoading(false);
         setSubSubcategories(res.data?.data || []);
@@ -71,7 +71,7 @@ const AllSubSubCategory = () => {
 
     try {
       await axios.delete(
-        `https://api.cakenpetals.com/api/second-sub-category/delete-second-sub-category/${id}`
+        `http://localhost:7000/api/second-sub-category/delete-second-sub-category/${id}`
       );
 
       setSubSubcategories((prev) =>
@@ -142,7 +142,7 @@ const filteredSecondSubCategory = subSubcategories.filter((subSubcategorie) =>
               filteredSecondSubCategory?.map((item, index) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
-                  <td><img src={`https://api.cakenpetals.com/${item?.image}`} onError={(e) => {
+                  <td><img src={`http://localhost:7000/${item?.image}`} onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = noImage;
                   }} alt={item?.secondsubcategoryName} style={{ width: "50px", height: "50px" }} /></td>

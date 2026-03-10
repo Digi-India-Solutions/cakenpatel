@@ -39,7 +39,7 @@ const AllCakeBanners = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        "https://api.cakenpetals.com/api/cake-banner/get-cake-banner"
+        "http://localhost:7000/api/cake-banner/get-cake-banner"
       );
       setLoading(false);
       setBanners(res.data?.data || []);
@@ -66,7 +66,7 @@ const AllCakeBanners = () => {
 
     try {
       await axios.delete(
-        `https://api.cakenpetals.com/api/cake-banner/delete-cake-banner/${id}`
+        `http://localhost:7000/api/cake-banner/delete-cake-banner/${id}`
       );
 
       setBanners((prev) => prev.filter((b) => b._id !== id));
@@ -125,7 +125,7 @@ const AllCakeBanners = () => {
 
                   <td>
                     <img
-                      src={`https://api.cakenpetals.com/${banner?.cakeBanner}`}
+                      src={`http://localhost:7000/${banner?.cakeBanner}`}
                       alt="Cake Banner"
                       style={{
                         width: "220px",

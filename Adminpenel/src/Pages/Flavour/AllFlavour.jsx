@@ -13,7 +13,7 @@ const AllFlavour = () => {
     const fetchFlovers = async () => {
       try {
         const response = await axios.get(
-          "https://api.cakenpetals.com/api/get-flover"
+          "http://localhost:7000/api/get-flover"
         ); // Adjusted the URL to fetch flovers
         if (response.data && response.data.data) {
           setFlovers(response.data.data); // Set the fetched flovers
@@ -47,7 +47,7 @@ const AllFlavour = () => {
     if (confirmed.isConfirmed) {
       try {
         const response = await axios.delete(
-          `https://api.cakenpetals.com/api/delete-flover/${id}`
+          `http://localhost:7000/api/delete-flover/${id}`
         ); // Adjusted the delete URL
         toast.success(response.data.message);
         setFlovers(flovers.filter((flover) => flover._id !== id)); // Remove deleted flover from state

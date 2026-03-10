@@ -14,7 +14,7 @@ const AllSBanner = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(
-        "https://api.cakenpetals.com/api/get-banners"
+        "http://localhost:7000/api/get-banners"
       );
       if (response.data.success) {
         setBanners(response.data.data);
@@ -46,7 +46,7 @@ const AllSBanner = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`https://api.cakenpetals.com/api/delete-banner/${id}`);
+        await axios.delete(`http://localhost:7000/api/delete-banner/${id}`);
         setBanners(banners.filter((banner) => banner._id !== id));
         toast.success("Banner deleted successfully");
       }
@@ -89,7 +89,7 @@ const AllSBanner = () => {
       });
 
       if (result.isConfirmed) {
-        await axios.put(`https://api.cakenpetals.com/api/banner/status-banner/${id}`, { bannerStatus: !banners?.find((banner) => banner?._id === id)?.status });
+        await axios.put(`http://localhost:7000/api/banner/status-banner/${id}`, { bannerStatus: !banners?.find((banner) => banner?._id === id)?.status });
         fetchBanners();
         toast.success("Status changed successfully");
       }
@@ -150,7 +150,7 @@ const AllSBanner = () => {
                   <td>{banner.bannerName}</td>
                   <td>
                     <img
-                      src={`https://api.cakenpetals.com/${banner.bannerImage}`}
+                      src={`http://localhost:7000/${banner.bannerImage}`}
                       alt={banner.bannerName}
                       style={{ width: "100px", height: "auto" }}
                     />

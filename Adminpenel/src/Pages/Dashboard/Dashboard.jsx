@@ -43,75 +43,75 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch users
-        const usersResponse = await axios.get("https://api.cakenpetals.com/api/user");
+        const usersResponse = await axios.get("http://localhost:7000/api/user");
         setUsers(usersResponse.data.data);
 
         // Fetch banners
         const bannersResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-banners"
+          "http://localhost:7000/api/get-banners"
         );
         setBanners(bannersResponse.data.data);
 
         // Fetch categories
         const categoriesResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-main-category"
+          "http://localhost:7000/api/get-main-category"
         );
         setCategories(categoriesResponse.data.data);
 
         // Fetch sub-categories
         const subCategoriesResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-subcategory"
+          "http://localhost:7000/api/get-subcategory"
         );
         setSubCategories(subCategoriesResponse.data.data);
 
         // Fetch colors
         const colorsResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-color"
+          "http://localhost:7000/api/get-color"
         );
         setColors(colorsResponse.data.data);
 
         // Fetch sizes
         const sizesResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-size"
+          "http://localhost:7000/api/get-size"
         );
         setSizes(sizesResponse.data.data);
 
         // Fetch flowers
         const flowersResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-flover"
+          "http://localhost:7000/api/get-flover"
         );
         setFlowers(flowersResponse.data.data);
 
         // Fetch products
         const productsResponse = await axios.get(
-          "https://api.cakenpetals.com/api/all-product"
+          "http://localhost:7000/api/all-product"
         );
         setProducts(productsResponse.data.data);
 
         // Fetch tags
         const tagsResponse = await axios.get(
-          "https://api.cakenpetals.com/api/get-tags"
+          "http://localhost:7000/api/get-tags"
         );
         setTags(tagsResponse.data.data);
 
         const res = await axios.get(
-          "https://api.cakenpetals.com/api/reel/get-reels"
+          "http://localhost:7000/api/reel/get-reels"
         );
         setReels(res.data?.data || []);
 
         // Fetch vouchers
-        // const vouchersResponse = await axios.get('https://api.cakenpetals.com/api/vouchers');
+        // const vouchersResponse = await axios.get('http://localhost:7000/api/vouchers');
         // setVouchers(vouchersResponse.data);
 
         // Fetch orders
         const ordersResponse = await axios.get(
-          "https://api.cakenpetals.com/api/checkouts"
+          "http://localhost:7000/api/checkouts"
         );
         console.log("ORDER==>", ordersResponse.data)
         setOrders(ordersResponse.data);
 
         const levelBannerRespons = await axios.get(
-          "https://api.cakenpetals.com/api/cake-banner/get-cake-banner"
+          "http://localhost:7000/api/cake-banner/get-cake-banner"
         );
         setLevelBanners(levelBannerRespons.data?.data || []);
 
@@ -132,11 +132,11 @@ const Dashboard = () => {
   //   const fetchData = async () => {
   //     try {
   //       // Fetch orders for show order graph
-  //       const ordersResponse = await axios.get('https://api.cakenpetals.com/api/orders');
+  //       const ordersResponse = await axios.get('http://localhost:7000/api/orders');
   //       setOrderss(ordersResponse.data);
 
   //       // Fetch day-by-day sale data for the graph
-  //       const salesResponse = await axios.get('https://api.cakenpetals.com/api/day-sales');
+  //       const salesResponse = await axios.get('http://localhost:7000/api/day-sales');
   //       setDaySales(salesResponse.data);
 
   //     } catch (error) {

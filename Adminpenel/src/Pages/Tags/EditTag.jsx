@@ -15,7 +15,7 @@ const EditTag = () => {
   const fetchTagData = async () => {
     try {
       const response = await axios.get(
-        `https://api.cakenpetals.com/api/get-single-tags/${id}`
+        `http://localhost:7000/api/get-single-tags/${id}`
       );
       // //console.log(response)
       const tag = response.data.data;
@@ -40,7 +40,7 @@ const EditTag = () => {
         tagColor,
       };
       const response = await axios.put(
-        `https://api.cakenpetals.com/api/update-tags/${id}`,
+        `http://localhost:7000/api/update-tags/${id}`,
         updatedTag
       );
       toast.success("Tag updated successfully!");
