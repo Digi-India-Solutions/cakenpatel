@@ -39,6 +39,9 @@ const CountDownRouter = require("./Router/CountDownRouter");
 const SubscribeEmailRouter = require("./Router/SubscribeEmailRouter");
 const ParentProductRouter = require("./Router/ParentProductRouter");
 const ProductPreviewRouter = require("./Router/ProductPeviewRouter");
+const EventRouter = require("./Router/EventsRouter");
+const EventEnquiryRouter = require("./Router/EventEnquiryRouter");
+const FranchiseEnquiryRouter = require("./Router/FranchiseEnquiryRouter");
 
 // ── App ───────────────────────────────────────────────────────────────────────
 const app = express();
@@ -135,6 +138,11 @@ app.use("/api/countdown", CountDownRouter);
 app.use("/api/subscribe-email", SubscribeEmailRouter);
 app.use("/api/parent-product", ParentProductRouter);
 app.use("/api/product-preview", ProductPreviewRouter);
+app.use("/api/event", EventRouter);
+app.use("/api/event/enquiry", EventEnquiryRouter);
+app.use("/api/franchise/enquiry", FranchiseEnquiryRouter);
+
+
 
 // ── 404 handler ───────────────────────────────────────────────────────────────
 app.use((_req, res) => {

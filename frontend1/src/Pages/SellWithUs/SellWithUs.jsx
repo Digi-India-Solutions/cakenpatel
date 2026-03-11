@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./sellwithus.css";
+import axios from "axios";
 
 const SellWithUs = () => {
   const [formData, setFormData] = useState({
@@ -26,16 +27,20 @@ const SellWithUs = () => {
     e.preventDefault();
     setLoading(true);
     // Simulate API Call
-    setTimeout(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Request Submitted!",
-        text: "Our team will contact you shortly to onboard you as a seller.",
-        confirmButtonColor: "#2e6a7c",
-      });
-      setFormData({ name: "", phone: "", email: "", city: "", message: "" });
-      setLoading(false);
-    }, 1200);
+    const response = await axios.post('https://api.cakenpetals.com/api/franchise/enquiry/create', formData);
+    console.log("res.data.data=>", response)
+    if (response.data.success === true) {
+      setTimeout(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Request Submitted!",
+          text: "Our team will contact you shortly to onboard you as a seller.",
+          confirmButtonColor: "#2e6a7c",
+        });
+        setFormData({ name: "", phone: "", email: "", city: "", message: "" });
+        setLoading(false);
+      }, 1200);
+    }
   };
 
   const toggleFaq = (index) => {
@@ -87,14 +92,14 @@ const SellWithUs = () => {
       <div className="container">
         {/* TOP SPLIT SECTION */}
         <div className="row g-5 align-items-start mb-5">
-          
+
           {/* LEFT: INFO & STATS */}
           <div className="col-lg-6">
             <h2 className="SuperTitle mb-3">Sell with Us</h2>
             <p className="text-muted mb-5 lh-lg">
               In a diverse country like India, premium cakes, fresh flowers, and thoughtful gifts will never go out of fashion. Partner with us and scale your business to new heights.
             </p>
-            
+
             <div className="stats-grid">
               {stats.map((stat, i) => (
                 <div key={i} className="stat-box d-flex align-items-center gap-3 p-3 bg-white shadow-sm rounded-3 mb-3">
@@ -168,7 +173,7 @@ const SellWithUs = () => {
           <div className="faq-container mx-auto" style={{ maxWidth: "800px" }}>
             {faqs.map((faq, i) => (
               <div key={i} className="faq-item bg-white shadow-sm rounded-3 mb-3 overflow-hidden">
-                <div 
+                <div
                   className="faq-question p-4 d-flex justify-content-between align-items-center cursor-pointer"
                   onClick={() => toggleFaq(i)}
                   style={{ cursor: "pointer" }}

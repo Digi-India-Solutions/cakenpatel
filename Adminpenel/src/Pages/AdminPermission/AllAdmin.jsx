@@ -30,7 +30,10 @@ const AllAdmin = () => {
     { key: 'countdown', name: 'Count Down' },
     { key: 'adminUser', name: 'admin User' },
     { key: 'subscribeEmail', name: 'Subscribe Email' },
-    { key: 'allProductReviews', name: 'Product Reviews' }
+    { key: 'allProductReviews', name: 'Product Reviews' },
+    { key: 'allEventEnquiry', name: 'Event Enquiry' },
+    { key: 'allEvents', name: 'Events' },
+    { key: "allFranchiseEnquiry", name: "Franchise Enquiry" },
   ];
   const AdminData = JSON.parse(sessionStorage.getItem("AdminData"))
 

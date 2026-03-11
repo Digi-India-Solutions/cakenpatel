@@ -86,6 +86,11 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toast } from "react-toastify";
 import AllProductReviews from '../../Pages/ProductReviews/AllProductReviews'
+import AllEvents from '../../Pages/Events/AllEvents'
+import AddEvents from '../../Pages/Events/AddEvents'
+import EditEvents from '../../Pages/Events/EditEvents'
+import AllEventEnquiry from '../../Pages/EventEnquiry/AllEventEnquiry'
+import AllFranchiseEnquiry from '../../Pages/Franchiseenquiry/Allfranchiseenquiry'
 
 const Home = () => {
 
@@ -277,6 +282,13 @@ const Home = () => {
                 <Route path={'/all-subscribeEmail'} element={<AllSubscribeEmail />} />
 
                 <Route path={'/all-product-reviews'} element={<AllProductReviews />} />
+
+                <Route path={"/all-events"} element={<AllEvents />} />
+                <Route path={"/add-events"} element={<AddEvents />} />
+                <Route path={"/edit-event/:id"} element={<EditEvents />} />
+
+                <Route path="/all-event-enquiry" element={<AllEventEnquiry />} />
+                <Route path="/all-franchise-enquiry" element={<AllFranchiseEnquiry />} />
               </Routes>
             </div>
           </>

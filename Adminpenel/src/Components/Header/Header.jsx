@@ -142,6 +142,9 @@ const Header = () => {
             {hasAccess("adminUser") && <li><Link to="/all-admin" className={isActive('/all-admin') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Admin Permission</Link></li>}
             {hasAccess("subscribeEmail") && <li><Link to="/all-subscribeEmail" className={isActive('/all-subscribeEmail') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Subscribe Email</Link></li>}
             {hasAccess("allProductReviews") && <li><Link to="/all-product-reviews" className={isActive('/all-product-reviews') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> Product Reviews</Link></li>}
+            {hasAccess("allEvents") && <li><Link to="/all-events" className={isActive('/all-events') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Events</Link></li>}
+            {hasAccess("allEventEnquiry") && <li><Link to="/all-event-enquiry" className={isActive('/all-event-enquiry') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Event Enquiry</Link></li>}
+            {hasAccess("allFranchiseEnquiry") && <li><Link to="/all-franchise-enquiry" className={isActive('/all-franchise-enquiry') ? 'click' : ''} onClick={handletoggleBtn}> <i class="fa-solid fa-users"></i> All Franchise Enquiry</Link></li>}
 
             <div className="logout" onClick={handleLogout}>
               Log Out <i className="fa-solid fa-right-from-bracket mb-4"></i>

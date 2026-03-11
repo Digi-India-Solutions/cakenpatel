@@ -1849,9 +1849,7 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4", padding: "20px 0" }}>
-
-
+      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4", padding: "20px 0" }}>
         <div
           className="product-island p-3 p-md-4"
           style={{
@@ -2492,7 +2490,7 @@ const ProductDetails = () => {
           </div>
 
         </div>
-      </section>
+      </section>}
 
       <section className="relatedProducts mt-4">
         <div className="container">
