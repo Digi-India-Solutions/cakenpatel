@@ -340,7 +340,7 @@ const Header = () => {
               <div className="top-icons">
                 {loginvalue && <Link to="/track-order" className="icon-box">
                   <TbTruckDelivery className="iconFont" />
-                  <span className="navPageText">Track</span>
+                  <span className="navPageText">Track Order</span>
                 </Link>}
 
                 <Link to="/cart" className="icon-box position-relative">
@@ -530,8 +530,8 @@ const Header = () => {
       </div>
 
       {/* ================= DESKTOP MEGA NAV ================= */}
-      <nav className="navbar navbar-expand-lg bottom-navbar d-none d-lg-block">
-        <div className="container navbarContainer" style={{ background: 'white' }}>
+      <nav style={{ background: 'white' }} className="navbar navbar-expand-lg bottom-navbar d-none d-lg-block">
+        <div className="container navbarContainer">
           <ul className="navbar-nav mx-auto">
             {megaCategories.map((cat, index) => (
               <li
@@ -540,7 +540,7 @@ const Header = () => {
                 onMouseEnter={() => setDesktopMenuOpen(index)}
                 onMouseLeave={() => setDesktopMenuOpen(null)}
               >
-                <span className="nav-link mega-toggle" style={{fontSize:''}}>
+                <span className="nav-link mega-toggle" style={{letterSpacing: '1px'}}>
                   {cat.name}
                 </span>
 
