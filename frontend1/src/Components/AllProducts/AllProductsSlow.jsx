@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { LuEggOff } from "react-icons/lu";
 
 
 const AllProducts = ({ status = '', relatedProducts = '' }) => {
@@ -277,7 +278,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
                     {/* Micro-Badges */}
                     <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
                       <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
-                        ⊡ EGGLESS
+                        <LuEggOff /> EGGLESS
                       </span>
                       <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
                         ⚡ 30 Min Delivery
@@ -411,7 +412,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
                   {/* Micro-Badges */}
                   <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
                     <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
-                      ⊡ EGGLESS
+                      <LuEggOff /> EGGLESS
                     </span>
                     <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
                       ⚡ 30 Min Delivery

@@ -26,7 +26,7 @@
   text-shadow: 2px 3px black;
   letter-spacing: 5px;
 } */
-.bannerContent .lead {
+/* .bannerContent .lead {
   font-size: 40px;
   text-shadow: 2px 3px black;
   font-family: var(--font-family-design);
@@ -63,5 +63,48 @@
   }
   .banner-Image{
     height: 100%;
+  }
+} */
+
+
+/* FULL WIDTH WRAPPER */
+
+.bannerImage {
+  width: 100vw;
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+.homeBannerSlider .slick-track {
+  gap: 0px !important;
+}
+
+/* SLIDE */
+
+.bannerSlide {
+  width: 100% !important;
+}
+
+/* IMAGE FIX HEIGHT */
+
+/* .bannerImage {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+} */
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .bannerImage {
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerImage {
+    height: 180px;
   }
 }

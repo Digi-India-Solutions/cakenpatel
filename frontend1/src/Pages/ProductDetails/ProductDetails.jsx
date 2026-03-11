@@ -1185,6 +1185,7 @@ import { TbMapPinCode } from "react-icons/tb";
 import LocationOption from "../../Components/LocationOption/LocationOption";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Components/Countdown/Countdown";
+import { LuEggOff } from "react-icons/lu";
 
 const ProductDetails = () => {
   const loginvalue = sessionStorage.getItem("login");
@@ -1849,7 +1850,9 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4", padding: "20px 0" }}>
+      <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4", padding: "20px 0" }}>
+
+
         <div
           className="product-island p-3 p-md-4"
           style={{
@@ -1952,7 +1955,7 @@ const ProductDetails = () => {
                 <div className="d-flex align-items-center gap-2 mb-2">
                   {data.eggless && (
                     <span style={{ fontSize: "11px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 8px", borderRadius: "4px", letterSpacing: "0.5px" }}>
-                      ⊡ EGGLESS
+                      <LuEggOff /> EGGLESS
                     </span>
                   )}
                   {data?.deliveryTo60Min && <span style={{ fontSize: "11px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 8px", borderRadius: "4px" }}>
@@ -1961,7 +1964,7 @@ const ProductDetails = () => {
                 </div>
 
                 {/* TITLE ROW */}
-                <div className="d-flex justify-content-between align-items-start gap-3 mb-2">
+                <div className="d-flex justify-content-between align-items-start gap-3">
                   <h1 style={{ fontSize: "22px", fontWeight: "600", color: "#111", lineHeight: "1.3", margin: 0, flex: 1, wordBreak: "break-word" }}>
                     {data?.productName?.charAt(0)?.toUpperCase() + data.productName?.slice(1)}
                   </h1>
@@ -2088,7 +2091,7 @@ const ProductDetails = () => {
                   )}
 
                   {data?.NameOnCake && (
-                    <div className="pdx-block mb-3" style={{ marginTop: "8%", }}>
+                    <div className="pdx-block mb-3" style={{ marginTop: "5%", }}>
                       <label style={{ fontSize: "13px", marginTop: 10, fontWeight: "600", marginBottom: "6px", color: "#333", display: "flex", justifyContent: "space-between" }}>
                         Name on Cake <small style={{ color: "#888", fontWeight: "normal" }}>{massage?.length} / 25</small>
                       </label>
@@ -2490,7 +2493,7 @@ const ProductDetails = () => {
           </div>
 
         </div>
-      </section>}
+      </section>
 
       <section className="relatedProducts mt-4">
         <div className="container">

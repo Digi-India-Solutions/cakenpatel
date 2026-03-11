@@ -57,18 +57,18 @@ const HomeBannerSlider = () => {
 
   console.log("AAAAAAAAAAAAA===>", data)
   return (
-    <div className="container-fluid p-0">
+    <div className="container-fluid p-0 w-100 homeBannerSlider">
       <div className="slider-container">
         <Slider {...settings}>
           {data.map((banner) => (
             <div key={banner._id}
+            className="bannerSlide"
               onClick={() => {
                 navigate(`/${banner?.bannerName?.replace(/\s+/g, "-").toLowerCase()}`,
                   { state: { id: banner?.secondsubcategoryName, status: 'subCategory' } });
-
               }}>
               <img
-                className="banner-Image"
+                className="bannerImage"
                 src={`https://api.cakenpetals.com/${banner?.bannerImage}`}
                 alt={banner.bannerName}
               />

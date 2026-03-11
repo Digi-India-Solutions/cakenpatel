@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./location.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { MdOutlineLocationSearching } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
+import { MdDoNotDisturbAlt } from "react-icons/md";
+
 
 
 
@@ -20,10 +24,10 @@ const LocationOption = ({ onServiceChange }) => {
 
   let buttonStyle = {
     background: isPressed
-      ? '#0d47a1'           // darker when pressed
+      ? 'linear-gradient(90deg, #df4444 0%, #de9696 100%)'           // darker when pressed
       : isHovered
-        ? '#1565c0'           // hover state
-        : '#1a73e8',          // default
+        ? 'linear-gradient(90deg, #df4444 0%, #de9696 100%)'           // hover state
+        : 'linear-gradient(90deg, #df4444 0%, #de9696 100%)',          // default
     color: 'white',
     border: 'none',
     borderRadius: '40px',
@@ -32,9 +36,9 @@ const LocationOption = ({ onServiceChange }) => {
     fontWeight: 600,
     cursor: 'pointer',
     transition: 'background 0.2s, transform 0.1s, box-shadow 0.2s',
-    boxShadow: isHovered
-      ? '0 6px 14px rgba(26, 115, 232, 0.4)'
-      : '0 4px 10px rgba(26, 115, 232, 0.3)',
+    // boxShadow: isHovered
+    //   ? '0 6px 14px rgba(26, 115, 232, 0.4)'
+    //   : '0 4px 10px rgba(26, 115, 232, 0.3)',
     transform: isPressed ? 'scale(0.96)' : 'scale(1)',
     outline: 'none',
   };
@@ -230,7 +234,7 @@ const LocationOption = ({ onServiceChange }) => {
       <div className="location-header">
         <span>Select Area / Location</span>
         <span className="use-location" onClick={handleLocationClick}>
-          Use My Location
+         <MdOutlineLocationSearching /> Use My Location
         </span>
       </div>
 
@@ -244,7 +248,7 @@ const LocationOption = ({ onServiceChange }) => {
           value={input}
           onChange={handleInputChange}
           placeholder="Enter your pincode or area..."
-          className="search-input"
+          className="search-input w-100"
         />
       </div>
 
@@ -266,7 +270,7 @@ const LocationOption = ({ onServiceChange }) => {
         )}
         {(savedLocation && input) && (
           <div className="saved-location">
-            <span>✅ Current saved location: {savedLocation}</span>
+            <span><FaCheck /> Current saved location: {savedLocation}</span>
           </div>
         )}
       </div>
