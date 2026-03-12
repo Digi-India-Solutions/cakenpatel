@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./CakeIngredientScroll.css";
 
-import img1 from "../../images/pic/img1.png";
-import img2 from "../../images/pic/img2.png";
-import img3 from "../../images/pic/img3.png";
-import img4 from "../../images/pic/img4.png";
-import img5 from "../../images/pic/img5.png";
+
+
+import img1 from "../../images/BISCOFF.png";
+import img2 from "../../images/BLUEBERRY.png";
+import img3 from "../../images/GermanBlackForestCake.png";
+import img4 from "../../images/STRAWERRY.png";
+import img5 from "../../images/VanilaCreamCake.png";
 
 const items = [
-  { img: img1, title: "Moist Sponge", subtitle: "Light cocoa sponge soaked with chocolate syrup" },
-  { img: img2, title: "Chocolate Truffle", subtitle: "Rich Belgian chocolate with smooth ganache" },
-  { img: img3, title: "Salted Caramel", subtitle: "Perfectly balanced homemade caramel layer" },
-  { img: img4, title: "Berry Confit", subtitle: "Slow cooked berries with tangy sweetness" },
-  { img: img5, title: "Crunchy Base", subtitle: "Caramelized crunch for texture" }
+  { img: img1, title: "Biscaff Cake", subtitle: "Creamy, Crunchy, Pure Biscoff Love.", description:"One Slice, Endless Biscoff Delight." },
+  { img: img2, title: "Blueberry Cake", subtitle: "Every Bite Full Of Blueberry Love.", description:"Fresh Blueberries, Pure Happiness." },
+  { img: img4, title: "Strawberry Rose Cake", subtitle: "A Cake as Lovely as a Rose." , description: "A Rosy Treat For Sweet Moments."},
+  { img: img3, title: "German Black Forest Cake", subtitle: "Rich Chocolate, Juicy Cherris, Pure Indulgence.", description: "Layer Of Chocolate Love in Every Bite." },
+  { img: img5, title: "Vanilla Cream Cake", subtitle: "Pure Vanilla, Pure Happiness." , description: "Simple, Sweet & Perfectly Creamy."}
 ];
 
 export default function CakeIngredientScroll() {
@@ -76,6 +78,7 @@ export default function CakeIngredientScroll() {
                     <div className="w-75">
                       <h4>{item.title}</h4>
                       <p>{item.subtitle}</p>
+                      <p>{item.description}</p>
                     </div>
                   </div>
                 ))}

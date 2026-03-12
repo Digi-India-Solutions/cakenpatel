@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { LuEggOff } from "react-icons/lu";
+import { IoIosStar } from "react-icons/io";
 
 const BASE_URL = "https://api.cakenpetals.com/";
 
@@ -202,7 +203,6 @@ const FeaturedProducts = () => {
                         backgroundColor: "#388e3c",
                         color: "#fff",
                         fontSize: "11px",
-                        fontWeight: "700",
                         padding: "4px 8px",
                         borderTopRightRadius: "4px",
                         borderBottomRightRadius: "4px",
@@ -245,7 +245,7 @@ const FeaturedProducts = () => {
                   </p>
 
                   {/* Spacer to push pricing & subcategory to the very bottom */}
-                  <div style={{ marginTop: "auto" }}>
+                  <div>
 
                     {/* Subcategory Label */}
                     {item.subcategoryName?.subcategoryName && (
@@ -256,7 +256,7 @@ const FeaturedProducts = () => {
 
                     {/* Price Row */}
                     <div className="price-row d-flex align-items-baseline gap-2">
-                      <span className="price" style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                      <span className="price" style={{ fontSize: "16px", color: "#111" }}>
                         ₹ {price}
                       </span>
                       {oldPrice && oldPrice !== price && (
@@ -264,6 +264,10 @@ const FeaturedProducts = () => {
                           ₹ {oldPrice}
                         </span>
                       )}
+                    </div>
+
+                    <div className="rating">
+                      <IoIosStar className="text-warning" /> 4.8 <span>(245 Reviews)</span>
                     </div>
                     <p className="delivery" style={{ marginTop: '8px' }}>
                       Earliest Delivery : <span>In 3 hours</span>

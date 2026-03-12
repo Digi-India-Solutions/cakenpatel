@@ -558,6 +558,24 @@
   color: #555;
 }
 
+.start-rating {
+  color: white;
+  background-color: #0a8f5a;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+
+
+.sticky-buttons{
+  position: sticky;
+  bottom: 0;
+  background: #FFF;
+  padding: 1px 0px 10px 0px;
+  border-radius: 0px;
+  margin-top: 24px;
+  margin-right: 10px;
+}
+
 /* Responsive */
 @media (max-width: 576px) {
   .offer-left p {

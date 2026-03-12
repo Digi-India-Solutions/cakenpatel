@@ -349,10 +349,26 @@
   color: #ffffff;
 }
 
+.social-icons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
+  .social-icons a img {
+  width: 30px;
+  height: 30px;
+}
+
+
+
+.social-icons a{
+  margin: 0;
+}
+
   .footer-top {
-  padding: 30px 0;
+  padding: 30px 0 0;
 }
   .footer-bottom .container {
     flex-direction: column;

@@ -23,13 +23,13 @@ const createEvent = async (req, res) => {
             return res.status(400).json({ success: false, message: errors.join(", ") });
         }
 
-        const existing = await Event.findOne({
-            EventTitle: { $regex: `^${EventTitle.trim()}$`, $options: "i" },
-        });
-        if (existing) {
-            deleteImageFile(imagePath);
-            return res.status(409).json({ success: false, message: "Event with this title already exists" });
-        }
+        // const existing = await Event.findOne({
+        //     EventTitle: { $regex: `^${EventTitle.trim()}$`, $options: "i" },
+        // });
+        // if (existing) {
+        //     deleteImageFile(imagePath);
+        //     return res.status(409).json({ success: false, message: "Event with this title already exists" });
+        // }
 
         const event = new Event({
             EventTitle: EventTitle.trim(),

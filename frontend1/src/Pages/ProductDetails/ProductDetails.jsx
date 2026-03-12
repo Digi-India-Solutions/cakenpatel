@@ -14,6 +14,7 @@ import { TbMapPinCode } from "react-icons/tb";
 import LocationOption from "../../Components/LocationOption/LocationOption";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../../Components/Countdown/Countdown";
+import { IoIosStar } from "react-icons/io";
 
 const ProductDetails = () => {
   const loginvalue = sessionStorage.getItem("login");
@@ -678,7 +679,7 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4", padding: "20px 0" }}>
+      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4"}}>
         <div
           className="product-island p-3 p-md-4"
           style={{
@@ -813,6 +814,9 @@ const ProductDetails = () => {
                     )}
                   </div>
                 </div>
+                <div className="mb-2">
+                  <span className="start-rating"><IoIosStar /> 4.9</span> <span className="text-success">68 Review</span>
+                </div>
 
                 {/* Pricing Hierarchy */}
                 <div className="mb-3 d-flex align-items-baseline gap-2">
@@ -918,7 +922,7 @@ const ProductDetails = () => {
 
                   {data?.NameOnCake && (
                     <div className="pdx-block mb-3" style={{ marginTop: "8%", }}>
-                      <label style={{ fontSize: "13px", marginTop: 10, fontWeight: "600", marginBottom: "6px", color: "#333", display: "flex", justifyContent: "space-between" }}>
+                      <label style={{maxWidth:"75%", fontSize: "13px", marginTop: 10, fontWeight: "600", marginBottom: "6px", color: "#333", display: "flex", justifyContent: "space-between" }}>
                         Name on Cake <small style={{ color: "#888", fontWeight: "normal" }}>{massage?.length} / 25</small>
                       </label>
                       <input
@@ -954,6 +958,32 @@ const ProductDetails = () => {
                 {/* LOCATION & SERVICE */}
                 <div style={{ marginBottom: "20px" }}>
                   <LocationOption onServiceChange={updateServiceStatus} />
+                </div>
+
+                {/* PRODUCT DETAILS & DESCRIPTION */}
+                <div className="mt-4">
+                  {data?.productDetails && (
+                    <div className="description-box mb-3">
+                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Product Details</h6>
+                      {/* allow HTML (including <img> tags) to render correctly */}
+                      <div
+                        className="product-details-html"
+                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
+                        dangerouslySetInnerHTML={{ __html: data.productDetails }}
+                      />
+                    </div>
+                  )}
+
+                  {data?.productDescription && (
+                    <div className="description-box">
+                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Description</h6>
+                      <div
+                        className="product-description-html"
+                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
+                        dangerouslySetInnerHTML={{ __html: data.productDescription }}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* MAKE IT EXTRA SPECIAL (Addons) */}
@@ -1021,31 +1051,8 @@ const ProductDetails = () => {
                   </div>
                 )}
 
-                {/* PRODUCT DETAILS & DESCRIPTION */}
-                <div className="mt-4">
-                  {data?.productDetails && (
-                    <div className="description-box mb-3">
-                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Product Details</h6>
-                      {/* allow HTML (including <img> tags) to render correctly */}
-                      <div
-                        className="product-details-html"
-                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
-                        dangerouslySetInnerHTML={{ __html: data.productDetails }}
-                      />
-                    </div>
-                  )}
+                
 
-                  {data?.productDescription && (
-                    <div className="description-box">
-                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Description</h6>
-                      <div
-                        className="product-description-html"
-                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
-                        dangerouslySetInnerHTML={{ __html: data.productDescription }}
-                      />
-                    </div>
-                  )}
-                </div>
                 {/* STICKY ACTION BUTTONS */}
                 <div className="sticky-buttons mt-4">
                   {/* Delivery Hint */}
@@ -1103,7 +1110,7 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 {/* REVIEWS SECTION */}
-                <div className="reviews-section mt-5 pt-4" style={{ borderTop: "1px solid #eee" }}>
+                <div className="reviews-section mt-3 pt-4" style={{ borderTop: "1px solid #eee" }}>
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <div>
                       <h4 style={{ fontSize: "18px", fontWeight: "700", color: "#222", margin: 0 }}>Customer Reviews</h4>
@@ -1312,7 +1319,7 @@ const ProductDetails = () => {
               </div>
 
               {/* STICKY ACTION BUTTONS */}
-              <div className="sticky-buttons mt-4">
+              <div className="sticky-buttons">
 
               </div>
             </div>

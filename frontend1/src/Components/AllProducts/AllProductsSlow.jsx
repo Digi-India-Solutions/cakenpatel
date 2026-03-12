@@ -312,7 +312,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
 
                       {/* Price Row */}
                       <div className="price-row d-flex align-items-baseline gap-2">
-                        <span className="price" style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                        <span className="price" style={{ fontSize: "16px", color: "#111" }}>
                           ₹ {product?.Variant[0]?.finalPrice}
                         </span>
                         {product?.Variant[0]?.price && product?.Variant[0]?.price !== product?.Variant[0]?.finalPrice && (
@@ -446,7 +446,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
 
                     {/* Price Row */}
                     <div className="price-row d-flex align-items-baseline gap-2">
-                      <span className="price" style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                      <span className="price" style={{ fontSize: "16px", color: "#111" }}>
                         ₹ {product?.Variant[0]?.finalPrice}
                       </span>
                       {product?.Variant[0]?.price && product?.Variant[0]?.price !== product?.Variant[0]?.finalPrice && (

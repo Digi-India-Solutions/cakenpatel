@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { IoIosStar } from "react-icons/io";
 
 // ========================================================
 // PERFORMANCE FIX: GLOBAL CACHE
@@ -26,7 +27,7 @@ const BestSellingProduct = () => {
   const user = sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const [wishlist, setWishlist] = useState([]);
-  
+
   // Use cached data immediately if we have it
   const [products, setProducts] = useState(cachedBestSellingProducts || []);
 
@@ -38,11 +39,11 @@ const BestSellingProduct = () => {
       const response = await axios.get(
         "https://api.cakenpetals.com/api/get-best-selling-products"
       );
-      console.log("SSSS==>" , response)
+      console.log("SSSS==>", response)
       const fetchedProducts = response?.data?.data || [];
       cachedBestSellingProducts = fetchedProducts; // Save to global cache
       setProducts(fetchedProducts);
-      
+
     } catch (error) {
       console.error("Error fetching featured products:", error);
     }
@@ -165,7 +166,19 @@ const BestSellingProduct = () => {
                   />
 
                   {variant?.discountPrice && (
-                    <span style={{fontSize:"14px"}} className="badge bg-success position-absolute top-0 start-0 m-2">
+                    <span style={{
+                      position: "absolute",
+                      top: "10px",
+                      left: "0",
+                      backgroundColor: "#388e3c",
+                      color: "#fff",
+                      fontSize: "11px",
+                      padding: "4px 8px",
+                      borderTopRightRadius: "4px",
+                      borderBottomRightRadius: "4px",
+                      letterSpacing: "0.5px",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
+                    }} className="">
                       {variant?.discountPrice}% OFF
                     </span>
                   )}
@@ -191,11 +204,13 @@ const BestSellingProduct = () => {
                     {oldPrice && (
                       <>
                         <span className="old-price">₹ {oldPrice}</span>
-                        <span className="off">{off}</span>
+                        {/* <span className="off">{off}</span> */}
                       </>
                     )}
                   </div>
-
+                  <div className="rating">
+                    <IoIosStar className="text-warning" /> 4.8 <span>(245 Reviews)</span>
+                  </div>
                   {/* <div className="rating">
                     ⭐ 4.8 <span>(245 Reviews)</span>
                   </div> */}

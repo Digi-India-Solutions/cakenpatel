@@ -198,7 +198,7 @@ const AllEventEnquiry = () => {
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Enquiry Type</th>
+                            {/* <th>Enquiry Type</th> */}
                             <th>Enquiry Title</th>
                             <th>Message</th>
                             <th>Status</th>
@@ -253,7 +253,7 @@ const AllEventEnquiry = () => {
                                     </td>
 
                                     {/* Enquiry Type */}
-                                    <td>
+                                    {/* <td>
                                         {enq.enquiryType ? (
                                             <span style={{
                                                 backgroundColor: "#f0f4ff", color: "#3a5bd0",
@@ -263,7 +263,7 @@ const AllEventEnquiry = () => {
                                                 {enq.enquiryType}
                                             </span>
                                         ) : "—"}
-                                    </td>
+                                    </td> */}
 
                                     {/* Enquiry Title */}
                                     <td style={{ fontSize: "13px", maxWidth: "150px" }}>
@@ -274,10 +274,10 @@ const AllEventEnquiry = () => {
                                     </td>
 
                                     {/* Message */}
-                                    <td style={{ fontSize: "12px", color: "#555", maxWidth: "180px" }}>
+                                    <td style={{ fontSize: "12px", color: "#555", maxWidth: "240px" }}>
                                         <span title={enq.message}>
-                                            {(enq.message || "—").slice(0, 60)}
-                                            {enq.message?.length > 60 ? "..." : ""}
+                                            {(enq.message || "—").slice(0, 110)}
+                                            {enq.message?.length > 110 ? "..." : ""}
                                         </span>
                                     </td>
 

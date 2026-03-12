@@ -15,7 +15,7 @@ let cachedReels = null;
 export default function ReelSection() {
   const navigate = useNavigate();
   const [activeReel, setActiveReel] = useState(null);
-  
+
   // Use cached data immediately if we have it
   const [reels, setReels] = useState(cachedReels || []);
   const reelRef = useRef(null);
@@ -46,7 +46,7 @@ export default function ReelSection() {
       try {
         const response = await axios.get("https://api.cakenpetals.com/api/reel/get-reels");
         const filteredReels = response?.data?.data.filter((reel) => reel?.activeOnHome === true) || [];
-        
+
         cachedReels = filteredReels; // Save to global cache
         setReels(filteredReels);
       } catch (error) {
@@ -61,7 +61,7 @@ export default function ReelSection() {
     if (!path) return "";
     return path.startsWith("http") ? path : BASE_URL + path;
   };
-  
+
   return (
     <>
       <div className="container">
@@ -90,15 +90,15 @@ export default function ReelSection() {
                 )}
 
                 {/* UI PATTERN: Premium Dark Translucent Glass Overlay */}
-                <div 
+                <div
                   className="reel-product d-flex align-items-center"
                   style={{
                     position: "absolute",
                     bottom: "10px",
                     left: "10px",
                     right: "10px",
-                    background: "rgba(255, 255, 255, 0.65)", 
-                    backdropFilter: "blur(6px)", 
+                    background: "rgba(255, 255, 255, 0.65)",
+                    backdropFilter: "blur(6px)",
                     padding: "8px 12px",
                     borderRadius: "10px",
                     color: "#0d0707",
@@ -106,18 +106,47 @@ export default function ReelSection() {
                     boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
                   }}
                 >
-                  <img 
-                    src={BASE_URL + reel?.productId?.productImage[0]} 
-                    alt="" 
+                  <img
+                    src={BASE_URL + reel?.productId?.productImage[0]}
+                    alt=""
                     style={{ width: "42px", height: "42px", borderRadius: "6px", objectFit: "cover" }}
                   />
                   <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
                     <p style={{ margin: 0, fontSize: "13px", fontWeight: "600", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: "#000000" }}>
                       {reel?.productId?.productName?.charAt(0).toUpperCase() + reel?.productId?.productName?.slice(1)}
                     </p>
-                    <span style={{ fontSize: "13px", fontWeight: "700", color: "#0d6f10" }}>
+                    {/* <span style={{ fontSize: "13px", fontWeight: "700", color: "#0d6f10" }}>
                       ₹ {reel?.productId?.Variant[0]?.finalPrice}
-                    </span>
+                    </span> */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
+
+                      <span style={{ fontSize: "13px", fontWeight: "700", color: "#0d6f10" }}>
+                        ₹ {reel?.productId?.Variant[0]?.finalPrice}
+                      </span>
+
+                      {reel?.productId?.Variant[0]?.price && (
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            textDecoration: "line-through",
+                            color: "#777"
+                          }}
+                        >
+                          ₹ {reel?.productId?.Variant[0]?.price}
+                        </span>
+                      )}
+
+                      {reel?.productId?.Variant[0]?.discountPrice && (
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            color: "#d68716",
+                          }}
+                        >
+                          {reel?.productId?.Variant[0]?.discountPrice}% OFF
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -127,16 +156,38 @@ export default function ReelSection() {
       </div>
 
       {activeReel && (
-        <div 
-          className="reel-overlay" 
+        <div
+          className="reel-overlay"
           onClick={() => setActiveReel(null)}
           style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", backgroundColor: "rgba(0,0,0,0.85)", zIndex: 9999, display: "flex", justifyContent: "center", alignItems: "center" }}
         >
-          <div 
-            className="reel-modal" 
+          <div
+            className="reel-modal"
             onClick={(e) => e.stopPropagation()}
             style={{ position: "relative", width: "100%", maxWidth: "450px", height: "90vh", borderRadius: "20px", overflow: "hidden", backgroundColor: "#000" }}
           >
+            <button
+              onClick={() => setActiveReel(null)}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: 10,
+                width: "35px",
+                height: "35px",
+                borderRadius: "50%",
+                border: "none",
+                background: "rgba(0,0,0,0.6)",
+                color: "#fff",
+                fontSize: "18px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              ✕
+            </button>
             <video
               src={getVideoUrl(activeReel?.video)}
               autoPlay
@@ -145,7 +196,7 @@ export default function ReelSection() {
             />
 
             {/* UI PATTERN: Floating White Glass Modal for Purchase */}
-            <div 
+            <div
               className="modal-product d-flex align-items-center justify-content-between"
               style={{
                 position: "absolute",
@@ -153,7 +204,7 @@ export default function ReelSection() {
                 left: "50%",
                 transform: "translateX(-50%)",
                 width: "90%",
-                background: "rgba(255, 255, 255, 0.95)", 
+                background: "rgba(255, 255, 255, 0.95)",
                 backdropFilter: "blur(10px)",
                 padding: "12px 16px",
                 borderRadius: "14px",
@@ -161,26 +212,56 @@ export default function ReelSection() {
                 gap: "12px"
               }}
             >
-              <img 
-                src={BASE_URL + activeReel?.productId?.productImage[0]} 
-                alt="" 
+              <img
+                src={BASE_URL + activeReel?.productId?.productImage[0]}
+                alt=""
                 style={{ width: "55px", height: "55px", borderRadius: "8px", objectFit: "cover" }}
               />
-              
+
               <div style={{ flex: 1, overflow: "hidden" }}>
                 <h5 className="reeltitle" style={{ fontSize: "15px", fontWeight: "600", margin: "0 0 4px 0", color: "#111", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   {activeReel?.productId?.productName.charAt(0).toUpperCase() + activeReel?.productId?.productName?.slice(1)}
                 </h5>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#d68716" }}>
+                {/* <div style={{ fontSize: "15px", fontWeight: "700", color: "#d68716" }}>
                   ₹ {activeReel?.productId?.Variant[0]?.finalPrice}
+                </div> */}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+
+                  <span style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                    ₹ {activeReel?.productId?.Variant[0]?.finalPrice}
+                  </span>
+
+                  {activeReel?.productId?.Variant[0]?.price && (
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        textDecoration: "line-through",
+                        color: "#888"
+                      }}
+                    >
+                      ₹ {activeReel?.productId?.Variant[0]?.price}
+                    </span>
+                  )}
+
+                  {activeReel?.productId?.Variant[0]?.discountPrice && (
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        color: "#d68716",
+                      }}
+                    >
+                      {activeReel?.productId?.Variant[0]?.discountPrice}% OFF
+                    </span>
+                  )}
+
                 </div>
               </div>
 
-              <div 
-                style={{ cursor: 'pointer' }} 
+              <div
+                style={{ cursor: 'pointer' }}
                 onClick={() => navigate(`/product-details/${activeReel?.productId?.productName.replace(/\s+/g, "-")}`, { state: { id: activeReel?.productId?._id, status: "single-product" } })}
               >
-                <button 
+                <button
                   className="BuyBtn"
                   style={{ backgroundColor: "#df4444", color: "#fff", border: "none", padding: "8px 16px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", whiteSpace: "nowrap" }}
                 >

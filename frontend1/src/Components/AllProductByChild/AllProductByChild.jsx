@@ -5,6 +5,8 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"
 import axios from "axios";
 import Swal from "sweetalert2";
+import { IoIosStar } from "react-icons/io";
+import { LuEggOff } from "react-icons/lu";
 
 const AllProductByChild = ({ cakesArr = [] }) => {
     const user = sessionStorage.getItem("userId");
@@ -154,24 +156,44 @@ const AllProductByChild = ({ cakesArr = [] }) => {
                                         </span>
 
                                         {variant?.discountPrice && (
-                                            <span style={{fontSize:"14px"}} className="badge bg-success position-absolute top-0 start-0 m-2">
+                                            <span style={{
+                                                position: "absolute",
+                                                top: "10px",
+                                                left: "0",
+                                                backgroundColor: "#388e3c",
+                                                color: "#fff",
+                                                fontSize: "11px",
+                                                padding: "4px 8px",
+                                                borderTopRightRadius: "4px",
+                                                borderBottomRightRadius: "4px",
+                                                letterSpacing: "0.5px",
+                                                boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
+                                            }} className="">
                                                 {variant?.discountPrice}% OFF
                                             </span>
                                         )}
                                     </div>
 
                                     <div className="product-body">
+                                        <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                            <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
+                                                <LuEggOff /> EGGLESS
+                                            </span>
+                                            {product.deliveryTo60Min && <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
+                                                ⚡ 30 Min Delivery
+                                            </span>}
+                                        </div>
                                         <p className="product-title">{product.productName}</p>
 
                                         <div className="price-row">
                                             <span className="price">₹ {variant.finalPrice}</span>
-                                        {/* {variant.discountPrice > 0 && (
-                                            <span className="old-price">₹ {variant.price}</span>
-                                        )} */}
+                                            {variant.discountPrice > 0 && (
+                                                <span className="old-price">₹ {variant.price}</span>
+                                            )}
                                         </div>
 
                                         <div className="rating">
-                                            ⭐ 4.8 <span>(245 Reviews)</span>
+                                            <IoIosStar className="text-warning" /> 4.8 <span>(245 Reviews)</span>
                                         </div>
 
                                         <p className="delivery">

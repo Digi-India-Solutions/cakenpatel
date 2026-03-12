@@ -172,12 +172,13 @@ const Footer = () => {
                 <i className="bi bi-arrow-right"></i>
               </button>
             </div>
-            <div className="social-icons" style={{ marginTop: '20px' }} >
+          </div>
+
+           <div className="social-icons" >
             <a href="#"><img src={insta} /></a>
             <a href="#"><img src={facebook} /></a>
             <a href="#"><img src={linkedin} /></a>
             <a href="#"><img src={xtwiter} /></a>
-          </div>
           </div>
           
         </div>

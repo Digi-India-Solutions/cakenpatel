@@ -127,6 +127,12 @@
 
 /* Mobile Responsive - ALL mobile screens show 3 categories */
 @media screen and (max-width: 768px) {
+
+  .category-container {
+  width: 100%;
+  /* margin: 0 auto;
+  padding: 0 10px; */
+}
   .category-main {
     padding: 1rem 0;
   }
@@ -179,7 +185,7 @@
   
   .category-grid-item {
     flex: 0 0 calc(33.333% - 8px);
-    max-width: calc(33.333% - 8px);
+    max-width: calc(25% - 8px);
   }
   
   .category-grid {

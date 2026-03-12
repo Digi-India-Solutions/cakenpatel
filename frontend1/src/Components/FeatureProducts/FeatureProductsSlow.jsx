@@ -214,6 +214,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { LuEggOff } from "react-icons/lu";
+import { IoIosStar } from "react-icons/io";
 
 const BASE_URL = "https://api.cakenpetals.com/";
 
@@ -437,8 +438,10 @@ const FeaturedProducts = () => {
                     {item?.productName?.charAt(0).toUpperCase() + item?.productName?.slice(1)}
                   </p>
 
+
+
                   {/* Spacer to push pricing & subcategory to the very bottom */}
-                  <div style={{ marginTop: "auto" }}>
+                  <div >
 
                     {/* Subcategory Label */}
                     {item.subcategoryName?.subcategoryName && (
@@ -449,7 +452,7 @@ const FeaturedProducts = () => {
 
                     {/* Price Row */}
                     <div className="price-row d-flex align-items-baseline gap-2">
-                      <span className="price" style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                      <span className="price" style={{ fontSize: "16px", color: "#111" }}>
                         ₹ {price}
                       </span>
                       {oldPrice && oldPrice !== price && (
