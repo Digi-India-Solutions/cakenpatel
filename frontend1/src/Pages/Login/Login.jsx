@@ -25,7 +25,6 @@ const Login = () => {
   // ================= LOGIN =================
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "https://api.cakenpetals.com/api/user/login",

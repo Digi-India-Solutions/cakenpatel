@@ -298,9 +298,10 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
 
                     {/* Micro-Badges */}
                     <div className="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                      <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
+
+                      {product?.eggless && <span style={{ fontSize: "10px", fontWeight: "700", color: "#388e3c", border: "1px solid #388e3c", padding: "2px 6px", borderRadius: "3px", letterSpacing: "0.3px" }}>
                         <LuEggOff /> EGGLESS
-                      </span>
+                      </span>}
                       {product.deliveryTo60Min && <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px" }}>
                         ⚡ 30 Min Delivery
                       </span>}
