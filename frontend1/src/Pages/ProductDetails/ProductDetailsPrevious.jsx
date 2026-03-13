@@ -419,11 +419,35 @@ const ProductDetails = () => {
     return addon?.quantity || 0;
   };
 
+    const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const addonSliderSettings = {
     dots: false,
     arrows: true,
     infinite: false,
     speed: 500,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [

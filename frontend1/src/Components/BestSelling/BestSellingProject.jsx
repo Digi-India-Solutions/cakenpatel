@@ -197,7 +197,10 @@ const BestSellingProduct = () => {
 
                 {/* Content */}
                 <div className="product-body">
-                  <p className="product-title">{item.productName?.charAt(0).toUpperCase() + item.productName?.slice(1)}</p>
+                  <span style={{ fontSize: "10px", fontWeight: "600", backgroundColor: "#e0f2f1", color: "#00796b", padding: "3px 6px", borderRadius: "3px"}}>
+                    ⚡ 30 Min Delivery
+                  </span>
+                  <p className="product-title mt-2">{item.productName?.charAt(0).toUpperCase() + item.productName?.slice(1)}</p>
 
                   <div className="price-row">
                     <span className="price">₹ {price}</span>

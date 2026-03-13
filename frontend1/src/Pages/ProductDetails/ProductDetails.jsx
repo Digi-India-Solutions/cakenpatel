@@ -456,12 +456,36 @@ const ProductDetails = () => {
     return addon?.quantity || 0;
   };
 
+    const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const addonSliderSettings = {
     dots: false,
     arrows: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
+        nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     slidesToScroll: 1,
     responsive: [
       {
@@ -586,6 +610,8 @@ const ProductDetails = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     autoplay: false,
     appendDots: dots => (
       <div style={{ bottom: "-25px" }}>
@@ -679,7 +705,7 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4"}}>
+      {data && <section className="pdx-wrapper" style={{ backgroundColor: "#f4f4f4" }}>
         <div
           className="product-island p-3 p-md-4"
           style={{
@@ -776,7 +802,7 @@ const ProductDetails = () => {
 
             {/* RIGHT: PRODUCT DETAILS */}
             <div className="col-lg-7 mt-3 mt-lg-0">
-              <div className="pdx-right-scroll" style={{ paddingLeft: "5px" }}>
+              <div className="pdx-right-scroll">
 
                 {/* Micro-Badges */}
                 <div className="d-flex align-items-center gap-2 mb-2">
@@ -861,8 +887,6 @@ const ProductDetails = () => {
 
 
                 {/* CONTROLS */}
-                <div style={{ backgroundColor: "#fcfcfc", padding: "15px", borderRadius: "12px", marginBottom: "20px", border: "1px solid #f0f0f0" }}>
-
                   {/* NEW: QUANTITY SELECTOR */}
                   {/* <div className="pdx-block mb-3 d-flex align-items-center justify-content-between">
                       <label style={{ fontSize: "13px", fontWeight: "600", color: "#333", margin: 0 }}>Quantity</label>
@@ -881,7 +905,7 @@ const ProductDetails = () => {
                       </div>
                     </div> */}
 
-                  {data?.Variant?.some(v => v?.weight) && (
+                  {/* {data?.Variant?.some(v => v?.weight) && (
                     <div className="pdx-block mb-3">
                       <label style={{ fontSize: "13px", fontWeight: "600", marginBottom: "8px", color: "#333", display: "block" }}>Select Option</label>
                       <div className="pdx-weight-group" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -907,86 +931,60 @@ const ProductDetails = () => {
                           ))}
                       </div>
                     </div>
-                  )}
+                  )} */}
 
-                  {data?.ActiveonFlavours && (
-                    <div className="pdx-block formInput mb-3">
-                      <label style={{ fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#333", display: "block" }}>Select Flavour</label>
-                      <select className="form-select inputfield" style={{ borderRadius: "8px", border: "1px solid #ccc", padding: "8px", width: "100%", fontSize: "14px" }}>
-                        <option>Butterscotch</option>
-                        <option>Chocolate</option>
-                        <option>Vanilla</option>
-                      </select>
-                    </div>
-                  )}
-
-                  {data?.NameOnCake && (
-                    <div className="pdx-block mb-3" style={{ marginTop: "8%", }}>
-                      <label style={{maxWidth:"75%", fontSize: "13px", marginTop: 10, fontWeight: "600", marginBottom: "6px", color: "#333", display: "flex", justifyContent: "space-between" }}>
-                        Name on Cake <small style={{ color: "#888", fontWeight: "normal" }}>{massage?.length} / 25</small>
+                  {data?.Variant?.filter(v => v?.weight)?.length > 0 && (
+                    <div className="pdx-block mb-3">
+                      <label
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "600",
+                          marginBottom: "8px",
+                          color: "#333",
+                          display: "block"
+                        }}
+                      >
+                        Select You Want
                       </label>
-                      <input
-                        type="text"
-                        value={massage}
-                        onChange={(e) => setMassage(e.target.value)}
-                        className="form-control formInput inputfield"
-                        placeholder="Write Name Here"
-                        maxLength={25}
-                        style={{ borderRadius: "8px", border: "1px solid #ccc", padding: "8px", fontSize: "14px" }}
-                      />
-                    </div>
-                  )}
 
-                  {data?.ActiveonDeliveryDate && (
-                    <div className="pdx-block mb-1">
-                      <label style={{ fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#333", display: "block" }}>
-                        Delivery Date <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="date"
-                        className="form-control inputfield"
-                        value={deliveryDate}
-                        min={new Date().toISOString().split("T")[0]}
-                        onChange={(e) => setDeliveryDate(e.target.value)}
-                        style={{ borderRadius: "8px", border: "1px solid #ccc", padding: "8px", width: "100%", fontSize: "14px" }}
-                      />
-                    </div>
-                  )}
-                </div>
-
-
-                {/* LOCATION & SERVICE */}
-                <div style={{ marginBottom: "20px" }}>
-                  <LocationOption onServiceChange={updateServiceStatus} />
-                </div>
-
-                {/* PRODUCT DETAILS & DESCRIPTION */}
-                <div className="mt-4">
-                  {data?.productDetails && (
-                    <div className="description-box mb-3">
-                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Product Details</h6>
-                      {/* allow HTML (including <img> tags) to render correctly */}
                       <div
-                        className="product-details-html"
-                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
-                        dangerouslySetInnerHTML={{ __html: data.productDetails }}
-                      />
+                        className="pdx-weight-group"
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "8px"
+                        }}
+                      >
+                        {data?.Variant
+                          ?.filter(v => v?.weight)
+                          ?.map((v) => (
+                            <button
+                              key={v?._id}
+                              className={`pdx-weight-btn ${activeWeight === v?.weight ? "active" : ""
+                                }`}
+                              onClick={() => handleWeightSelection(v?.weight)}
+                              style={{
+                                padding: "6px 14px",
+                                borderRadius: "6px",
+                                border:
+                                  activeWeight === v?.weight
+                                    ? "2px solid #df4444"
+                                    : "1px solid #ccc",
+                                backgroundColor:
+                                  activeWeight === v?.weight ? "#fff4f4" : "#fff",
+                                color: activeWeight === v?.weight ? "#df4444" : "#333",
+                                fontWeight: activeWeight === v?.weight ? "600" : "400",
+                                fontSize: "13px"
+                              }}
+                            >
+                              {v?.weight}
+                            </button>
+                          ))}
+                      </div>
                     </div>
                   )}
 
-                  {data?.productDescription && (
-                    <div className="description-box">
-                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Description</h6>
-                      <div
-                        className="product-description-html"
-                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
-                        dangerouslySetInnerHTML={{ __html: data.productDescription }}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* MAKE IT EXTRA SPECIAL (Addons) */}
+                   {/* MAKE IT EXTRA SPECIAL (Addons) */}
                 {data?.recommendedProductId?.length > 0 && (
                   <div className="pdx-block mt-3">
                     <h6 className="pdx-addon-title" style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "12px" }}>Make this gift extra special</h6>
@@ -1051,7 +1049,182 @@ const ProductDetails = () => {
                   </div>
                 )}
 
-                
+
+                  {/* {data?.ActiveonFlavours ? (
+                    <div className="pdx-block formInput mb-3">
+                      <label style={{ fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#333", display: "block" }}>
+                        Select Flavour
+                      </label>
+
+                      <select
+                        className="form-select inputfield"
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #ccc",
+                          padding: "8px",
+                          width: "100%",
+                          fontSize: "14px"
+                        }}
+                      >
+                        <option>Butterscotch</option>
+                        <option>Chocolate</option>
+                        <option>Vanilla</option>
+                      </select>
+                    </div>
+                  ) : null} */}
+                  {data?.ActiveonFlavours && (
+                    <div className="pdx-block mb-3">
+                      <label
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "600",
+                          marginBottom: "6px",
+                          color: "#333",
+                          display: "block"
+                        }}
+                      >
+                        Select Flavour
+                      </label>
+
+                      <select
+                        className="form-select inputfield"
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #ccc",
+                          padding: "8px",
+                          width: "100%",
+                          fontSize: "14px"
+                        }}
+                      >
+                        <option>Butterscotch</option>
+                        <option>Chocolate</option>
+                        <option>Vanilla</option>
+                      </select>
+                    </div>
+                  )}
+
+                  {/* {data?.NameOnCake && (
+                    <div className="pdx-block mb-3" style={{ marginTop: "8%", }}>
+                      <label className="nameOfCake">
+                        Name on Cake <small style={{ color: "#888", fontWeight: "normal" }}>{massage?.length} / 25</small>
+                      </label>
+                      <input
+                        type="text"
+                        value={massage}
+                        onChange={(e) => setMassage(e.target.value)}
+                        className="form-control formInput inputfield"
+                        placeholder="Write Name Here"
+                        maxLength={25}
+                        style={{ borderRadius: "8px", border: "1px solid #ccc", padding: "8px", fontSize: "14px" }}
+                      />
+                    </div>
+                  )} */}
+                  {data?.NameOnCake ? (
+                    <div className="pdx-block mb-3">
+                      <label className="nameOfCake">
+                        Name on Cake
+                        <small style={{ color: "#888", fontWeight: "normal" }}>
+                          {massage?.length} / 25
+                        </small>
+                      </label>
+
+                      <input
+                        type="text"
+                        value={massage}
+                        onChange={(e) => setMassage(e.target.value)}
+                        className="form-control formInput inputfield"
+                        placeholder="Write Name Here"
+                        maxLength={25}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #ccc",
+                          padding: "8px",
+                          fontSize: "14px"
+                        }}
+                      />
+                    </div>
+                  ) : null}
+
+                  {/* {data?.ActiveonDeliveryDate && (
+                    <div className="pdx-block mb-1">
+                      <label style={{ fontSize: "13px", fontWeight: "600", marginBottom: "6px", color: "#333", display: "block" }}>
+                        Delivery Date <span className="text-danger">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control inputfield"
+                        value={deliveryDate}
+                        min={new Date().toISOString().split("T")[0]}
+                        onChange={(e) => setDeliveryDate(e.target.value)}
+                        style={{ borderRadius: "8px", border: "1px solid #ccc", padding: "8px", width: "100%", fontSize: "14px" }}
+                      />
+                    </div>
+                  )} */}
+                  {data?.ActiveonDeliveryDate ? (
+                    <div className="pdx-block mb-3">
+                      <label
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "600",
+                          marginBottom: "6px",
+                          color: "#333",
+                          display: "block"
+                        }}
+                      >
+                        Delivery Date <span className="text-danger">*</span>
+                      </label>
+
+                      <input
+                        type="date"
+                        className="form-control inputfield"
+                        value={deliveryDate}
+                        min={new Date().toISOString().split("T")[0]}
+                        onChange={(e) => setDeliveryDate(e.target.value)}
+                        style={{
+                          borderRadius: "8px",
+                          border: "1px solid #ccc",
+                          padding: "8px",
+                          width: "100%",
+                          fontSize: "14px"
+                        }}
+                      />
+                    </div>
+                  ) : null}
+
+
+                {/* LOCATION & SERVICE */}
+                <div style={{ marginBottom: "20px" }}>
+                  <LocationOption onServiceChange={updateServiceStatus} />
+                </div>
+
+                {/* PRODUCT DETAILS & DESCRIPTION */}
+                <div className="mt-4">
+                  {data?.productDetails && (
+                    <div className="description-box mb-3">
+                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Product Details</h6>
+                      {/* allow HTML (including <img> tags) to render correctly */}
+                      <div
+                        className="product-details-html"
+                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
+                        dangerouslySetInnerHTML={{ __html: data.productDetails }}
+                      />
+                    </div>
+                  )}
+
+                  {data?.productDescription && (
+                    <div className="description-box">
+                      <h6 style={{ fontSize: "15px", fontWeight: "600", color: "#222", marginBottom: "8px" }}>Description</h6>
+                      <div
+                        className="product-description-html"
+                        style={{ fontSize: "13px", color: "#555", lineHeight: "1.6", margin: 0 }}
+                        dangerouslySetInnerHTML={{ __html: data.productDescription }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+               
+
 
                 {/* STICKY ACTION BUTTONS */}
                 <div className="sticky-buttons mt-4">

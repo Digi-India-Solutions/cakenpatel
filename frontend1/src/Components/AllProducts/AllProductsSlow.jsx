@@ -127,17 +127,40 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
   const count = productData?.length;
   const getSlidesToShow = (desired) => Math.min(desired, count);
 
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const settings = {
     dots: false,
-    infinite: count > 4,           // ✅ No infinite loop when few items
+    infinite: count > 4,
     speed: 500,
     autoplay: true,
     slidesToShow: getSlidesToShow(4),
     slidesToScroll: 1,
-    arrows: count > 4,             // ✅ Hide arrows if no scrolling needed
+    arrows: count > 4,
     autoplay: count > 4,
     autoplaySpeed: 3000,
-    // ✅ Center items when count is less than max slides
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     centerMode: count < 4,
     centerPadding: count < 4 ? "0px" : "0px",
     responsive: [
@@ -219,7 +242,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
                 >
 
                   {/* IMAGE AREA */}
-                  <div className="product-img position-relative" style={{ height: "200px", width: "100%", backgroundColor: "#f9f9f9" }}>
+                  <div className="product-img position-relative custom-cs">
                     <img
                       src={`https://api.cakenpetals.com/${product.productImage[0]}`}
                       alt={product.productName}
@@ -353,7 +376,7 @@ const AllProducts = ({ status = '', relatedProducts = '' }) => {
               >
 
                 {/* IMAGE AREA */}
-                <div className="product-img position-relative" style={{ height: "200px", width: "100%", backgroundColor: "#f9f9f9" }}>
+                <div className="product-img position-relative custom-cs">
                   <img
                     src={`https://api.cakenpetals.com/${product.productImage[0]}`}
                     alt={product.productName}

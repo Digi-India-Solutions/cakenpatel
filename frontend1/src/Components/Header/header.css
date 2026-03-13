@@ -123,7 +123,8 @@
 /* ============================= */
 
 .mega-dropdown {
-  position: static; /* Allows menu to center to screen */
+  position: static;
+  /* Allows menu to center to screen */
 }
 
 .mega-toggle {
@@ -133,16 +134,21 @@
 /* Mega menu container (60% UI Fix) */
 .mega-menu {
   position: absolute;
-  top: 100%; /* Sits below header */
+  top: 100%;
+  /* Sits below header */
   left: 50%;
-  transform: translateX(-50%); /* Pulls back to true center */
-  width: 90vw; /* 60% of screen */
+  transform: translateX(-50%);
+  /* Pulls back to true center */
+  width: 90vw;
+  /* 60% of screen */
   max-width: 1100px;
-  margin-top: 0px; /* The premium gap */
+  margin-top: 0px;
+  /* The premium gap */
   background: #fff;
   padding: 10px 0;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-radius: 16px; /* Smooth rounded corners */
+  border-radius: 16px;
+  /* Smooth rounded corners */
   z-index: 999;
 }
 
@@ -168,7 +174,8 @@
   padding: 0 10px;
   gap: 24px 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Auto adapts to 60vw size */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  /* Auto adapts to 60vw size */
   overflow: hidden;
 }
 
@@ -401,6 +408,14 @@
 
 /* 📱 MOBILE RESPONSIVE */
 @media (max-width: 768px) {
+  .only_mobile {
+    display: block;
+  }
+
+   .searchInput {
+    height: unset !important;
+  }
+
   .delivery-country {
     max-width: 90px;
     font-size: 12px;
@@ -449,9 +464,42 @@
 /* RESPONSIVE */
 /* ============================= */
 
+.only_mobile {
+  display: none;
+}
+
+/* 🔥 cart badge */
+.cart-count-badge {
+  position: absolute;
+  top: -4px;
+  right: -3px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  animation: popIn 0.25s ease;
+}
 
 
 @media (max-width: 576px) {
+  .only_mobile {
+    display: block;
+    padding: 0 10px;
+  }
+
+  .searchInput {
+    height: unset !important;
+  }
+
+
   .navbarContainer {
     display: flex;
     flex-direction: row-reverse;
@@ -463,7 +511,9 @@
 }
 
 @media (max-width: 991px) {
-
+ .searchInput {
+    height: unset !important;
+  }
   /* =============================
      TOP HEADER
   ============================== */
@@ -548,7 +598,7 @@
     border-top: 1px solid #eee;
     padding: 10px 16px;
     /* THE MOBILE SCROLL FIX: Caps height and enables independent scrolling */
-    max-height: calc(100vh - 120px); 
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
   }
 
@@ -577,11 +627,13 @@
     align-items: center;
     padding: 10px 0;
     cursor: pointer;
-    list-style: none; /* Removes default triangle */
+    list-style: none;
+    /* Removes default triangle */
   }
 
   .mobile-subcat-summary::-webkit-details-marker {
-    display: none; /* Removes Safari triangle */
+    display: none;
+    /* Removes Safari triangle */
   }
 
   .mobile-subcat-summary strong {
@@ -596,7 +648,8 @@
   }
 
   .mobile-nested-accordion[open] .plus-icon {
-    transform: rotate(45deg); /* Turns + to x */
+    transform: rotate(45deg);
+    /* Turns + to x */
   }
 
   .mobile-children-links {
@@ -696,11 +749,13 @@
   /* Allow wrapping */
   .top-header-wrapper {
     flex-wrap: wrap;
+    align-items: end;
   }
 
   /* Make sure header can stack rows */
   .top-header-wrapper {
     flex-wrap: wrap;
+    align-items: end;
   }
 
   /* Delivery row takes full next line */
@@ -748,25 +803,7 @@
 }
 
 
-/* 🔥 cart badge */
-.cart-count-badge {
-  position: absolute;
-    top: -4px;
-    right: -3px;
-    background: red;
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    min-width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    animation: popIn 0.25s ease;
-}
+
 
 /* ✨ small pop animation */
 @keyframes popIn {

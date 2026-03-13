@@ -46,6 +46,28 @@ const Testimonial = () => {
     },
   ];
 
+    const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -54,6 +76,8 @@ const Testimonial = () => {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "30px",
+        nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     autoplay: true,
     autoplaySpeed: 4000,
     responsive: [

@@ -102,3 +102,9 @@
 .wa-send-btn:hover {
   background: #1ebc59;
 }
+
+@media only screen and (max-width: 768px) {
+  .wa-floating-icon {
+    bottom: 50px;
+  }
+}

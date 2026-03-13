@@ -215,8 +215,8 @@ return (
         {category.map((cat) => {
           return (
             <div key={cat._id} style={{ gap: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <div>
-                <img src={`https://api.cakenpetals.com/${cat?.image}`} width={35} alt={cat?.name} />
+              <div className="cat_image_">
+                <img src={`https://api.cakenpetals.com/${cat?.image}`} alt={cat?.name} />
               </div>
               <button
                 className={`rp-category ${activeCategory === cat._id ? "active" : ""}`}

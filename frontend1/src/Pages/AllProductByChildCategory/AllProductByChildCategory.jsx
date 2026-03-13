@@ -73,6 +73,7 @@ const AllProductByChildCategory = () => {
         autoplaySpeed: 2500,
         slidesToShow: Math.min(secondSubCategories.length, 8),
         slidesToScroll: 2,
+        
         swipeToSlide: true,
         responsive: [
             { breakpoint: 1200, settings: { slidesToShow: 6 } },

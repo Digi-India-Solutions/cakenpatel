@@ -444,6 +444,72 @@ const Header = () => {
             </div>
           </div>
 
+          {/* ================= SEARCH ================= */}
+              <form className="only_mobile" onSubmit={handleSearchSubmit}>
+                <div className="search-wrapper position-relative">
+
+                  <input
+                    type="search"
+                    className="form-control searchInput"
+                    placeholder="Search cakes, flowers..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+
+                  <button
+                    type={searchQuery ? "button" : "submit"}
+                    className="search-icon"
+                    onClick={() => {
+                      if (searchQuery) {
+                        setSearchQuery("");
+                        setProductSuggestions([]);
+                      }
+                    }}
+                  >
+                    {searchQuery ? (
+                      ""
+                    ) : (
+                      <IoSearch className="iconFont text-dark" style={{ fontSize: "20px" }} />
+                    )}
+                  </button>
+
+                  {/* 🔥 Product Suggestion Dropdown */}
+                  {searchQuery && (
+                    <div className="search-suggestions">
+                      {loadingSuggestions && (
+                        <div className="suggestion-item">Searching...</div>
+                      )}
+
+                      {!loadingSuggestions && productSuggestions.length === 0 && (
+                        <div className="suggestion-item">No products found</div>
+                      )}
+
+                      {productSuggestions.map((product) => (
+                        <div
+                          key={product._id}
+                          className="suggestion-item product-suggestion"
+                          onClick={() => {
+                            navigate(`/product-details/${product?.productName.replace(/\s+/g, "-")}`,
+                              { state: { id: product?._id, status: 'product' } });
+                            setSearchQuery("");
+                            setProductSuggestions([]);
+                          }}
+                        >
+                          <img
+                            src={`https://api.cakenpetals.com/${product?.productImage?.[0]?.replace(/\\/g, "/")}`}
+                            alt={product?.productName}
+                            className="suggestion-image"
+                          />
+                          <div className="suggestion-name">
+                            {product.productName}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </form>
+
           {/* ================= DELIVERY ================= */}
           <div className="delivery-row d-lg-none">
             <div

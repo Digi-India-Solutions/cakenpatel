@@ -160,7 +160,7 @@ const FeaturedProducts = () => {
               >
 
                 {/* IMAGE AREA */}
-                <div className="product-img position-relative" style={{ height: "200px", width: "100%", backgroundColor: "#f9f9f9" }}>
+                <div className="product-img position-relative custom-cs">
                   <img
                     src={getImageUrl(item.productImage?.[0])}
                     alt={item.productName}

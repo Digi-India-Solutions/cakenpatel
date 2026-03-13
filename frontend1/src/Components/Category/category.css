@@ -130,8 +130,8 @@
 
   .category-container {
   width: 100%;
-  /* margin: 0 auto;
-  padding: 0 10px; */
+   /* margin: 0 auto; */
+  padding: 0; 
 }
   .category-main {
     padding: 1rem 0;
@@ -157,8 +157,8 @@
 /* Small mobile screens still show 3 categories */
 @media screen and (max-width: 480px) {
   .category-img {
-    width: 85px;
-    height: 85px;
+    width: 80px;
+    height: 80px;
   }
   
   .category-name {
@@ -168,7 +168,7 @@
   
   .category-grid-item {
     flex: 0 0 calc(33.333% - 10px); /* Still 3 items per row */
-    max-width: calc(33.333% - 10px);
+    max-width: calc(23.333% - 10px);
   }
 }
 

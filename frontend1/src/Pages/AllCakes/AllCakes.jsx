@@ -106,12 +106,37 @@ const AllCakes = () => {
     }
   }, [subcatname, subCategoryId]);
 
+
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const bannerSettings = {
     dots: false,
     arrows: false,
     autoplay: true,
     infinite: subcategoryInfo?.length > 8, // smart infinite
     speed: 600,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     autoplaySpeed: 2500,
     slidesToShow: 8,
     slidesToScroll: 2,

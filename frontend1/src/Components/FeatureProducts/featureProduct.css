@@ -19,6 +19,12 @@
   height: 100%;
 }
 
+.custom-cs{
+  height: 250px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
 
 .featured-products .wishlist-icon {
   position: absolute;
@@ -186,6 +192,10 @@
   .featured-products .product-title {
     font-size: 13.5px;
   }
+  .custom-cs{
+  height: 200px;
+}
+
 }
 
 /* Small Mobile */

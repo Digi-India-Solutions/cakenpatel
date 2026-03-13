@@ -206,17 +206,40 @@ const Category = () => {
   // ✅ Dynamic slidesToShow — never exceed actual item count
   const getSlidesToShow = (desired) => Math.min(desired, count);
 
+  const NextArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-next"
+        onClick={onClick}
+      >
+        ›
+      </div>
+    );
+  };
+
+  const PrevArrow = ({ onClick }) => {
+    return (
+      <div
+        className="custom-arrow custom-prev"
+        onClick={onClick}
+      >
+        ‹
+      </div>
+    );
+  };
+
   const settings = {
     dots: false,
-    infinite: count > 8,           // ✅ No infinite loop when few items
+    infinite: count > 8,
     speed: 500,
     slidesToShow: getSlidesToShow(8),
     slidesToScroll: 1,
-    arrows: count > 8,             // ✅ Hide arrows if no scrolling needed
+    arrows: count > 8,
     autoplay: count > 8,
     autoplaySpeed: 3000,
-    // ✅ Center items when count is less than max slides
     centerMode: count < 8,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     centerPadding: count < 8 ? "0px" : "0px",
     responsive: [
       {
