@@ -139,8 +139,8 @@ export default function ReelSection() {
                       {reel?.productId?.Variant[0]?.discountPrice && (
                         <span
                           style={{
-                            fontSize: "11px",
-                            color: "#d68716",
+                            fontSize: "11px",fontWeight: "500",
+                            color: "#000000",
                           }}
                         >
                           {reel?.productId?.Variant[0]?.discountPrice}% OFF
