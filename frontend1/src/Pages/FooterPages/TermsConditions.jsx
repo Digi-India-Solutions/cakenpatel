@@ -175,6 +175,8 @@ const TermsConditions = () => {
     {
       heading: "5. Delivery Policy",
       listItems: [
+        "• The order will be delivered within 5 hours.",
+        "There is no return policy. Replacement will be provided within 6 hours of purchase.",
         "Delivery timelines are estimates and may vary due to unforeseen circumstances.",
         "Same-day delivery orders must be placed before the specified cut-off time.",
         "We do not guarantee delivery at a specific time unless explicitly mentioned.",
@@ -195,7 +197,8 @@ const TermsConditions = () => {
         "Orders can be cancelled before preparation or dispatch.",
         "Once prepared or dispatched, cancellation may not be possible.",
         "Refunds, if applicable, will be processed via the original payment method within a reasonable timeframe.",
-        "For detailed terms, refer to our Refund Policy."
+        "For detailed terms, refer to our Refund Policy.",
+        "There is no return / refund policy.",
       ],
     },
     {
@@ -257,7 +260,7 @@ const TermsConditions = () => {
     <div className="termsConditions">
       <div className="container">
         <div className="termsConditionsContent">
-          
+
           <h3>CAKENPETALS</h3>
           <h1>Terms & Conditions</h1>
           <hr />

@@ -99,8 +99,8 @@ const Footer = () => {
               <li className="text-light"><Link to="/terms-&-conditions">Terms & Conditions</Link></li>
               <li><Link to="/cancellation-refund-policy">Cancellation & Refund Policy</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-              <li><Link to="#">Terms of Use</Link></li>
-              <li><Link to="#">Disclaimer</Link></li>
+              {/* <li><Link to="#">Terms of Use</Link></li>
+              <li><Link to="#">Disclaimer</Link></li> */}
             </ul>
           </div>
 
@@ -191,6 +191,8 @@ const Footer = () => {
             Company Name: CAKENPETALS | CIN: U52100HR2021PTC118882 |
             Regd. Office: A 23 sanjay nagar ghaziabad - 201002
           </p>
+          {/* CIN: Hat jaaega Footer se &
+            FFSAI - 12725052000957 */}
           <p>
             Telephone No.: +91-9211929555 | Grievance Officer: Support Team
           </p>
