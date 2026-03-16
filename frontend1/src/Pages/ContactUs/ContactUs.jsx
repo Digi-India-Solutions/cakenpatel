@@ -292,8 +292,7 @@ const ContactUs = () => {
       <div className="contact-info container">
         <div className="info-card">
           <h5>Visit Us</h5>
-          {/* <p>A 23, sanjay nagar,  ghaziabad</p> */}
-          <p>CIN: Hat jaaega Footer se & FFSAI - 12725052000957</p>
+          <p>A 23, sanjay nagar,  ghaziabad</p>
         </div>
 
         <div className="info-card">
