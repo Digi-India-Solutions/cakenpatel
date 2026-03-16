@@ -189,7 +189,7 @@ const Footer = () => {
         <div className="container text-center">
           <p>
             Company Name: CAKENPETALS | FFSAI - 12725052000957 |
-            Regd. Office: A 23 sanjay nagar ghaziabad - 201002
+            D-550, Ground Floor, Ashram Road, Nand Gram, Ghaziabad, Uttar Pradesh – 201003.
           </p>
           {/* CIN: Hat jaaega Footer se &
             FFSAI - 12725052000957 */}

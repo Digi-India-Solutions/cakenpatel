@@ -292,7 +292,7 @@ const ContactUs = () => {
       <div className="contact-info container">
         <div className="info-card">
           <h5>Visit Us</h5>
-          <p>A 23, sanjay nagar,  ghaziabad</p>
+          <p>D-550, Ground Floor, Ashram Road, Nand Gram, Ghaziabad, Uttar Pradesh – 201003.</p>
         </div>
 
         <div className="info-card">
