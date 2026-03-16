@@ -19,7 +19,7 @@ let cachedFooterCategories = null;
 
 const Footer = () => {
   const navigate = useNavigate();
-  
+
   // Use cached data immediately if we have it
   const [categories, setCategories] = useState(cachedFooterCategories || []);
   const [email, setEmail] = useState("");
@@ -174,13 +174,13 @@ const Footer = () => {
             </div>
           </div>
 
-           <div className="social-icons" >
+          <div className="social-icons" >
             <a href="#"><img src={insta} /></a>
             <a href="#"><img src={facebook} /></a>
             <a href="#"><img src={linkedin} /></a>
             <a href="#"><img src={xtwiter} /></a>
           </div>
-          
+
         </div>
       </div>
 
@@ -188,7 +188,7 @@ const Footer = () => {
       <div className="footer-middle">
         <div className="container text-center">
           <p>
-            Company Name: CAKENPETALS | CIN: U52100HR2021PTC118882 |
+            Company Name: CAKENPETALS | FFSAI - 12725052000957 |
             Regd. Office: A 23 sanjay nagar ghaziabad - 201002
           </p>
           {/* CIN: Hat jaaega Footer se &
@@ -214,7 +214,7 @@ const Footer = () => {
           {/* <p className="mb-0">
             © 2024 Cake Bakery. All rights reserved.
           </p> */}
-          
+
           {/* <div className="payment-icons">
             <FaCcAmazonPay className="fs-3 " />
           </div> */}
