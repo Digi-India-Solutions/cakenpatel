@@ -454,7 +454,7 @@ const Checkout = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const oldDiscount = couponDiscount;
-        const oldTotal = totalAmount;
+        const oldTotal = Math.floor(totalAmount);
         const newTotal = oldTotal + oldDiscount;
 
         setCouponCode("");
@@ -586,7 +586,7 @@ const Checkout = () => {
         couponType: appliedCoupon?.type || null,
         couponValue: appliedCoupon?.value || null,
         totalSavings: totalSavings,
-        finalAmount: totalAmount,
+        finalAmount: Math.floor(totalAmount),
       },
       paymentMode: checkoutData.paymentMode,
       orderDate: new Date().toISOString(),
@@ -745,7 +745,7 @@ const Checkout = () => {
     // console.log("XXXXXXXZZZZZZZZZXXXXXXX=AAA>", orderData, totalAmount, appliedCoupon);
     const options = {
       key: "rzp_test_TmsfO3hloFEA31",
-      amount: totalAmount,
+      amount: Math.floor(totalAmount),
       currency: "INR",
       name: "Cake N Petals",
       description: `Order #${orderData?.orderId} ${appliedCoupon ? `with ${appliedCoupon?.code}` : ''}`,
@@ -1163,7 +1163,7 @@ const Checkout = () => {
                     </div>
 
                     {cartItems.map((item, index) => (
-                      <div key={index} className="product-card" style={{ display: 'flex', border:"none" , borderRadius: '12px', marginBottom: '15px', transition: 'all 0.3s ease', position: 'relative' }}>
+                      <div key={index} className="product-card" style={{ display: 'flex', border: "none", borderRadius: '12px', marginBottom: '15px', transition: 'all 0.3s ease', position: 'relative' }}>
                         {/* Product Image */}
                         <div className="product-image" style={{ width: '100px', height: '100px', marginRight: '15px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #f0f0f0', flexShrink: 0 }}>
                           <img
@@ -1357,6 +1357,7 @@ const Checkout = () => {
                         borderRadius: '5px'
                       }}>
                         <span><strong>Total Before Discount</strong></span>
+
                         <span><strong>₹{totalBeforeDiscount}</strong></span>
                       </div>
 
@@ -1438,7 +1439,7 @@ const Checkout = () => {
                         marginBottom: '10px'
                       }}>
                         <span>Final Amount</span>
-                        <span style={{ color: '#153964' }}>₹{totalAmount}</span>
+                        <span style={{ color: '#153964' }}>₹{Math.floor(totalAmount)}</span>
                       </div>
 
                       {/* Savings Message */}
@@ -1453,6 +1454,21 @@ const Checkout = () => {
                           marginTop: '10px'
                         }}>
                           🎉 You saved ₹{totalSavings} with coupon {appliedCoupon?.code}!
+                        </div>
+                      )}
+
+                      {couponDiscount > 0 && (
+                        <div style={{
+                          textAlign: 'center',
+                          color: '#28a745',
+                          fontSize: '14px',
+                          marginTop: '5px',
+                          padding: '8px',
+                          background: '#e8f5e9',
+                          borderRadius: '5px',
+                          marginTop: '10px'
+                        }}>
+                          {appliedCoupon?.description}
                         </div>
                       )}
                     </div>
@@ -1619,7 +1635,7 @@ const Checkout = () => {
                       <hr style={{ margin: '10px 0', borderColor: 'rgba(255,255,255,0.2)' }} />
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2em' }}>
                         <span>You Pay:</span>
-                        <span>₹{totalAmount}</span>
+                        <span>₹{Math.floor(totalAmount)}</span>
                       </div>
                     </div>
 
@@ -1632,7 +1648,7 @@ const Checkout = () => {
                       {loading ? (
                         <span><i className="fa fa-spinner fa-spin"></i> PROCESSING...</span>
                       ) : (
-                        <span><i className="fa fa-lock"></i> PAY ₹{totalAmount} SECURELY</span>
+                        <span><i className="fa fa-lock"></i> PAY ₹{Math.floor(totalAmount)} SECURELY</span>
                       )}
                     </button>
 

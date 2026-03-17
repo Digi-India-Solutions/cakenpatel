@@ -10,6 +10,7 @@ const AllOrder = () => {
   const [orders, setOrders] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredOrders, setFilteredOrders] = useState([]);
+  const [dateFilter, setDateFilter] = useState("");
 
   // Fetch all orders from the backend
   const fetchOrders = async () => {
@@ -53,18 +54,106 @@ const AllOrder = () => {
   };
 
   // Filter orders based on search query
+  // const handleSearch = (e) => {
+  //   const query = (e.target.value || "").toLowerCase().trim();
+  //   setSearchQuery(query);
+
+  //   if (!query) {
+  //     setFilteredOrders(orders);
+  //     return;
+  //   }
+
+  //   const filtered = orders.filter((order) => {
+  //     // 1. Search in basic fields
+  //     const basicMatch = [
+  //       order._id,
+  //       order.name,
+  //       order.phone,
+  //       order.email,
+  //       order.city,
+  //       order.pin,
+  //       order.paymentMode,
+  //       order.paymentStatus,
+  //       order.orderStatus,
+  //       order.totalPrice,
+  //       order.transactionId,
+  //     ].some((val) =>
+  //       val?.toString().toLowerCase().includes(query)
+  //     );
+
+  //     // 2. Search in delivery
+  //     const deliveryMatch =
+  //       order.delivery?.date?.toLowerCase().includes(query) ||
+  //       order.delivery?.time?.toLowerCase().includes(query);
+
+  //     // 3. Search in special notes
+  //     const noteMatch = Object.values(order.specialNote || {}).some((val) =>
+  //       val?.toString().toLowerCase().includes(query)
+  //     );
+
+  //     // 4. Search in cart items
+  //     const cartMatch = order.cartItems?.some((item) =>
+  //       [item.name, item.weight, item.price]
+  //         .some((val) =>
+  //           val?.toString().toLowerCase().includes(query)
+  //         )
+  //     );
+
+  //     // 5. Search in tracking orders
+  //     const trackingMatch = order.trackingOrders?.some((track) =>
+  //       [track.status, track.massage]
+  //         .some((val) =>
+  //           val?.toString().toLowerCase().includes(query)
+  //         )
+  //     );
+
+  //     return (
+  //       basicMatch || deliveryMatch || noteMatch || cartMatch || trackingMatch
+  //     );
+  //   });
+
+  //   setFilteredOrders(filtered);
+  // };
+
+  const deepSearch = (obj, query) => {
+    if (!obj) return false;
+
+    if (
+      typeof obj === "string" ||
+      typeof obj === "number" ||
+      typeof obj === "boolean"
+    ) {
+      return obj.toString().toLowerCase().includes(query);
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.some((item) => deepSearch(item, query));
+    }
+
+    if (typeof obj === "object") {
+      return Object.values(obj).some((val) => deepSearch(val, query));
+    }
+
+    return false;
+  };
+
   const handleSearch = (e) => {
-    const query = e.target.value.toLowerCase();
+    const query = (e.target.value || "").toLowerCase().trim();
     setSearchQuery(query);
 
-    const filtered = orders.filter(
-      (order) =>
-        order.orderId.toLowerCase().includes(query) ||
-        order.name.toLowerCase().includes(query)
+    if (!query) {
+      setFilteredOrders(orders);
+      return;
+    }
+
+    const filtered = orders.filter((order) =>
+      deepSearch(order, query)
     );
+
     setFilteredOrders(filtered);
   };
 
+  console.log("orders==>", orders)
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -89,6 +178,62 @@ const AllOrder = () => {
     );
   };
 
+  const filterByDate = (orders, filter) => {
+    if (!filter) return orders;
+
+    const now = new Date();
+
+    return orders.filter((order) => {
+      const orderDate = new Date(order.orderDate);
+
+      switch (filter) {
+        case "today":
+          return orderDate.toDateString() === now.toDateString();
+
+        case "yesterday": {
+          const yesterday = new Date();
+          yesterday.setDate(now.getDate() - 1);
+          return orderDate.toDateString() === yesterday.toDateString();
+        }
+
+        case "thisWeek": {
+          const firstDay = new Date(now);
+          firstDay.setDate(now.getDate() - now.getDay()); // Sunday
+
+          return orderDate >= firstDay && orderDate <= now;
+        }
+
+        case "thisMonth":
+          return (
+            orderDate.getMonth() === now.getMonth() &&
+            orderDate.getFullYear() === now.getFullYear()
+          );
+
+        case "thisYear":
+          return orderDate.getFullYear() === now.getFullYear();
+
+        default:
+          return true;
+      }
+    });
+  };
+
+  useEffect(() => {
+    let result = [...orders];
+
+    // Apply date filter
+    result = filterByDate(result, dateFilter);
+
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+
+      result = result.filter((order) => deepSearch(order, query));
+    }
+
+    setFilteredOrders(result);
+  }, [orders, searchQuery, dateFilter]);
+
 
   return (
     <>
@@ -104,7 +249,10 @@ const AllOrder = () => {
 
       <div className="filteration">
         <div className="selects">
-          <select>
+          <select
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.target.value)}
+          >
             <option value="">All Orders</option>
             <option value="today">Today's Orders</option>
             <option value="yesterday">Yesterday's Orders</option>

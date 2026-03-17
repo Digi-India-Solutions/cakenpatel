@@ -757,7 +757,7 @@ const EditOrder = () => {
               <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                 <h5 className="mb-0">Order Details</h5>
                 <button className="btn btn-light btn-sm" onClick={handleDownloadPDF}>
-                  📄 Download Invoice
+                  📄 Download Order Receipt
                 </button>
               </div>
               <div className="card-body">
@@ -944,7 +944,7 @@ const EditOrder = () => {
           {/* Header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "2px solid #f0ad4e", paddingBottom: "15px", marginBottom: "20px" }}>
             <div>
-              <h1 style={{ fontSize: "24px", margin: "0", color: "#f0ad4e" }}>CAKE NPETALS STORE</h1>
+              <h1 style={{ fontSize: "24px", margin: "0", color: "#f0ad4e" }}>CAKE N PETALS STORE</h1>
               <p style={{ margin: "5px 0 0", fontSize: "12px", color: "#777" }}>Invoice</p>
             </div>
             <div style={{ textAlign: "right" }}>
@@ -964,7 +964,7 @@ const EditOrder = () => {
             </div>
             <div style={{ width: "45%", textAlign: "right" }}>
               <h4 style={{ fontSize: "14px", margin: "0 0 8px", color: "#f0ad4e" }}>Seller Details:</h4>
-              <p style={{ margin: "2px 0", fontSize: "13px" }}>CAKE NPETALS STORE</p>
+              <p style={{ margin: "2px 0", fontSize: "13px" }}>CAKE N PETALS STORE</p>
               <p style={{ margin: "2px 0", fontSize: "13px" }}>support@cakenpetals.com</p>
               <p style={{ margin: "2px 0", fontSize: "13px" }}>GST: xxxxxxxxxxx789</p>
             </div>
@@ -1011,7 +1011,7 @@ const EditOrder = () => {
 
           {/* Footer */}
           <div style={{ marginTop: "30px", borderTop: "1px dashed #ccc", paddingTop: "15px", fontSize: "11px", color: "#777", textAlign: "center" }}>
-            <p>Thank you for shopping with DELHI BOOK STORE. For any queries, contact support@delhibookstore.com</p>
+            <p>Thank you for shopping with CAKE N PATELS STORE. For any queries, contact cakenpetals111@gmail.com</p>
             <p>This is a computer generated invoice, no signature required.</p>
           </div>
         </div>
