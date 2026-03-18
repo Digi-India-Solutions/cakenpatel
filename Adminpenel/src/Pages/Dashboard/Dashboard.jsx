@@ -245,16 +245,16 @@ const Dashboard = () => {
           </Link>
         </div>
 
-        <div className="dashboard-card">
+        {/* <div className="dashboard-card">
           <Link to="/all-size">
             <i className="fa-solid fa-ruler-combined"></i>
             <h3>Manage Size</h3>
             <p>Update sizes for your products</p>
-            <p>{sizes.length} Sizes</p>
-            {/* Display sizes data */}
-            {/* <pre>{JSON.stringify(sizes, null, 2)}</pre> */}
-          </Link>
-        </div>
+            <p>{sizes.length} Sizes</p> */}
+        {/* Display sizes data */}
+        {/* <pre>{JSON.stringify(sizes, null, 2)}</pre> */}
+        {/* </Link>
+        </div> */}
 
         <div className="dashboard-card">
           <Link to="/all-products">

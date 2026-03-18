@@ -454,7 +454,7 @@ const Checkout = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const oldDiscount = couponDiscount;
-        const oldTotal = totalAmount;
+        const oldTotal = Math.round(totalAmount);
         const newTotal = oldTotal + oldDiscount;
 
         setCouponCode("");
@@ -586,7 +586,7 @@ const Checkout = () => {
         couponType: appliedCoupon?.type || null,
         couponValue: appliedCoupon?.value || null,
         totalSavings: totalSavings,
-        finalAmount: totalAmount,
+        finalAmount: Math.round(totalAmount),
       },
       paymentMode: checkoutData.paymentMode,
       orderDate: new Date().toISOString(),
@@ -745,7 +745,7 @@ const Checkout = () => {
     // console.log("XXXXXXXZZZZZZZZZXXXXXXX=AAA>", orderData, totalAmount, appliedCoupon);
     const options = {
       key: "rzp_test_TmsfO3hloFEA31",
-      amount: totalAmount,
+      amount: Math.round(totalAmount),
       currency: "INR",
       name: "Cake N Petals",
       description: `Order #${orderData?.orderId} ${appliedCoupon ? `with ${appliedCoupon?.code}` : ''}`,
@@ -900,20 +900,17 @@ const Checkout = () => {
       }));
     }
   };
-
+  console.log("checkoutData==>", checkoutData)
   return (
     <>
       {/* ================= USER INFO ================= */}
       <div className="container mt-4">
         <div className="login-box">
           <div className="row">
-            <div className="col-md-3">
-              <small>Full name</small>
-              <p>{checkoutData.user.name}</p>
-            </div>
-            <div className="col-md-3"><small>Phone Number</small><p>{checkoutData.user.phone || '-'}</p></div>
-            <div className="col-md-3"><small>E-Mail ID</small><p>{checkoutData.user.email || '-'}</p></div>
-            <div className="col-md-3"><small>Address</small><p>{checkoutData.user.address || '-'}</p></div>
+            {checkoutData?.user.name && <div className="col-md-3"><small>Full name</small><p>{checkoutData.user.name}</p></div>}
+            {/* {checkoutData?.user?.phone && <div className="col-md-3"><small>Phone Number</small><p>{checkoutData.user.phone || '-'}</p></div>} */}
+            {checkoutData?.user?.email && <div className="col-md-3"><small>E-Mail ID</small><p>{checkoutData.user.email || '-'}</p></div>}
+            {/* {checkoutData?.user?.address && <div className="col-md-3"><small>Address</small><p>{checkoutData.user.address || '-'}</p></div>} */}
           </div>
         </div>
       </div>
@@ -1083,12 +1080,12 @@ const Checkout = () => {
                     ))}
                   </div>
 
-                  <div className="form-check mb-3">
+                  {/* <div className="form-check mb-3">
                     <input className="form-check-input" type="checkbox" id="reminder" />
                     <label className="form-check-label" htmlFor="reminder">
                       Set reminder for this occasion
                     </label>
-                  </div>
+                  </div> */}
 
                   <div className="d-flex justify-content-between">
                     <label>Your Message</label>
@@ -1163,7 +1160,7 @@ const Checkout = () => {
                     </div>
 
                     {cartItems.map((item, index) => (
-                      <div key={index} className="product-card" style={{ display: 'flex', border:"none" , borderRadius: '12px', marginBottom: '15px', transition: 'all 0.3s ease', position: 'relative' }}>
+                      <div key={index} className="product-card" style={{ display: 'flex', border: "none", borderRadius: '12px', marginBottom: '15px', transition: 'all 0.3s ease', position: 'relative' }}>
                         {/* Product Image */}
                         <div className="product-image" style={{ width: '100px', height: '100px', marginRight: '15px', borderRadius: '10px', overflow: 'hidden', border: '1px solid #f0f0f0', flexShrink: 0 }}>
                           <img
@@ -1426,8 +1423,61 @@ const Checkout = () => {
                           <span>-</span>
                         </div>
                       )}
+                      <hr style={{ margin: '15px 0', borderColor: '#000000',border:'1px solid' }} />
 
-                      <hr style={{ margin: '15px 0' }} />
+                      {couponDiscount > 0 ? (
+                        <>
+                          <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+
+                            marginBottom: '8px',
+                            color: '#000000',
+                            fontWeight: 'bold'
+                          }}>
+                            <span>Coupon Details:- </span>
+                          </div>
+
+                          <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            marginBottom: '8px',
+                            color: '#28a745',
+                            background: '#e8f5e9',
+                            padding: '8px',
+                            borderRadius: '5px'
+                          }}>
+                            <span>
+                              <span style={{
+                                background: '#28a745',
+                                color: 'white',
+                                padding: '2px 8px',
+                                borderRadius: '12px',
+                                marginLeft: '8px',
+                                fontSize: '12px'
+                              }}>
+                                {appliedCoupon?.description}
+                              </span>
+                            </span>
+                            {/* <span>- ₹{couponDiscount}</span> */}
+                          </div>
+                        </>
+                      ) : (
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          marginBottom: '8px',
+                          color: '#6c757d',
+                          padding: '8px',
+                          background: '#f8f9fa',
+                          borderRadius: '5px'
+                        }}>
+                          <span><i className="fa fa-tag"></i> No coupon applied</span>
+                          <span>-</span>
+                        </div>
+                      )}
+
+                      <hr style={{ margin: '15px 0', borderColor: '#000000',border:'1px solid' }} />
 
                       {/* Final Amount */}
                       <div style={{
@@ -1438,7 +1488,7 @@ const Checkout = () => {
                         marginBottom: '10px'
                       }}>
                         <span>Final Amount</span>
-                        <span style={{ color: '#153964' }}>₹{totalAmount}</span>
+                        <span style={{ color: '#153964' }}>₹{Math.round(totalAmount)}</span>
                       </div>
 
                       {/* Savings Message */}
@@ -1617,9 +1667,10 @@ const Checkout = () => {
                         </div>
                       )}
                       <hr style={{ margin: '10px 0', borderColor: 'rgba(255,255,255,0.2)' }} />
+
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2em' }}>
                         <span>You Pay:</span>
-                        <span>₹{totalAmount}</span>
+                        <span>₹{Math.round(totalAmount)}</span>
                       </div>
                     </div>
 
@@ -1632,7 +1683,7 @@ const Checkout = () => {
                       {loading ? (
                         <span><i className="fa fa-spinner fa-spin"></i> PROCESSING...</span>
                       ) : (
-                        <span><i className="fa fa-lock"></i> PAY ₹{totalAmount} SECURELY</span>
+                        <span><i className="fa fa-lock"></i> PAY ₹{Math.round(totalAmount)} SECURELY</span>
                       )}
                     </button>
 

@@ -85,7 +85,7 @@ const App = () => {
         <Header />
         <EggLess />
         <WhatsAppChat />
-        <Routes>
+        <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/cancellation-refund-policy" element={<CancellationRefund />} />

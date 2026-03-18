@@ -681,7 +681,7 @@ const AllEventEnquiry = () => {
                             <th>Email</th>
                             <th>Enquiry Type</th>
                             <th>Enquiry Title</th>
-                            <th>Message</th>
+                            {/* <th>Message</th> */}
                             <th>Status</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -748,7 +748,7 @@ const AllEventEnquiry = () => {
                                     </td>
 
                                     {/* Enquiry Title */}
-                                    <td style={{ fontSize: "13px", maxWidth: "150px" }}>
+                                    <td style={{ fontSize: "13px", maxWidth: "220px" }}>
                                         <span title={enq.enquiryTitle}>
                                             {enq.enquiryTitle?.length > 40
                                                 ? enq.enquiryTitle.slice(0, 40) + "..."
@@ -758,7 +758,7 @@ const AllEventEnquiry = () => {
                                     </td>
 
                                     {/* Message */}
-                                    <td style={{ fontSize: "12px", color: "#555", maxWidth: "200px" }}>
+                                    {/* <td style={{ fontSize: "12px", color: "#555", maxWidth: "200px" }}>
                                         <span title={enq.message}>
                                             {enq.message
                                                 ? enq.message.length > 20
@@ -767,7 +767,7 @@ const AllEventEnquiry = () => {
                                                 : "—"
                                             }
                                         </span>
-                                    </td>
+                                    </td> */}
 
                                     {/* Status Dropdown */}
                                     <td>

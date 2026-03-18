@@ -356,8 +356,9 @@ const forgetPassword2 = async (req, res) => {
 const forgetPassword3 = async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = await User.findOne({ $or: [{ username }, { email }] });
-
+        console.log('username=>', username, 'email=>', email, 'password=>', password);
+        const user = await User.findOne({ email: email });
+        console.log('user=>', user);
         if (!user) {
             return res.status(401).json({ success: false, message: "Unauthorized activity." });
         }
@@ -365,7 +366,7 @@ const forgetPassword3 = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         user.password = hashedPassword;
         await user.save();
-
+        console.log('user=>', user);
         res.status(200).json({ success: true, message: "Password has been reset." });
     } catch (error) {
         res.status(500).json({ success: false, message: "Internal Server Error." });

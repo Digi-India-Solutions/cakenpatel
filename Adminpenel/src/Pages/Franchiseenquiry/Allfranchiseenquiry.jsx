@@ -643,7 +643,7 @@ const AllFranchiseEnquiry = () => {
                             <th>Phone</th>
                             <th>Email</th>
                             <th>City</th>
-                            <th>Message</th>
+                            {/* <th>Message</th> */}
                             <th>Status</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -697,7 +697,7 @@ const AllFranchiseEnquiry = () => {
                                     </td>
 
                                     {/* Message */}
-                                    <td style={{ fontSize: "12px", color: "#555", maxWidth: "200px" }}>
+                                    {/* <td style={{ fontSize: "12px", color: "#555", maxWidth: "200px" }}>
                                         <span title={enq.message}>
                                             {enq.message
                                                 ? enq.message.length > 10
@@ -706,7 +706,7 @@ const AllFranchiseEnquiry = () => {
                                                 : "—"
                                             }
                                         </span>
-                                    </td>
+                                    </td> */}
 
                                     {/* Status Dropdown */}
                                     <td>

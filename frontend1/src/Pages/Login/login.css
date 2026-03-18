@@ -64,6 +64,7 @@ form {
 .form-box.register {
   visibility: hidden;
 }
+
 .Login_container.active .form-box.register {
   visibility: visible;
 }
@@ -101,6 +102,7 @@ form {
 .forgot-link {
   margin: -15px 0 15px;
 }
+
 .forgot-link a {
   font-size: 14.5px;
   color: #333;
@@ -109,14 +111,14 @@ form {
 .btnLogin {
   width: 100%;
   height: 48px;
-  background: #df4444!important;
+  background: #df4444 !important;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border: none;
   cursor: pointer;
   font-size: 16px;
   color: #ffffff;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .social-icon {
@@ -125,10 +127,10 @@ form {
 }
 
 .social-icon a {
-    display: inline-flex;
-    font-size: 24px;
-    color: #333;
-    margin: 0 8px;
+  display: inline-flex;
+  font-size: 24px;
+  color: #333;
+  margin: 0 8px;
 }
 
 .toggle-box {
@@ -143,7 +145,7 @@ form {
   left: -250%;
   width: 300%;
   height: 100%;
-  background:#df4444;
+  background: #df4444;
   /* border: 2px solid red; */
   border-radius: 150px;
   z-index: 2;
@@ -172,6 +174,7 @@ form {
   left: 0;
   transition-delay: 1.2s;
 }
+
 .Login_container.active .toggle-panel.toggle-left {
   left: -50%;
   transition-delay: 0.6s;
@@ -181,6 +184,7 @@ form {
   right: -50%;
   transition-delay: 0.6s;
 }
+
 .Login_container.active .toggle-panel.toggle-right {
   right: 0;
   transition-delay: 1.2s;
@@ -237,9 +241,11 @@ form {
     width: 100%;
     height: 30%;
   }
+
   .toggle-panel.toggle-left {
     top: 0;
   }
+
   .toggle-panel.toggle-right {
     right: 0;
     bottom: -30%;
@@ -248,6 +254,25 @@ form {
   .Login_container.active .toggle-panel.toggle-right {
     bottom: 0;
   }
+}
+
+.forgot-password-link {
+  text-align: left;
+  margin: -18px 14px 10px;
+}
+
+.forgot-password-link span {
+  font-size: 13px;
+  color: #47cd69;
+  /* match your existing form text color */
+  cursor: pointer;
+  opacity: 0.85;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.forgot-password-link span:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 400px) {
