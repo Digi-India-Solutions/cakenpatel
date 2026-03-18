@@ -43,9 +43,14 @@
 .pdx-features {
   margin-top: 20px;
   display: flex;
-  justify-content: end;
-  font-size: 12px;
-  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.pdx-features > div {
+  flex: 1;
 }
 
 

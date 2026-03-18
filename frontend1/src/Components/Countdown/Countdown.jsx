@@ -1,216 +1,112 @@
-// import React, { useEffect, useState, useRef } from "react";
-// import axios from "axios";
-
-// const CountdownTimer = ({ categoryId, onTimeUpdate }) => {
-//   const [timeLeft, setTimeLeft] = useState(null);
-//   const [config, setConfig] = useState(null);
-//   const intervalRef = useRef(null);
-
-//   /* ================= FETCH ================= */
-
-//   useEffect(() => {
-//     if (!categoryId) return;
-
-//     const fetchCountdown = async () => {
-//       try {
-//         const res = await axios.get(
-//           `https://api.cakenpetals.com/api/countdown/get-countdown-by-category/${categoryId}`
-//         );
-
-//         if (res?.data?.data) {
-//           setConfig(res.data.data);
-//         }
-//       } catch (e) {
-//         console.log("Countdown fetch error:", e);
-//       }
-//     };
-
-//     fetchCountdown();
-//   }, [categoryId]);
-
-//   /* ================= DAILY TIMER ================= */
-
-//   useEffect(() => {
-//     if (!config?.startTime || !config?.endTime) return;
-
-//     startDailyTimer();
-
-//     return () => clearInterval(intervalRef.current);
-//   }, [config]);
-
-//   const startDailyTimer = () => {
-//     clearInterval(intervalRef.current);
-
-//     intervalRef.current = setInterval(() => {
-//       const now = new Date();
-
-//       // 🔥 build today's start & end datetime
-//       const today = now.toISOString().split("T")[0];
-
-//       const startDateTime = new Date(`${today}T${config.startTime}:00`);
-//       const endDateTime = new Date(`${today}T${config.endTime}:00`);
-
-//       // ✅ before start → no countdown
-//       if (now < startDateTime) {
-//         setTimeLeft(null);
-//         onTimeUpdate?.({
-//   remainingMs: 0,
-//   startTime: config.startTime,
-//   endTime: config.endTime,
-// });
-//         return;
-//       }
-
-//       // ✅ after end → no countdown
-//       if (now >= endDateTime) {
-//         setTimeLeft(null);
-//         onTimeUpdate?.({
-//   remainingMs: 0,
-//   startTime: config.startTime,
-//   endTime: config.endTime,
-// });
-//         return;
-//       }
-
-//       // ✅ active window → run countdown
-//       const diff = endDateTime - now;
-
-//       const hours = Math.floor(diff / (1000 * 60 * 60));
-//       const minutes = Math.floor((diff / (1000 * 60)) % 60);
-//       const seconds = Math.floor((diff / 1000) % 60);
-
-//       setTimeLeft({ hours, minutes, seconds });
-//       onTimeUpdate?.(diff);
-//     }, 1000);
-//   };
-
-//   /* ================= UI ================= */
-
-//   if (!timeLeft) return null;
-
-//   return (
-//     <div
-//       className="countdown-box"
-//       style={{
-//         display: "flex",
-//         alignItems: "center",
-//         gap: "8px",
-//         flexWrap: "wrap",
-//         fontWeight: 500,
-//       }}
-//     >
-//       <i
-//         className="fa-solid fa-truck"
-//         style={{ fontSize: "18px", color: "#000" }}
-//       ></i>
-
-//       <span>Get today! Order within</span>
-
-//       <strong
-//         className="countdown-timer"
-//         style={{ color: "#197889", fontWeight: 700 }}
-//       >
-//         {String(timeLeft.hours).padStart(2, "0")}h :
-//         {String(timeLeft.minutes).padStart(2, "0")}m :
-//         {String(timeLeft.seconds).padStart(2, "0")}s
-//       </strong>
-//     </div>
-//   );
-// };
-
-// export default CountdownTimer;
-
-
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 const CountdownTimer = ({ categoryId, onTimeUpdate }) => {
   const [timeLeft, setTimeLeft] = useState(null);
-  const [config, setConfig] = useState(null);
   const intervalRef = useRef(null);
+  const startRef = useRef(null);
+  const endRef = useRef(null);
 
-  /* ================= FETCH ================= */
+  /* ================= FETCH CONFIG ================= */
 
   useEffect(() => {
     if (!categoryId) return;
 
+    let isMounted = true;
+
     const fetchCountdown = async () => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/countdown/get-countdown-by-category/${categoryId}`
+          `https://api.cakenpetals.com/api/countdown/get-countdown-by-category/${categoryId}`,
         );
 
-        if (res?.data?.data) {
-          setConfig(res.data.data);
-        }
+        if (!isMounted) return;
+
+        const config = res?.data?.data;
+        if (!config?.startTime || !config?.endTime) return;
+
+        const today = new Date().toLocaleDateString("en-CA");
+
+        startRef.current = new Date(`${today}T${config.startTime}:00`);
+        endRef.current = new Date(`${today}T${config.endTime}:00`);
+
+        startTimer(config);
       } catch (e) {
-        console.log("Countdown fetch error:", e);
+        console.error("Countdown fetch error:", e);
       }
     };
 
     fetchCountdown();
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalRef.current);
+    };
   }, [categoryId]);
 
-  /* ================= DAILY TIMER ================= */
+  /* ================= TIMER ================= */
 
-  useEffect(() => {
-    if (!config?.startTime || !config?.endTime) return;
-
-    startDailyTimer();
-
-    return () => clearInterval(intervalRef.current);
-  }, [config]);
-
-  const startDailyTimer = () => {
+  const startTimer = (config) => {
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       const now = new Date();
+      const startDateTime = startRef.current;
+      const endDateTime = endRef.current;
 
-      // 🔥 build today's start & end datetime
-      // const today = now.toISOString().split("T")[0];
-      const today = now.toLocaleDateString("en-CA");
-      
-      const startDateTime = new Date(`${today}T${config.startTime}:00`);
-      const endDateTime = new Date(`${today}T${config.endTime}:00`);
+      if (!startDateTime || !endDateTime) return;
 
-      // ✅ before start → no countdown
+      /* before start */
       if (now < startDateTime) {
-        setTimeLeft(null);
+        if (timeLeft !== null) setTimeLeft(null);
+
         onTimeUpdate?.({
           remainingMs: 0,
           startTime: config.startTime,
           endTime: config.endTime,
         });
+
         return;
       }
 
-      // ✅ after end → no countdown
+      /* after end */
       if (now >= endDateTime) {
+        clearInterval(intervalRef.current);
         setTimeLeft(null);
+
         onTimeUpdate?.({
           remainingMs: 0,
           startTime: config.startTime,
           endTime: config.endTime,
         });
+
         return;
       }
 
-      // ✅ active window → run countdown
+      /* active countdown */
       const diff = endDateTime - now;
 
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
 
-      setTimeLeft({ hours, minutes, seconds });
-      // onTimeUpdate?.(diff);
+      setTimeLeft((prev) => {
+        if (
+          prev &&
+          prev.hours === hours &&
+          prev.minutes === minutes &&
+          prev.seconds === seconds
+        ) {
+          return prev;
+        }
+        return { hours, minutes, seconds };
+      });
+
       onTimeUpdate?.({
         remainingMs: diff,
         startTime: config.startTime,
         endTime: config.endTime,
       });
-
     }, 1000);
   };
 

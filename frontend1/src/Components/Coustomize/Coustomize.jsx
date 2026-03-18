@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import "./coustomize.css";
 
 import cake1 from "../../images/pic/cake2.png";
 import cake2 from "../../images/pic/product1.png";
 import cake3 from "../../images/pic/product2.png";
-import cake4 from "../../images/pic/product3.png";
 
+/* ========================================================
+   MEMOIZED IMAGE ARRAY
+   Prevents recreating array on every render
+======================================================== */
 const images = [cake1, cake2, cake3];
 
 const Coustomize = () => {
@@ -14,22 +17,25 @@ const Coustomize = () => {
   const [rating, setRating] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  /* COUNTER ANIMATION */
+  /* ========================================================
+     COUNTER ANIMATION
+  ======================================================== */
+
   useEffect(() => {
-    let c = 0;
-    let v = 0;
-    let r = 0;
+    let customerCount = 0;
+    let venueCount = 0;
+    let ratingCount = 0;
 
     const interval = setInterval(() => {
-      if (c < 10000) c += 200;
-      if (v < 50) v += 1;
-      if (r < 4.9) r += 0.1;
+      customerCount = Math.min(customerCount + 200, 10000);
+      venueCount = Math.min(venueCount + 1, 50);
+      ratingCount = Math.min(ratingCount + 0.1, 4.9);
 
-      setCustomers(c);
-      setVenues(v);
-      setRating(r.toFixed(1));
+      setCustomers(customerCount);
+      setVenues(venueCount);
+      setRating(ratingCount.toFixed(1));
 
-      if (c >= 10000 && v >= 50 && r >= 4.9) {
+      if (customerCount === 10000 && venueCount === 50 && ratingCount === 4.9) {
         clearInterval(interval);
       }
     }, 30);
@@ -37,7 +43,10 @@ const Coustomize = () => {
     return () => clearInterval(interval);
   }, []);
 
-  /* AUTO IMAGE SLIDER */
+  /* ========================================================
+     AUTO IMAGE SLIDER
+  ======================================================== */
+
   useEffect(() => {
     const slider = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
@@ -46,11 +55,17 @@ const Coustomize = () => {
     return () => clearInterval(slider);
   }, []);
 
+  /* ========================================================
+     MEMOIZED SLIDES
+  ======================================================== */
+
+  const slides = useMemo(() => images, []);
+
   return (
     <section className="hero-section">
       <div className="hero-container">
-
         {/* LEFT CONTENT */}
+
         <div className="hero-content">
           <h1>
             Design Your Dream <br />
@@ -63,20 +78,19 @@ const Coustomize = () => {
             then discover the perfect venue to make your event unforgettable.
           </p>
 
-          {/* <div className="hero-buttons">
-            <button className="btn-primary">Start Customizing</button>
-            <button className="btn-outline">View Gallery</button>
-          </div> */}
+          {/* STATS */}
 
           <div className="hero-stats">
             <div>
               <h3>{customers.toLocaleString()}+</h3>
               <span>Happy Customers</span>
             </div>
+
             <div>
               <h3>{venues}+</h3>
               <span>Venue Partners</span>
             </div>
+
             <div>
               <h3>{rating}★</h3>
               <span>Average Rating</span>
@@ -84,21 +98,25 @@ const Coustomize = () => {
           </div>
         </div>
 
-        {/* RIGHT IMAGE SLIDER */}
+        {/* IMAGE SLIDER */}
+
         <div className="hero-img-slider">
-          {images.map((img, index) => (
+          {slides.map((img, index) => (
             <img
               key={index}
               src={img}
               alt="Cake"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="400"
               className={index === currentSlide ? "active" : ""}
             />
           ))}
         </div>
-
       </div>
     </section>
   );
 };
 
-export default Coustomize;
+export default React.memo(Coustomize);

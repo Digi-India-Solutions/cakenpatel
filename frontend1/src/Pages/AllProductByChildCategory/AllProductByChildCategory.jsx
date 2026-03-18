@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import Slider from "react-slick";
+//import Slider from "react-slick";
 import axios from "axios";
 import AllProducts from "../../Components/AllProducts/AllProducts";
 import AllProductById from "../../Components/AllProductByChild/AllProductByChild";
@@ -10,83 +10,82 @@ import "slick-carousel/slick/slick-theme.css";
 // import Banner1 from "../../images/1583 by 426 banner/Banner1.jpg";
 
 const AllProductByChildCategory = () => {
-    const navigate = useNavigate();
-    const { subcatname } = useParams();
-    const location = useLocation();
-    
-    const subCategoryId = location.state?.id;
-    const status = location.state?.status;
+  const navigate = useNavigate();
+  const { subcatname } = useParams();
+  const location = useLocation();
 
-    const [cakesArr, setCakesArr] = useState([]);
-    const [secondSubCategories, setSecondSubCategories] = useState([]); // ✅ Array for slider
-    const [bannerImage, setBannerImage] = useState(null);
+  const subCategoryId = location.state?.id;
+  const status = location.state?.status;
 
-    useEffect(() => {
-        if (!subCategoryId) return;
+  const [cakesArr, setCakesArr] = useState([]);
+  const [secondSubCategories, setSecondSubCategories] = useState([]); // ✅ Array for slider
+  const [bannerImage, setBannerImage] = useState(null);
 
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(
-                    `https://api.cakenpetals.com/api/second-sub-category/get-single-second-sub-category/${subCategoryId}`
-                );
+  useEffect(() => {
+    if (!subCategoryId) return;
 
-                const data = res?.data?.data;
-                console.log("Fetched data:===>>", data);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.cakenpetals.com/api/second-sub-category/get-single-second-sub-category/${subCategoryId}`,
+        );
 
-                // ✅ Set products
-                setCakesArr(data?.productId || []);
+        const data = res?.data?.data;
+        console.log("Fetched data:===>>", data);
 
-                // ✅ Set banner image
-                if (status === "subCategory") {
-                    setBannerImage(data?.image || null);
-                } else {
-                    setBannerImage(data?.subCategoryId?.banner || data?.image || null);
-                }
+        // ✅ Set products
+        setCakesArr(data?.productId || []);
 
-                // ✅ If status is 'category', fetch sibling second-subcategories for slider
-                if (status === "category" && data?.subCategoryId?._id) {
-                    const siblingRes = await axios.get(
-                        `https://api.cakenpetals.com/api/second-sub-category/get-by-subcategory/${data.subCategoryId._id}`
-                    );
-                    setSecondSubCategories(siblingRes?.data?.data || []);
-                }
+        // ✅ Set banner image
+        if (status === "subCategory") {
+          setBannerImage(data?.image || null);
+        } else {
+          setBannerImage(data?.subCategoryId?.banner || data?.image || null);
+        }
 
-            } catch (error) {
-                console.error("Fetch error:", error);
-            }
-        };
-
-        fetchData();
-    }, [subCategoryId, status]);
-
-    const imageHandler = (img) => {
-        // if (!img) return Banner1;
-        return img.startsWith("http") ? img : `https://api.cakenpetals.com/${img}`;
+        // ✅ If status is 'category', fetch sibling second-subcategories for slider
+        if (status === "category" && data?.subCategoryId?._id) {
+          const siblingRes = await axios.get(
+            `https://api.cakenpetals.com/api/second-sub-category/get-by-subcategory/${data.subCategoryId._id}`,
+          );
+          setSecondSubCategories(siblingRes?.data?.data || []);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
     };
 
-    const sliderSettings = {
-        dots: false,
-        arrows: true,
-        autoplay: true,
-        infinite: secondSubCategories.length > 4,
-        speed: 600,
-        autoplaySpeed: 2500,
-        slidesToShow: Math.min(secondSubCategories.length, 8),
-        slidesToScroll: 2,
-        
-        swipeToSlide: true,
-        responsive: [
-            { breakpoint: 1200, settings: { slidesToShow: 6 } },
-            { breakpoint: 992, settings: { slidesToShow: 4 } },
-            { breakpoint: 768, settings: { slidesToShow: 3 } },
-            { breakpoint: 576, settings: { slidesToShow: 2 } },
-        ],
-    };
+    fetchData();
+  }, [subCategoryId, status]);
 
-    return (
-        <>
-            {/* ✅ TOP SUBCATEGORY SLIDER — only when status is 'category' and has items */}
-            {/* {status === "category" && secondSubCategories.length > 0 && (
+  const imageHandler = (img) => {
+    // if (!img) return Banner1;
+    return img.startsWith("http") ? img : `https://api.cakenpetals.com/${img}`;
+  };
+
+  /* const sliderSettings = {
+    dots: false,
+    arrows: true,
+    autoplay: true,
+    infinite: secondSubCategories.length > 4,
+    speed: 600,
+    autoplaySpeed: 2500,
+    slidesToShow: Math.min(secondSubCategories.length, 8),
+    slidesToScroll: 2,
+
+    swipeToSlide: true,
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 6 } },
+      { breakpoint: 992, settings: { slidesToShow: 4 } },
+      { breakpoint: 768, settings: { slidesToShow: 3 } },
+      { breakpoint: 576, settings: { slidesToShow: 2 } },
+    ],
+  }; */
+
+  return (
+    <>
+      {/* ✅ TOP SUBCATEGORY SLIDER — only when status is 'category' and has items */}
+      {/* {status === "category" && secondSubCategories.length > 0 && (
                 <Slider {...sliderSettings}>
                     {secondSubCategories.map((subcategory) => (
                         <div key={subcategory._id}>
@@ -125,8 +124,8 @@ const AllProductByChildCategory = () => {
                 </Slider>
             )} */}
 
-            {/* ✅ BANNER IMAGE */}
-            {/* {bannerImage && (
+      {/* ✅ BANNER IMAGE */}
+      {/* {bannerImage && (
                 <section className="cakeBannerSlider">
                     <div className="bannerBox">
                         <img
@@ -141,14 +140,10 @@ const AllProductByChildCategory = () => {
                 </section>
             )} */}
 
-            {/* ✅ PRODUCTS */}
-            {subCategoryId ? (
-                <AllProductById cakesArr={cakesArr} />
-            ) : (
-                <AllProducts />
-            )}
-        </>
-    );
+      {/* ✅ PRODUCTS */}
+      {subCategoryId ? <AllProductById cakesArr={cakesArr} /> : <AllProducts />}
+    </>
+  );
 };
 
 export default AllProductByChildCategory;

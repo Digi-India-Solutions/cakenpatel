@@ -19,7 +19,7 @@ let cachedFooterCategories = null;
 
 const Footer = () => {
   const navigate = useNavigate();
-
+  
   // Use cached data immediately if we have it
   const [categories, setCategories] = useState(cachedFooterCategories || []);
   const [email, setEmail] = useState("");
@@ -99,8 +99,8 @@ const Footer = () => {
               <li className="text-light"><Link to="/terms-&-conditions">Terms & Conditions</Link></li>
               <li><Link to="/cancellation-refund-policy">Cancellation & Refund Policy</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-              {/* <li><Link to="#">Terms of Use</Link></li>
-              <li><Link to="#">Disclaimer</Link></li> */}
+              <li><Link to="#">Terms of Use</Link></li>
+              <li><Link to="#">Disclaimer</Link></li>
             </ul>
           </div>
 
@@ -174,13 +174,13 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="social-icons" >
+           <div className="social-icons" >
             <a href="#"><img src={insta} /></a>
             <a href="#"><img src={facebook} /></a>
             <a href="#"><img src={linkedin} /></a>
             <a href="#"><img src={xtwiter} /></a>
           </div>
-
+          
         </div>
       </div>
 
@@ -188,11 +188,9 @@ const Footer = () => {
       <div className="footer-middle">
         <div className="container text-center">
           <p>
-            Company Name: CAKENPETALS | FFSAI - 12725052000957 |
-            D-550, Ground Floor, Ashram Road, Nand Gram, Ghaziabad, Uttar Pradesh – 201003.
+            Company Name: CAKENPETALS | CIN: U52100HR2021PTC118882 |
+            Regd. Office: A 23 sanjay nagar ghaziabad - 201002
           </p>
-          {/* CIN: Hat jaaega Footer se &
-            FFSAI - 12725052000957 */}
           <p>
             Telephone No.: +91-9211929555 | Grievance Officer: Support Team
           </p>
@@ -214,7 +212,7 @@ const Footer = () => {
           {/* <p className="mb-0">
             © 2024 Cake Bakery. All rights reserved.
           </p> */}
-
+          
           {/* <div className="payment-icons">
             <FaCcAmazonPay className="fs-3 " />
           </div> */}

@@ -155,7 +155,7 @@
 
 // export default Category;
 
-import React, { useEffect, useState } from "react";
+import { React, useEffect, useState, memo, useMemo } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -183,7 +183,7 @@ const Category = () => {
       try {
         const response = await axios.get(
           // `https://api.cakenpetals.com/api/get-subcategory-by-status`
-          "https://api.cakenpetals.com/api/second-sub-category/get-second-sub-category"
+          "https://api.cakenpetals.com/api/second-sub-category/get-second-sub-category",
         );
         if (response.data.data) {
           setCategories(response.data.data);
@@ -200,7 +200,9 @@ const Category = () => {
     fetchCategories();
   }, []);
 
-  const activeCategories = categories?.filter((item) => item?.ActiveonHome === true);
+  const activeCategories = useMemo(() => {
+    return categories?.filter((item) => item?.ActiveonHome === true);
+  }, [categories]);
   const count = activeCategories.length;
 
   // ✅ Dynamic slidesToShow — never exceed actual item count
@@ -208,10 +210,7 @@ const Category = () => {
 
   const NextArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-next"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-next" onClick={onClick}>
         ›
       </div>
     );
@@ -219,10 +218,7 @@ const Category = () => {
 
   const PrevArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-prev"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-prev" onClick={onClick}>
         ‹
       </div>
     );
@@ -279,11 +275,11 @@ const Category = () => {
     navigate(
       // `/product-related/${item?.subcategoryName?.replace(/\s+/g, "-").toLowerCase()}`,
       `/${item?.secondsubcategoryName?.replace(/\s+/g, "-").toLowerCase()}`,
-      { state: { id: item?._id, status: "category" } }
+      { state: { id: item?._id, status: "category" } },
     );
   };
 
-  const CategoryCard = ({ item }) => (
+  const CategoryCard = memo(({ item }) => (
     <div className="category-link" onClick={() => handleNavigate(item)}>
       <img
         src={`https://api.cakenpetals.com/${item?.image}`}
@@ -295,10 +291,13 @@ const Category = () => {
         }}
       />
       <p className="category-name">
-        {item?.secondName?.charAt(0).toUpperCase() + item?.secondName?.slice(1) || item?.secondsubcategoryName?.charAt(0).toUpperCase() + item?.secondsubcategoryName?.slice(1)}
+        {item?.secondName?.charAt(0).toUpperCase() +
+          item?.secondName?.slice(1) ||
+          item?.secondsubcategoryName?.charAt(0).toUpperCase() +
+            item?.secondsubcategoryName?.slice(1)}
       </p>
     </div>
-  );
+  ));
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">Error: {error}</div>;

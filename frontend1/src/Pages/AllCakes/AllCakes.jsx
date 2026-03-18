@@ -10,10 +10,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Banner1 from "../../images/1583 by 426 banner/Banner1.jpg";
-import Banner2 from "../../images/1583 by 426 banner/Banner2.jpg";
+//import Banner2 from "../../images/1583 by 426 banner/Banner2.jpg";
 import AllProductById from "../../Components/AllProductById/AllProductById";
 
-const staticProducts = [
+/* const staticProducts = [
   {
     productName: "Chocolate Truffle Cake",
     productImage: [Banner1],
@@ -25,62 +25,65 @@ const staticProducts = [
     Variant: [{ finalPrice: 699 }],
   },
 ];
-
+ */
 const AllCakes = () => {
   const navigate = useNavigate();
   const { subcatname } = useParams();
   const [cakesArr, setCakesArr] = useState([]);
   const [subcategoryInfo, setSubcategoryInfo] = useState(null);
-  const [subCategoryBanner, setSubCategoryBanner] = useState(null)
+  const [subCategoryBanner, setSubCategoryBanner] = useState(null);
   const location = useLocation();
-  const subCategoryId = location.state.id
-  const status = location.state.status
-  console.log("XXXXXX==>", subcatname?.replace(/-/g, " "), location.state.id, status)
+  const subCategoryId = location.state.id;
+  const status = location.state.status;
+  console.log(
+    "XXXXXX==>",
+    subcatname?.replace(/-/g, " "),
+    location.state.id,
+    status,
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/get-product-by-subcatname/${subcatname.replace(/-/g, " ")}`
+          `https://api.cakenpetals.com/api/get-product-by-subcatname/${subcatname.replace(/-/g, " ")}`,
         );
 
         if (res.data?.data?.length > 0) {
           setCakesArr(res.data.data);
-          console.log(res.data?.data)
+          console.log(res.data?.data);
           setSubCategoryBanner(res.data.data[0].subcategoryName);
         }
       } catch (error) {
         console.error(error);
       }
-
     };
 
     const fetchProductById = async (subCategoryId) => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/get-product-by-subCategoryId/${subCategoryId}`
+          `https://api.cakenpetals.com/api/get-product-by-subCategoryId/${subCategoryId}`,
         );
-        console.log("XXXXXXXSSSSS:=>>", res.data?.data)
+        console.log("XXXXXXXSSSSS:=>>", res.data?.data);
         if (res.data?.data?.length > 0) {
           setCakesArr(res.data.data);
-          console.log("XXXXXXXSSSSS:=>>", res.data?.data[0]?.subcategoryName)
+          console.log("XXXXXXXSSSSS:=>>", res.data?.data[0]?.subcategoryName);
           // setSubcategoryInfo(res.data.data[0].subcategoryName);
-          if (status === 'subCategory') {
+          if (status === "subCategory") {
             setSubCategoryBanner(res.data?.data[0]?.secondsubcategoryName);
           } else {
             setSubCategoryBanner(res.data?.data[0]?.subcategoryName);
           }
         } else {
-          setCakesArr([])
+          setCakesArr([]);
         }
       } catch (error) {
         console.error(error);
       }
-
-    }
+    };
 
     if (subCategoryId) {
-      fetchProductById(subCategoryId)
+      fetchProductById(subCategoryId);
     } else {
       fetchProducts();
     }
@@ -88,31 +91,27 @@ const AllCakes = () => {
     const fetchSecoundSubCategory = async () => {
       try {
         const res = await axios.get(
-          `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${subCategoryId}`
+          `https://api.cakenpetals.com/api/second-sub-category/get-second-subcategory-by-subcategory/${subCategoryId}`,
         );
-        console.log("DDDDD::=>", res)
+        console.log("DDDDD::=>", res);
         if (res.data?.data?.length > 0) {
           // setCakesArr(res.data.data);
           // console.log("DDDDD::=>",res.data?.data)
           setSubcategoryInfo(res.data.data);
         }
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-    }
+    };
 
-    if (status === 'category') {
-      fetchSecoundSubCategory()
+    if (status === "category") {
+      fetchSecoundSubCategory();
     }
   }, [subcatname, subCategoryId]);
 
-
   const NextArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-next"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-next" onClick={onClick}>
         ›
       </div>
     );
@@ -120,10 +119,7 @@ const AllCakes = () => {
 
   const PrevArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-prev"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-prev" onClick={onClick}>
         ‹
       </div>
     );
@@ -149,17 +145,20 @@ const AllCakes = () => {
     ],
   };
 
-
   const imageHandler = (img) => {
-    const imageUrl = img ? img.startsWith("http") ? img : `https://api.cakenpetals.com/${img}` : Banner1;
+    const imageUrl = img
+      ? img.startsWith("http")
+        ? img
+        : `https://api.cakenpetals.com/${img}`
+      : Banner1;
 
-    return imageUrl
-  }
+    return imageUrl;
+  };
 
+  const bannerImage =
+    subCategoryBanner?.banner || subCategoryBanner?.subCategoryId?.banner;
 
-  const bannerImage = subCategoryBanner?.banner || subCategoryBanner?.subCategoryId?.banner;
-
-  console.log("XXXX::=>", subcategoryInfo, bannerImage, subCategoryBanner)
+  console.log("XXXX::=>", subcategoryInfo, bannerImage, subCategoryBanner);
   return (
     <>
       {/* TOP SUBCATEGORY */}
@@ -215,13 +214,20 @@ const AllCakes = () => {
                     >
                       <img
                         src={imageHandler(subcategory?.image)}
-                        alt={subcategory?.secondsubcategoryName || "subcategory"}
+                        alt={
+                          subcategory?.secondsubcategoryName || "subcategory"
+                        }
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = Banner1;
                         }}
                       />
-                      <p>{subcategory?.secondsubcategoryName?.charAt(0).toUpperCase() + subcategory?.secondsubcategoryName?.slice(1)}</p>
+                      <p>
+                        {subcategory?.secondsubcategoryName
+                          ?.charAt(0)
+                          .toUpperCase() +
+                          subcategory?.secondsubcategoryName?.slice(1)}
+                      </p>
                     </div>
                   </div>
                 </section>
@@ -230,7 +236,6 @@ const AllCakes = () => {
           </Slider>
         </div>
       )}
-
 
       {/* BANNER SLIDER */}
 
@@ -257,22 +262,13 @@ const AllCakes = () => {
           ))}
         </Slider> */}
 
-      {subCategoryId && (
-        <AllProductById cakesArr={cakesArr} />
-      )}
-      {!subCategoryId && (
-        <AllProducts />
-      )}
+      {subCategoryId && <AllProductById cakesArr={cakesArr} />}
+      {!subCategoryId && <AllProducts />}
     </>
   );
 };
 
 export default AllCakes;
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import { Link, useParams } from "react-router-dom";

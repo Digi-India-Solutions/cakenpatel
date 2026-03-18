@@ -63,9 +63,9 @@
 
 // export default AboutUs;
 
-import React from "react";
+//import React from "react";
 import "./AboutSection.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import aboutImg from "../../images/pic/banner.jpg";
 
 const AboutUs = () => {
@@ -79,7 +79,6 @@ const AboutUs = () => {
 
         {/* RIGHT CONTENT */}
         <div className="premium-about-content">
-          
           {/* ABOUT */}
           <div className="content-block">
             <h3>About Us – CakenPetals</h3>
@@ -124,7 +123,6 @@ const AboutUs = () => {
               beautiful memories.
             </p>
           </div>
-
         </div>
       </section>
     </>

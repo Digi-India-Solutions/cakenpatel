@@ -1,88 +1,117 @@
-import React, { useState, useEffect } from 'react'
-import './Occasions.css'
-import pic1 from "../../images/pic/briday6.jpg"
-import pic2 from "../../images/pic/party4.jpg"
-import pic3 from "../../images/pic/aniver.jpeg"
-import pic4 from "../../images/pic/wed.jpg"
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState, useEffect, useCallback, memo } from "react";
+import "./Occasions.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-// ========================================================
-// PERFORMANCE FIX: GLOBAL CACHE
-// Prevents re-fetching the occasions banner data every time 
-// the component mounts when navigating between pages.
-// ========================================================
-let cachedOccasionBanners = null;
+const BASE_URL = "https://api.cakenpetals.com/";
 
-export default function Occasions() {
-  // Use cached data immediately if we have it
-  const [data, setData] = useState(cachedOccasionBanners || []);
+/* ========================================================
+   GLOBAL CACHE
+======================================================== */
+let cachedOccasionBanners = [];
+
+function Occasions() {
   const navigate = useNavigate();
 
-  // ✅ API call
-  const fetchBannerData = async () => {
-    // PERFORMANCE FIX: If data is already cached, do not ping the server!
-    if (cachedOccasionBanners) return;
+  const [data, setData] = useState(cachedOccasionBanners);
+
+  /* ========================================================
+     FETCH BANNERS
+  ======================================================== */
+
+  const fetchBannerData = useCallback(async () => {
+    if (cachedOccasionBanners.length) {
+      setData(cachedOccasionBanners);
+      return;
+    }
 
     try {
-      // const res = await axios.get("https://api.cakenpetals.com/api/promo-banner/get-promo-banner");
-      const res = await axios.get("https://api.cakenpetals.com/api/cake-banner/get-cake-banner"
+      const res = await axios.get(
+        "https://api.cakenpetals.com/api/cake-banner/get-cake-banner",
       );
-      console.log("SSSSS::=>", res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner3'))
-      // console.log("SSSSS::=>XXXXXX", res?.data?.data)
-      if (res.status === 200) {
-        
-        // Filter the data exactly as you were doing before
-        const filteredData = res.data?.data.filter((item) => item?.bannerKey === 'cakeBanner3') ||
-                             res?.data?.data?.filter((item) => item?.isActive === 'true');
 
-        cachedOccasionBanners = filteredData; // Save to global cache
+      if (res.status === 200) {
+        const filteredData =
+          res?.data?.data?.filter(
+            (item) => item?.bannerKey === "cakeBanner3",
+          ) ||
+          res?.data?.data?.filter((item) => item?.isActive === "true") ||
+          [];
+
+        cachedOccasionBanners = filteredData;
+
         setData(filteredData);
       }
     } catch (error) {
       console.error("Error fetching banner data:", error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchBannerData();
-  }, [])
+  }, [fetchBannerData]);
 
-  // const occasionData = [
-  //   { id: 1, img: pic1, title: "Birthday" },
-  //   { id: 2, img: pic2, title: "party" },
-  //   { id: 3, img: pic3, title: "Anniversary" },
-  //   { id: 4, img: pic4, title: "wedding" },
-  // ]
-  
+  /* ========================================================
+     NAVIGATION
+  ======================================================== */
+
+  const handleNavigate = useCallback(
+    (item) => {
+      navigate(`/${item?.titel?.replace(/\s+/g, "-").toLowerCase()}`, {
+        state: {
+          id: item?.secondsubcategoryName,
+          status: item?.bannerKey,
+        },
+      });
+    },
+    [navigate],
+  );
+
   return (
-    <>
-      <div className='OccasionsMainSec'>
-        <div className='OccasionHeadSec'>
-          {/* & Relations */}
-          <h2 className='SuperTitle' >Shop By Occassions </h2>
-          <p className='SuperSubTitle text-muted'>Surprise Your Loved Ones  </p>
+    <div className="OccasionsMainSec">
+      <div className="OccasionHeadSec">
+        <h2 className="SuperTitle">Shop By Occassions</h2>
 
-        </div>
-
-        {data && data.length > 0 && <div className='container'>
-          <div className='OccasionCardSec'>
-            {
-              data.map((item, index) => (
-                <div onClick={() =>
-                  // navigate(`/product-related/${item?.titel?.replace(/\s+/g, "-").toLowerCase()}`, 
-                  navigate(`/${item?.titel?.replace(/\s+/g, "-").toLowerCase()}`,
-                    { state: { id: item?.secondsubcategoryName, status: item?.bannerKey } })} key={item?._id} className='OccasionCard'>
-                  <img src={`https://api.cakenpetals.com/${item?.image || item?.cakeBanner}`} alt="" className='occasionalPic' />
-                  <h3>{item?.titel?.charAt(0).toUpperCase() + item?.titel?.slice(1)}</h3>
-                </div>
-              ))
-            }
-          </div>
-        </div>}
-
-
+        <p className="SuperSubTitle text-muted">Surprise Your Loved Ones</p>
       </div>
-    </>
-  )
+
+      {data.length > 0 && (
+        <div className="container">
+          <div className="OccasionCardSec">
+            {data.map((item, index) => {
+              const image =
+                item?.image || item?.cakeBanner
+                  ? BASE_URL + (item?.image || item?.cakeBanner)
+                  : "";
+
+              return (
+                <div
+                  key={item?._id}
+                  className="OccasionCard"
+                  onClick={() => handleNavigate(item)}
+                >
+                  <img
+                    src={image}
+                    alt={item?.titel}
+                    className="occasionalPic"
+                    loading={index < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    width="300"
+                    height="300"
+                  />
+
+                  <h3>
+                    {item?.titel?.charAt(0).toUpperCase() +
+                      item?.titel?.slice(1)}
+                  </h3>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
+
+export default memo(Occasions);

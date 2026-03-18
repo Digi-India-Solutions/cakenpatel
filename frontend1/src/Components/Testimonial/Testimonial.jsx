@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import Slider from "react-slick";
 import "./testimonials.css";
 import testimonial1 from "../../images/1.png";
@@ -46,12 +46,9 @@ const Testimonial = () => {
     },
   ];
 
-    const NextArrow = ({ onClick }) => {
+  const NextArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-next"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-next" onClick={onClick}>
         ›
       </div>
     );
@@ -59,10 +56,7 @@ const Testimonial = () => {
 
   const PrevArrow = ({ onClick }) => {
     return (
-      <div
-        className="custom-arrow custom-prev"
-        onClick={onClick}
-      >
+      <div className="custom-arrow custom-prev" onClick={onClick}>
         ‹
       </div>
     );
@@ -76,7 +70,7 @@ const Testimonial = () => {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "30px",
-        nextArrow: <NextArrow />,
+    nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     autoplay: true,
     autoplaySpeed: 4000,
@@ -102,7 +96,12 @@ const Testimonial = () => {
 
   return (
     <section className="testimonialsSection">
-      <h1 className="text-center SuperTitle mt-5" style={{ color: "  #df4444" }}>Our Testimonial</h1>
+      <h1
+        className="text-center SuperTitle mt-5"
+        style={{ color: "  #df4444" }}
+      >
+        Our Testimonial
+      </h1>
       <div className="container">
         <div className="slider-container">
           <Slider {...settings}>
@@ -111,7 +110,9 @@ const Testimonial = () => {
                 <div className="testimonial-image">
                   <img src={item.imageURL} alt={`${item.name}'s testimonial`} />
                 </div>
-                <p className="m-0"><i class="bi bi-three-dots"></i></p>
+                <p className="m-0">
+                  <i className="bi bi-three-dots"></i>
+                </p>
                 <div className="testimonial-content">
                   <h3 className="testimonial-name">{item.name}</h3>
                   <p className="testimonial-title">{item.title}</p>

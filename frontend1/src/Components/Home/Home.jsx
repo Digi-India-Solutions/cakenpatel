@@ -1,43 +1,42 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
+
 import HomeBannerSlider from "../BannerSlider/HomeBannerSlider";
-import Hero from "../Hero/Hero";
-import AllProducts from "../AllProducts/AllProducts";
-import Testimonial from "../Testimonial/Testimonial";
 import Category from "../Category/Category";
-import Occasions from "../Occasions/Occasions";
-import CategorySection from "../CategoryCard/CategoryCard";
-import BestSellingProduct from "../BestSelling/BestSellingProject";
-import WhatsAppChat from "../WhatsApp/WhatsApp";
-import PromoBanner from "../PromoBanner/PromoBanner";
 import CakeBanners from "../CakeBanner/CakeBanner";
-import Banner from "../BottomBanner/Banner";
-import FeaturedProducts from "../FeatureProducts/FeatureProducts";
 import ReelSection from "../ReelSection/ReelSection";
+import BestSellingProduct from "../BestSelling/BestSellingProject";
+import FeaturedProducts from "../FeatureProducts/FeatureProducts";
 import Coustomize from "../Coustomize/Coustomize";
-import CakeIngredientScroll from "../CakeStory/CakeIngredientScroll";
+import Hero from "../Hero/Hero";
+
+const CakeIngredientScroll = lazy(
+  () => import("../CakeStory/CakeIngredientScroll"),
+);
+const PromoBanner = lazy(() => import("../PromoBanner/PromoBanner"));
+const Occasions = lazy(() => import("../Occasions/Occasions"));
+const Testimonial = lazy(() => import("../Testimonial/Testimonial"));
+const Banner = lazy(() => import("../BottomBanner/Banner"));
 
 const Home = () => {
   return (
-    <>
-      <HomeBannerSlider />  {/* DONE */}
-      <Category /> {/* DONE */}
-      <CakeBanners /> {/* DONE */}
-      <ReelSection />  {/* DONE */}
+    <main>
+      <HomeBannerSlider />
+      <Category />
+      <CakeBanners />
+      <ReelSection />
       <BestSellingProduct />
-      {/* <AllProducts status={'Home'} />  DONE p */}
-      <FeaturedProducts />  {/* DONE P*/}
-      <Coustomize />  {/* DONE */}
-      <Hero />  {/* DONE */}
+      <FeaturedProducts />
+      <Coustomize />
+      <Hero />
 
-      <CakeIngredientScroll />  {/* DONE */}
-
-      <PromoBanner />  {/* DONE */}
-      <Occasions />
-
-      {/* <CategorySection/> */}
-      <Testimonial />
-      <Banner />
-    </>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CakeIngredientScroll />
+        <PromoBanner />
+        <Occasions />
+        <Testimonial />
+        <Banner />
+      </Suspense>
+    </main>
   );
 };
 

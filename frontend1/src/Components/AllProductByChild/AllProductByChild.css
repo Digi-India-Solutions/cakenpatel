@@ -40,8 +40,8 @@
 .off-badge {
     position: absolute;
     top: 10px;
-    left: 10px;
-    background: #ff5722;
+    left: 0px;
+    background: rgb(56, 142, 60);
     color: #fff;
     font-size: 12px;
     padding: 4px 8px;

@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { Link } from "react-router-dom";
 import AllProduct from "../../Components/AllProducts/AllProducts";
 const AllProducts = () => {

@@ -1,13 +1,13 @@
 import "./reel.css";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
-import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { /* React, */ useState, useEffect, useRef } from "react";
 const BASE_URL = "https://api.cakenpetals.com/";
 
 // ========================================================
 // PERFORMANCE FIX: GLOBAL CACHE
-// Prevents re-fetching heavy video data from the server 
+// Prevents re-fetching heavy video data from the server
 // every time the user navigates to the page.
 // ========================================================
 let cachedReels = null;
@@ -20,7 +20,7 @@ export default function ReelSection() {
   const [reels, setReels] = useState(cachedReels || []);
   const reelRef = useRef(null);
 
-  const scrollLeft = () => {
+  /* const scrollLeft = () => {
     reelRef.current.scrollBy({
       left: -250,
       behavior: "smooth",
@@ -32,7 +32,7 @@ export default function ReelSection() {
       left: 250,
       behavior: "smooth",
     });
-  };
+  }; */
 
   useEffect(() => {
     document.body.style.overflow = activeReel ? "hidden" : "auto";
@@ -44,8 +44,12 @@ export default function ReelSection() {
       if (cachedReels) return;
 
       try {
-        const response = await axios.get("https://api.cakenpetals.com/api/reel/get-reels");
-        const filteredReels = response?.data?.data.filter((reel) => reel?.activeOnHome === true) || [];
+        const response = await axios.get(
+          "https://api.cakenpetals.com/api/reel/get-reels",
+        );
+        const filteredReels =
+          response?.data?.data.filter((reel) => reel?.activeOnHome === true) ||
+          [];
 
         cachedReels = filteredReels; // Save to global cache
         setReels(filteredReels);
@@ -72,7 +76,12 @@ export default function ReelSection() {
                 key={reel._id}
                 className="reel-card"
                 onClick={() => setActiveReel(reel)}
-                style={{ position: "relative", cursor: "pointer", borderRadius: "16px", overflow: "hidden" }}
+                style={{
+                  position: "relative",
+                  cursor: "pointer",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                }}
               >
                 {reel.video && (
                   <video
@@ -80,8 +89,14 @@ export default function ReelSection() {
                     muted
                     loop
                     preload="metadata"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    onMouseEnter={(e) => e.target.play().catch(() => { })}
+                    playsInline
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                    onMouseEnter={(e) => e.target.play().catch(() => {})}
                     onMouseLeave={(e) => {
                       e.target.pause();
                       e.target.currentTime = 0;
@@ -103,24 +118,59 @@ export default function ReelSection() {
                     borderRadius: "10px",
                     color: "#0d0707",
                     gap: "10px",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                   }}
                 >
                   <img
                     src={BASE_URL + reel?.productId?.productImage[0]}
-                    alt=""
-                    style={{ width: "42px", height: "42px", borderRadius: "6px", objectFit: "cover" }}
+                    loading="lazy"
+                    alt={reel?.productId?.productName}
+                    style={{
+                      width: "42px",
+                      height: "42px",
+                      borderRadius: "6px",
+                      objectFit: "cover",
+                    }}
                   />
-                  <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
-                    <p style={{ margin: 0, fontSize: "13px", fontWeight: "600", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: "#000000" }}>
-                      {reel?.productId?.productName?.charAt(0).toUpperCase() + reel?.productId?.productName?.slice(1)}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        color: "#000000",
+                      }}
+                    >
+                      {reel?.productId?.productName?.charAt(0).toUpperCase() +
+                        reel?.productId?.productName?.slice(1)}
                     </p>
                     {/* <span style={{ fontSize: "13px", fontWeight: "700", color: "#0d6f10" }}>
                       ₹ {reel?.productId?.Variant[0]?.finalPrice}
                     </span> */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
-
-                      <span style={{ fontSize: "13px", fontWeight: "700", color: "#0d6f10" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "13px",
+                          fontWeight: "700",
+                          color: "#0d6f10",
+                        }}
+                      >
                         ₹ {reel?.productId?.Variant[0]?.finalPrice}
                       </span>
 
@@ -129,7 +179,7 @@ export default function ReelSection() {
                           style={{
                             fontSize: "12px",
                             textDecoration: "line-through",
-                            color: "#777"
+                            color: "#777",
                           }}
                         >
                           ₹ {reel?.productId?.Variant[0]?.price}
@@ -139,8 +189,8 @@ export default function ReelSection() {
                       {reel?.productId?.Variant[0]?.discountPrice && (
                         <span
                           style={{
-                            fontSize: "11px",fontWeight: "500",
-                            color: "#000000",
+                            fontSize: "11px",
+                            color: "#d68716",
                           }}
                         >
                           {reel?.productId?.Variant[0]?.discountPrice}% OFF
@@ -159,12 +209,31 @@ export default function ReelSection() {
         <div
           className="reel-overlay"
           onClick={() => setActiveReel(null)}
-          style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", backgroundColor: "rgba(0,0,0,0.85)", zIndex: 9999, display: "flex", justifyContent: "center", alignItems: "center" }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.85)",
+            zIndex: 9999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <div
             className="reel-modal"
             onClick={(e) => e.stopPropagation()}
-            style={{ position: "relative", width: "100%", maxWidth: "450px", height: "90vh", borderRadius: "20px", overflow: "hidden", backgroundColor: "#000" }}
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: "450px",
+              height: "90vh",
+              borderRadius: "20px",
+              overflow: "hidden",
+              backgroundColor: "#000",
+            }}
           >
             <button
               onClick={() => setActiveReel(null)}
@@ -183,7 +252,7 @@ export default function ReelSection() {
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               ✕
@@ -209,25 +278,54 @@ export default function ReelSection() {
                 padding: "12px 16px",
                 borderRadius: "14px",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-                gap: "12px"
+                gap: "12px",
               }}
             >
               <img
                 src={BASE_URL + activeReel?.productId?.productImage[0]}
                 alt=""
-                style={{ width: "55px", height: "55px", borderRadius: "8px", objectFit: "cover" }}
+                style={{
+                  width: "55px",
+                  height: "55px",
+                  borderRadius: "8px",
+                  objectFit: "cover",
+                }}
               />
 
               <div style={{ flex: 1, overflow: "hidden" }}>
-                <h5 className="reeltitle" style={{ fontSize: "15px", fontWeight: "600", margin: "0 0 4px 0", color: "#111", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                  {activeReel?.productId?.productName.charAt(0).toUpperCase() + activeReel?.productId?.productName?.slice(1)}
+                <h5
+                  className="reeltitle"
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: "600",
+                    margin: "0 0 4px 0",
+                    color: "#111",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {activeReel?.productId?.productName.charAt(0).toUpperCase() +
+                    activeReel?.productId?.productName?.slice(1)}
                 </h5>
                 {/* <div style={{ fontSize: "15px", fontWeight: "700", color: "#d68716" }}>
                   ₹ {activeReel?.productId?.Variant[0]?.finalPrice}
                 </div> */}
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-
-                  <span style={{ fontSize: "16px", fontWeight: "700", color: "#111" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      color: "#111",
+                    }}
+                  >
                     ₹ {activeReel?.productId?.Variant[0]?.finalPrice}
                   </span>
 
@@ -236,7 +334,7 @@ export default function ReelSection() {
                       style={{
                         fontSize: "14px",
                         textDecoration: "line-through",
-                        color: "#888"
+                        color: "#888",
                       }}
                     >
                       ₹ {activeReel?.productId?.Variant[0]?.price}
@@ -253,22 +351,39 @@ export default function ReelSection() {
                       {activeReel?.productId?.Variant[0]?.discountPrice}% OFF
                     </span>
                   )}
-
                 </div>
               </div>
 
               <div
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/product-details/${activeReel?.productId?.productName.replace(/\s+/g, "-")}`, { state: { id: activeReel?.productId?._id, status: "single-product" } })}
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  navigate(
+                    `/product-details/${activeReel?.productId?.productName.replace(/\s+/g, "-")}`,
+                    {
+                      state: {
+                        id: activeReel?.productId?._id,
+                        status: "single-product",
+                      },
+                    },
+                  )
+                }
               >
                 <button
                   className="BuyBtn"
-                  style={{ backgroundColor: "#df4444", color: "#fff", border: "none", padding: "8px 16px", borderRadius: "8px", fontWeight: "600", fontSize: "14px", whiteSpace: "nowrap" }}
+                  style={{
+                    backgroundColor: "#df4444",
+                    color: "#fff",
+                    border: "none",
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    whiteSpace: "nowrap",
+                  }}
                 >
                   Buy Now
                 </button>
               </div>
-
             </div>
           </div>
         </div>

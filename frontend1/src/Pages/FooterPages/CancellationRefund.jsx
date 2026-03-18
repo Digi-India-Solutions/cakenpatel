@@ -52,10 +52,8 @@ const CancellationRefund = () => {
       heading: "4. Damaged or Incorrect Product",
       listItems: [
         "• You must inform us within 2 hours of delivery.",
-        "• The order will be delivered within 5 hours.",
         "• Clear photos of the product and packaging must be shared.",
-        // "After verification, we may offer replacement or partial/full refund depending on the issue.",
-        "There is no return policy. Replacement will be provided within 6 hours of purchase.",
+        "After verification, we may offer replacement or partial/full refund depending on the issue.",
         "Complaints raised after the specified time window may not be entertained."
       ],
     },

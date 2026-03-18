@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo, memo } from "react";
 import "./CakeIngredientScroll.css";
-
-
 
 import img1 from "../../images/BISCOFF.png";
 import img2 from "../../images/BLUEBERRY.png";
@@ -9,43 +7,90 @@ import img3 from "../../images/GermanBlackForestCake.png";
 import img4 from "../../images/STRAWERRY.png";
 import img5 from "../../images/VanilaCreamCake.png";
 
-const items = [
-  { img: img1, title: "Biscaff Cake", subtitle: "Creamy, Crunchy, Pure Biscoff Love.", description:"One Slice, Endless Biscoff Delight." },
-  { img: img2, title: "Blueberry Cake", subtitle: "Every Bite Full Of Blueberry Love.", description:"Fresh Blueberries, Pure Happiness." },
-  { img: img4, title: "Strawberry Rose Cake", subtitle: "A Cake as Lovely as a Rose." , description: "A Rosy Treat For Sweet Moments."},
-  { img: img3, title: "German Black Forest Cake", subtitle: "Rich Chocolate, Juicy Cherris, Pure Indulgence.", description: "Layer Of Chocolate Love in Every Bite." },
-  { img: img5, title: "Vanilla Cream Cake", subtitle: "Pure Vanilla, Pure Happiness." , description: "Simple, Sweet & Perfectly Creamy."}
+/* ========================================================
+   STATIC DATA (memoized to avoid recreation)
+======================================================== */
+const ingredientItems = [
+  {
+    img: img1,
+    title: "Biscaff Cake",
+    subtitle: "Creamy, Crunchy, Pure Biscoff Love.",
+    description: "One Slice, Endless Biscoff Delight.",
+  },
+  {
+    img: img2,
+    title: "Blueberry Cake",
+    subtitle: "Every Bite Full Of Blueberry Love.",
+    description: "Fresh Blueberries, Pure Happiness.",
+  },
+  {
+    img: img4,
+    title: "Strawberry Rose Cake",
+    subtitle: "A Cake as Lovely as a Rose.",
+    description: "A Rosy Treat For Sweet Moments.",
+  },
+  {
+    img: img3,
+    title: "German Black Forest Cake",
+    subtitle: "Rich Chocolate, Juicy Cherries, Pure Indulgence.",
+    description: "Layer Of Chocolate Love in Every Bite.",
+  },
+  {
+    img: img5,
+    title: "Vanilla Cream Cake",
+    subtitle: "Pure Vanilla, Pure Happiness.",
+    description: "Simple, Sweet & Perfectly Creamy.",
+  },
 ];
 
-export default function CakeIngredientScroll() {
+function CakeIngredientScroll() {
   const sectionRef = useRef(null);
+  const ticking = useRef(false);
+
   const [active, setActive] = useState(0);
 
+  const items = useMemo(() => ingredientItems, []);
+
+  /* ========================================================
+     SCROLL LOGIC (optimized)
+  ======================================================== */
+
   useEffect(() => {
-    const onScroll = () => {
+    const handleScroll = () => {
       if (!sectionRef.current) return;
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const totalScroll = window.innerHeight * items.length;
-      const scrolled = Math.min(
-        Math.max(-rect.top, 0),
-        totalScroll
-      );
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const rect = sectionRef.current.getBoundingClientRect();
 
-      const progress = scrolled / totalScroll;
-      const index = Math.min(
-        items.length - 1,
-        Math.floor(progress * items.length)
-      );
+          const totalScroll = window.innerHeight * items.length;
 
-      setActive(index);
+          const scrolled = Math.min(Math.max(-rect.top, 0), totalScroll);
+
+          const progress = scrolled / totalScroll;
+
+          const index = Math.min(
+            items.length - 1,
+            Math.floor(progress * items.length),
+          );
+
+          setActive((prev) => (prev !== index ? index : prev));
+
+          ticking.current = false;
+        });
+
+        ticking.current = true;
+      }
     };
 
-    window.addEventListener("scroll", onScroll);
-    onScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [items.length]);
 
   return (
     <section
@@ -56,35 +101,51 @@ export default function CakeIngredientScroll() {
       <div className="cake-pro-sticky">
         <div className="cake-pro-container">
           <div className="cake-pro-content">
-
             {/* LEFT IMAGE */}
+
             <div className="cake-pro-left">
               <img
                 src={items[active].img}
                 alt={items[active].title}
                 className="cake-pro-image"
+                loading="lazy"
+                decoding="async"
+                width="450"
+                height="450"
               />
             </div>
 
             {/* RIGHT ORBIT */}
+
             <div className="cake-pro-right">
               <div className="cake-orbit-wrapper">
                 {items.map((item, i) => (
                   <div
                     key={i}
-                    className={`cake-pro-card cake-orbit-pos-${i} ${active === i ? "active" : ""}`}
+                    className={`cake-pro-card cake-orbit-pos-${i} ${
+                      active === i ? "active" : ""
+                    }`}
                   >
-                    <img src={item.img} alt="" />
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      loading="lazy"
+                      decoding="async"
+                      width="120"
+                      height="120"
+                    />
+
                     <div className="w-75">
                       <h4>{item.title}</h4>
+
                       <p>{item.subtitle}</p>
+
                       <p>{item.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -92,9 +153,7 @@ export default function CakeIngredientScroll() {
   );
 }
 
-
-
-
+export default memo(CakeIngredientScroll);
 
 // import React, {
 //   useLayoutEffect,
@@ -115,8 +174,6 @@ export default function CakeIngredientScroll() {
 // if (typeof window !== "undefined") {
 //   window.history.scrollRestoration = "manual";
 // }
-
-
 
 // gsap.registerPlugin(ScrollTrigger);
 
