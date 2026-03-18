@@ -7,8 +7,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const BASEURL = "https://api.cakenpetals.com/api"
-  // const BASEURL = "http://localhost:7000/api"
+  // const BASEURL = "https://api.cakenpetals.com/api"
+  const BASEURL = "http://localhost:7000/api"
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -338,15 +338,24 @@ const Login = () => {
     e.preventDefault();
     setForgotLoading(true);
     try {
-      await axios.post(`${BASE_URL}/user/forgetpassword1`, {
+      const response = await axios.post(`${BASE_URL}/user/forgetpassword1`, {
         email: forgotEmail,
       });
-      Swal.fire({
-        title: "OTP Sent!",
-        text: "Please check your registered email for the OTP.",
-        icon: "success",
-      });
-      setLoginView("forgot2");
+      console.log("response=>", response.data?.success)
+      if (response.data?.success === true) {
+        Swal.fire({
+          title: "OTP Sent!",
+          text: "Please check your registered email for the OTP.",
+          icon: "success",
+        });
+        setLoginView("forgot2");
+      } else {
+        Swal.fire({
+          title: "Failed!",
+          text: response.data?.message || "Please check your registered email for the OTP.",
+          icon: "error",
+        });
+      }
     } catch (error) {
       Swal.fire({
         title: "Failed!",
@@ -363,16 +372,25 @@ const Login = () => {
     e.preventDefault();
     setForgotLoading(true);
     try {
-      await axios.post(`${BASE_URL}/user/forgetpassword2`, {
+      const response = await axios.post(`${BASE_URL}/user/forgetpassword2`, {
         email: forgotEmail,
         otp: forgotOtp,
       });
-      Swal.fire({
-        title: "OTP Verified!",
-        text: "Now set your new password.",
-        icon: "success",
-      });
-      setLoginView("forgot3");
+
+      if (response.data?.success === true) {
+        Swal.fire({
+          title: "OTP Verified!",
+          text: "Now set your new password.",
+          icon: "success",
+        });
+        setLoginView("forgot3");
+      } else {
+        Swal.fire({
+          title: "Invalid OTP!",
+          text: response.data?.message || "The OTP entered is incorrect.",
+          icon: "error",
+        });
+      }
     } catch (error) {
       Swal.fire({
         title: "Invalid OTP!",
@@ -396,16 +414,26 @@ const Login = () => {
     }
     setForgotLoading(true);
     try {
-      await axios.post(`${BASE_URL}/user/forgetpassword3`, {
+      const response = await axios.post(`${BASE_URL}/user/forgetpassword3`, {
         email: forgotEmail,
         password: forgotNewPassword,
       });
-      Swal.fire({
-        title: "Password Reset!",
-        text: "Your password has been updated. Please log in.",
-        icon: "success",
-      });
-      backToLogin();
+
+      if (response.data?.success === true) {
+        Swal.fire({
+          title: "Password Reset!",
+          text: "Your password has been updated. Please log in.",
+          icon: "success",
+        });
+        backToLogin();
+      } else {
+        Swal.fire({
+          title: "Reset Failed!",
+          text: response.data?.message || "Something went wrong.",
+          icon: "error",
+        });
+      }
+
     } catch (error) {
       Swal.fire({
         title: "Reset Failed!",

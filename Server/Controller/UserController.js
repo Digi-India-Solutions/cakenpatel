@@ -303,10 +303,10 @@ const updateRolesByAdmin = async (req, res) => {
 const forgetPassword1 = async (req, res) => {
     try {
         const { username, email } = req.body;
-        const user = await User.findOne({ $or: [{ username }, { email }] });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
-            return res.status(401).json({ success: false, message: "User not found." });
+            return res.status(200).json({ success: false, message: "User not found." });
         }
 
         const otp = Math.floor(Math.random() * 1000000);
@@ -336,14 +336,14 @@ const forgetPassword1 = async (req, res) => {
 const forgetPassword2 = async (req, res) => {
     try {
         const { username, email, otp } = req.body;
-        const user = await User.findOne({ $or: [{ username }, { email }] });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
-            return res.status(401).json({ success: false, message: "Unauthorized activity." });
+            return res.status(200).json({ success: false, message: "Unauthorized activity." });
         }
 
         if (user.otp !== parseInt(otp)) {
-            return res.status(401).json({ success: false, message: "Invalid OTP." });
+            return res.status(200).json({ success: false, message: "Invalid OTP." });
         }
 
         res.status(200).json({ success: true, message: "OTP validated." });
@@ -360,7 +360,7 @@ const forgetPassword3 = async (req, res) => {
         const user = await User.findOne({ email: email });
         console.log('user=>', user);
         if (!user) {
-            return res.status(401).json({ success: false, message: "Unauthorized activity." });
+            return res.status(200).json({ success: false, message: "Unauthorized activity." });
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);

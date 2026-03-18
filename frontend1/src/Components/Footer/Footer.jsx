@@ -99,8 +99,8 @@ const Footer = () => {
               <li className="text-light"><Link to="/terms-&-conditions">Terms & Conditions</Link></li>
               <li><Link to="/cancellation-refund-policy">Cancellation & Refund Policy</Link></li>
               <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-              <li><Link to="#">Terms of Use</Link></li>
-              <li><Link to="#">Disclaimer</Link></li>
+              {/* <li><Link to="#">Terms of Use</Link></li>
+              <li><Link to="#">Disclaimer</Link></li> */}
             </ul>
           </div>
 
