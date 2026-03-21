@@ -744,7 +744,7 @@ const Checkout = () => {
     const appliedCoupon = orderData?.couponCode;
     // console.log("XXXXXXXZZZZZZZZZXXXXXXX=AAA>", orderData, totalAmount, appliedCoupon);
     const options = {
-      key: "rzp_test_TmsfO3hloFEA31",
+      key: "rzp_live_STnVl39HkOCjTw",
       amount: Math.round(totalAmount),
       currency: "INR",
       name: "Cake N Petals",
